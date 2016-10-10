@@ -11,7 +11,7 @@ airport.getAirports = function(res){
     Airport.find({},function(err,airports){
         if(err) {
             console.error('Error fetching airports: ' + err);
-            return handleError(err);
+            res.send(err);
         }
         res.json(airports);
     });

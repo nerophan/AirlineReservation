@@ -11,7 +11,7 @@ flight.getFlights = function(res){
     Flight.find({},function(err,flights){
         if(err) {
             console.error('Error fetching flights: ' + err);
-            return handleError(err);
+            res.send(err);
         }
         res.json(flights);
     });

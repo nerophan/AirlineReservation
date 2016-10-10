@@ -3,7 +3,9 @@
  */
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/airline');
+//mongoose.connect('mongodb://localhost/airline');
+//MongoLab server
+mongoose.connect('mongodb://huynh:123456@ds053146.mlab.com:53146/airlinereservation');
 
 var airportHandler = require('./airport_handler');
 var flightHandler = require('./flight_handler');
