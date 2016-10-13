@@ -7,15 +7,9 @@ var mongoose = require('mongoose');
 //MongoLab server
 mongoose.connect('mongodb://huynh:123456@ds053146.mlab.com:53146/airlinereservation');
 
-var airportHandler = require('./airport_handler');
 var flightHandler = require('./flight_handler');
 var fromAirportHandler = require('./fromairport_handler');
 var toAirportHandler = require('./toairport_handler');
-
-//var flightDB = require('../model/flight');
-// var bookDB = require('../model/book');
-// var flightDetailDB = require('../model/flight_detail');
-// var passengerDB = require('../model/passenger');
 
 //check connection
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));

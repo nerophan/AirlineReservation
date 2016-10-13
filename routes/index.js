@@ -15,17 +15,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// router.post('/airports',function(req,res){
-//   var data = req.body;
-//   dbHandler.addAirport(data,res);
-// });
-// router.get('/airports',function(req,res){
-//   dbHandler.getAirports(res);
-// });
-// router.delete('/airports/:id',function(req,res){
-//   dbHandler.deleteAirport(req,res);
-// });
-
 router.post('/flights',function(req,res){
   var data = req.body;
   dbHandler.addFlight(data,req,res);
