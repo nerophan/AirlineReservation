@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 
 var passengerSchema = new mongoose.Schema({
-    ma: String,
+    madatcho: String,
     danhxung: String,
     ho: String,
     ten: String

@@ -7,21 +7,22 @@ require('../model/flight');
 var Flight = mongoose.model('Flight');
 var flight = {};
 
-flight.getFlights = function(res){
+flight.getFlights = function(req,res){
     Flight.find({},function(err,flights){
         if(err) {
             console.error('Error fetching flights: ' + err);
             res.send(err);
         }
         res.json(flights);
+
     });
 };
 
-flight.addFlight = function(newFlight,res){
+flight.addFlight = function(newFlight,req,res){
     Flight.create(newFlight,function(err,rs){
         if(err) res.send(err);
         else{
-            flight.getFlights(res);
+            flight.getFlights(req,res);
         }
     });
 };

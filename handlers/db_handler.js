@@ -9,6 +9,9 @@ mongoose.connect('mongodb://huynh:123456@ds053146.mlab.com:53146/airlinereservat
 
 var airportHandler = require('./airport_handler');
 var flightHandler = require('./flight_handler');
+var fromAirportHandler = require('./fromairport_handler');
+var toAirportHandler = require('./toairport_handler');
+
 //var flightDB = require('../model/flight');
 // var bookDB = require('../model/book');
 // var flightDetailDB = require('../model/flight_detail');
@@ -34,16 +37,32 @@ handler.deleteAirport = function(req,res){
     airportHandler.deleteAirport(req,res);
 }
 
-handler.getFlights = function(res){
-    flightHandler.getFlights(res);
+handler.getFlights = function(req,res){
+    flightHandler.getFlights(req,res);
 };
 
-handler.addFlight = function(flight,res){
-    flightHandler.addFlight(flight,res);
+handler.addFlight = function(flight,req,res){
+    flightHandler.addFlight(flight,req,res);
 };
 
 handler.deleteFlight = function(req,res){
     flightHandler.deleteFlight(req,res);
+}
+
+handler.getFromAirports = function(req,res){
+    fromAirportHandler.get(req,res);
+};
+
+handler.addFromAirport = function(fromAirport,req,res){
+    fromAirportHandler.add(fromAirport,req,res);
+};
+
+handler.getToAirports = function(req,res){
+    toAirportHandler.get(req,res);
+};
+
+handler.addToAirport = function(toAirport,req,res){
+    toAirportHandler.add(toAirport,req,res);
 }
 
 var handleError = function(err){

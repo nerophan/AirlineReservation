@@ -4,9 +4,9 @@
 var mongoose = require('mongoose');
 
 var flightDetailSchema = new mongoose.Schema({
-    ma: String,
+    madatcho: String,
     machuyenbay: String,
-    ngay:Date,
+    ngay:{type:Date,default: Date.now},
     hang: String,
     mucgia: String
 });
