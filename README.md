@@ -86,7 +86,7 @@ id: mã sân bay đi
 }
 ```
 ### Success Response:
-* Code: 200 (success)
+* Code: 200/201 (success)
  * Content:
 ```
 {
