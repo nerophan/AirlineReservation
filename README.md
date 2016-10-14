@@ -98,6 +98,7 @@ id: mã sân bay đi
   },
   "flightdetail":[
     {
+      _**"madatcho"**_: String,
       "machuyenbay":String,
       "ngay": Date,
       "hang": String,
@@ -107,6 +108,7 @@ id: mã sân bay đi
   ],
   "passenger":[
     {
+      _**"madatcho"**_: String,
       "danhxung": String,
       "ho":String,
       "ten": String
