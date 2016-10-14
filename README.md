@@ -220,3 +220,57 @@ querystring:
 ### Error Response:
  * Code: 404 (not found)
   * Content: error
+
+## Danh sách chuyến bay thõa mãn nơi đi, nơi đến, ngày đi, ngày về, số lượng hành khách
+### URL: 
+**/flights**
+querystring:
+ * Required:
+  * noidi: String
+  * noiden: String
+  * ngaydi: Date
+ * Optional:
+  * ngayve: Date,
+  * soluonghanhkhach: Number (nếu không mô tả thì mặc định là 1)
+  
+### Method:
+**GET**
+### URL params:
+### Data params:
+### Success Response:
+* Code: 200 (success)
+ * Content:
+```
+{
+  "chuyenbaydi":[
+    {
+      "ma":String,
+      "noidi": String,
+      "noiden": String,
+      "ngay": Date,
+      "hang": String,
+      "mucgia": String,
+      "soluongghe": Number,
+      "giaban": Number
+    },
+    ...
+  ],
+  "chuyenbayve":[
+    {
+      "ma":String,
+      "noidi": String,
+      "noiden": String,
+      "ngay": Date,
+      "hang": String,
+      "mucgia": String,
+      "soluongghe": Number,
+      "giaban": Number
+    },
+    ...
+  ]
+}
+```
+_"chuyenbayve" sẽ không có nếu query không có ngayve_
+### Error Response:
+ * Code: 404 (not found)
+  * Content: error
