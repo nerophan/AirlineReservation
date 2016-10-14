@@ -197,7 +197,8 @@ querystring:
   * ngay: Date
  * Optional:
   * hang: String
-  * mucgia: String
+  * mucgia: String 
+  
 ### Method:
 **GET**
 ### URL params:
