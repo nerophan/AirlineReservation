@@ -190,7 +190,8 @@ id: id mã đặt chỗ
   
 ## Danh sách hành khách theo chuyến bay
 ### URL: 
-**/passengers?*_querystring_***
+**/passengers?*_querystring_*** 
+
 querystring:
  * Required:
   * machuyenbay: String
@@ -223,7 +224,8 @@ querystring:
 
 ## Danh sách chuyến bay thõa mãn nơi đi, nơi đến, ngày đi, ngày về, số lượng hành khách
 ### URL: 
-**/flights**
+**/flights?*_querystring_*** 
+
 querystring:
  * Required:
   * noidi: String
