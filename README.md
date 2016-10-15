@@ -2,7 +2,7 @@
 Mô tả các API
 ## Trả về các mã sân bay đi có trong CSDL
 ### URL: 
-**/from-airports**
+**/airports**
 ### Method:
 **GET**
 ### URL params:
@@ -28,7 +28,7 @@ Mô tả các API
 
 ## Trả về các mã sân bay đến tương ứng với sân bay đi
 ### URL: 
-**/from-airports/:id**
+**/airports/:id**
 ### Method:
 **GET**
 ### URL params:
