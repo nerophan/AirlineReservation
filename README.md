@@ -1,5 +1,7 @@
 # AirlineReservation
-Mô tả các API
+Mô tả các API 
+
+Lưu ý: _Ví dụ dữ liệu Date: "Tue Dec 25 2012 00:00:00 GMT+0700 (SE Asia Standard Time)"_
 ## Trả về các mã sân bay đi có trong CSDL
 ### URL: 
 **/airports**
