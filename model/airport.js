@@ -1,13 +1,12 @@
 /**
- * Created by hoang on 10/12/2016.
+ * Created by hoang on 10/15/2016.
  */
-
 var mongoose = require('mongoose');
 
-var fromAirportSchema = new mongoose.Schema({
+var airportSchema = new mongoose.Schema({
     nhom: String,
     ma: {type:String, uppercase: true, minlength:3,maxlength:3,trim:true},
     ten: {type:String,trim:true}
 });
 
-mongoose.model('FromAirport',fromAirportSchema);
+mongoose.model('Airport',airportSchema);

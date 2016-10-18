@@ -9,14 +9,25 @@ var Passenger = mongoose.model('Passenger');
 
 var passenger = {};
 
-passenger.get = function(bookId){
-    Passenger.find({"madatcho":bookId},'danhxung ho ten',function(err,data){
-        if(err){
-            return null;
-        }else{
-            return data;
-        }
-    })
+passenger.get = function(bookId,assignedValue){
+    assignedValue = assignedValue | null;
+    if(assignedValue == null) {
+        Passenger.find({"madatcho": bookId}, 'danhxung ho ten', function (err, data) {
+            if (err) {
+                return null;
+            } else {
+                return data;
+            }
+        });
+    }else{
+        Passenger.find({"madatcho": bookId}, 'danhxung ho ten', function (err, data) {
+            if (err) {
+                assignedValue = null;
+            } else {
+                assignedValue = data;
+            }
+        });
+    }
 };
 
 passenger.add = function(newPassenger){

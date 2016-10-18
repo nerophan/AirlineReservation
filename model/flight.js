@@ -7,7 +7,7 @@ var flightSchema = new mongoose.Schema({
     ma:String,
     noidi:String,
     noiden:String,
-    ngaygio: {type:Date,default: Date.now},
+    ngaygio: {type:Date,default: new Date()},
     hang: String,
     mucgia: String,
     soluongghe: Number,

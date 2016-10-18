@@ -16,8 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/flights',function(req,res){
-  var data = req.body;
-  dbHandler.addFlight(data,req,res);
+  dbHandler.addFlight(req,res);
 });
 
 router.get('/flights',function(req,res){
@@ -28,23 +27,34 @@ router.delete('/flights/:id',function(req,res){
   dbHandler.deleteFlight(req,res);
 });
 
-router.get('/from-airports',function(req,res){
-  dbHandler.getFromAirports(req,res);
-})
-
-router.post('/from-airports',function(req,res){
-  var data = req.body;
-  dbHandler.addFromAirport(data,req,res);
+router.get('/airports',function(req,res){
+  dbHandler.getAirports(req,res);
 });
 
 //lay ma san bay den dua vao san bay di
-router.get('/from-airports/:id',function(req,res){
-  dbHandler.getToAirports(req,res);
+router.get('/airports/:id',function(req,res){
+  dbHandler.getAirports(req,res);
 });
-//them san bay den dua vao san bay di
-router.post('/from-airports/:id',function(req,res){
-  var data = req.body;
-  dbHandler.addToAirport(data,req,res);
+//them ma san bay den dua vao ma san bay di
+router.post('/airports/:id',function(req,res){
+  dbHandler.addFlightCode(req,res);
 });
 
+router.post('/airports',function(req,res){
+  dbHandler.addAirport(req,res);
+});
+
+//them san bay den dua vao san bay di
+// router.post('/airports/:id',function(req,res){
+//   var data = req.body;
+//   dbHandler.addToAirport(data,req,res);
+// });
+
+router.get('/books/:id',function(req,res){
+  dbHandler.getBooks(req,res);
+});
+
+router.post('/books',function(req,res){
+  dbHandler.addBook(req,res)
+})
 module.exports = router;
