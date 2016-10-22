@@ -255,3 +255,58 @@ _"chuyenbayve" sẽ không có nếu query không có ngayve_
 ### Error Response:
  * Code: 404 (not found)
   * Content: error
+
+## Thêm hành khách
+### URL: 
+**/passengers** 
+  
+### Method:
+**POST**
+### URL params:
+### Data params:
+```
+[
+   {
+     "madatcho":String
+     "danhxung":String
+     "ho":String
+     "ten":String
+   },
+   ...
+]
+```
+### Success Response:
+* Code: 200 (success)
+ * Content:
+```
+{
+  "booking":{
+      "ma":String,
+      "thoigiandatcho": Timestamp,
+      "tongtien": Number,
+      "trangthai": 1
+      }
+  ,
+  "flightdetail":[
+    {
+      "machuyenbay":String,
+      "ngay": Timestamp,
+      "hang": String,
+      "mucgia": String
+    },
+    ...
+  ],
+  "passenger":[
+    {
+      "danhxung":String,
+      "ho":String,
+      "ten":String
+    },
+    ...
+  ]
+}
+```
+### Error Response:
+ * Code: 400 (bad request)
+  * Content: error
+
