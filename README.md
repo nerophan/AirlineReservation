@@ -55,7 +55,7 @@ id: mã sân bay đi
  * Code: 404 (not found)
   * Content: error
 
-## Tạo đặt chỗ mới
+## Tạo đặt chỗ mới: chọn chuyến bay, số lượng hành khách. Hệ thống sẽ tạo trước dữ liệu chi tiết chuyến bay và booking, chờ người dùng nhập thông tin cá nhân, sau một khoảng thời gian người dùng không điền đủ thông tin cá nhân thì server sẽ xóa dữ liệu booking và chi tiết chuyến bay đã tạo trước đó
 ### URL: 
 **/book**
 ### Method:
@@ -68,7 +68,8 @@ id: mã sân bay đi
      "machuyenbay":String,
      "ngay": Timestamp,
      "hang": String,
-     "mucgia": String
+     "mucgia": String,
+     "soluonghanhkhach":Number
    },
    ...
 ]
