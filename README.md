@@ -66,7 +66,7 @@ id: mã sân bay đi
 [
    {
      "machuyenbay":String,
-     "ngay": Date,
+     "ngay": Timestamp,
      "hang": String,
      "mucgia": String
    },
@@ -80,7 +80,7 @@ id: mã sân bay đi
 {
   "book":{
     _**"id"**_: String,
-    "thoigiandatcho": Date
+    "thoigiandatcho": Timestamp
     "tongtien" : Number,
     _**"trangthai"**_: 0
   },
@@ -88,7 +88,7 @@ id: mã sân bay đi
     {
       _**"madatcho"**_: String,
       "machuyenbay":String,
-      "ngay": Date,
+      "ngay": Timestamp,
       "hang": String,
       "mucgia": String
     },
