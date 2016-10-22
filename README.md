@@ -63,29 +63,15 @@ id: mã sân bay đi
 ### URL params:
 ### Data params:
 ```
-{
-  "book":{
-    "thoigiandatcho": Date
-    "tongtien" : Number
-  },
-  "flightdetail":[
-    {
-      "machuyenbay":String,
-      "ngay": Date,
-      "hang": String,
-      "mucgia": String
-    },
-    ...
-  ],
-  "passenger":[
-    {
-      "danhxung": String,
-      "ho":String,
-      "ten": String
-    },
-    ...
-  ]
-}
+[
+   {
+     "machuyenbay":String,
+     "ngay": Date,
+     "hang": String,
+     "mucgia": String
+   },
+   ...
+]
 ```
 ### Success Response:
 * Code: 200/201 (success)
