@@ -1,9 +1,9 @@
 {
-  "name": "AirlineReservation",
-  "version": "0.0.0",
+  "name": "lotus-airline",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node server"
   },
   "dependencies": {
     "body-parser": "~1.15.1",

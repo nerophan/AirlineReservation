@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 
-require('../model/passenger');
+require('./passenger');
 
 var Passenger = mongoose.model('Passenger');
 

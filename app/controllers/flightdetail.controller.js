@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 
-require('../model/flight_detail');
+require('./flight_detail');
 
 var FlightDetail = mongoose.model('FlightDetail');
 

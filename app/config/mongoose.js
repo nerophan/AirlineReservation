@@ -3,15 +3,11 @@
  */
 var mongoose = require('mongoose');
 
-//mongoose.connect('mongodb://localhost/airline');
-//MongoLab server
 mongoose.connect('mongodb://huynh:123456@ds053146.mlab.com:53146/airlinereservation');
 
-var flightHandler = require('./flight_handler');
-var airportHandler = require('./airport_handler');
-// var fromAirportHandler = require('./fromairport_handler');
-// var toAirportHandler = require('./toairport_handler');
-var book = require('./book_handler');
+var flightController = require('../controllers/flight.controller.js');
+var airportController = require('../controllers/airport.controller.js');
+var bookingController = require('../controllers/booking.controller.js');
 
 //check connection
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
@@ -20,32 +16,32 @@ mongoose.connection.once('open', function() {
   console.log("connected to database");
 });
 
- var handler = {};//exported var
+var handler = {};//exported var
 
 handler.addAirport = function(req,res){
-    airportHandler.add(req,res);
+    airportController.add(req,res);
 }
 
 handler.getAirports = function(req,res){
-    airportHandler.get(req,res);
+    airportController.get(req,res);
 }
 // handler.deleteAirport = function(req,res){
-//     airportHandler.deleteAirport(req,res);
+//     airportController.deleteAirport(req,res);
 // }
 handler.addFlightCode = function(req,res){
-    airportHandler.addFlightCode(req,res);    
+    airportController.addFlightCode(req,res);
 };
 
 handler.getFlights = function(req,res){
-    flightHandler.getFlights(req,res);
+    flightController.getFlights(req,res);
 };
 
 handler.addFlight = function(req,res){
-    flightHandler.addFlight(req,res);
+    flightController.addFlight(req,res);
 };
 
 handler.deleteFlight = function(req,res){
-    flightHandler.deleteFlight(req,res);
+    flightController.deleteFlight(req,res);
 }
 
 // handler.getFromAirports = function(req,res){

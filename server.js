@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('AirlineReservation:server');
+var app = require('./app/config/express');
+var debug = require('debug')('AirlineReservation:server.js');
 var http = require('http');
 
 /**
@@ -16,7 +16,7 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP server.js.
  */
 
 var server = http.createServer(app);
@@ -50,7 +50,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for HTTP server.js "error" event.
  */
 
 function onError(error) {
@@ -78,7 +78,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener for HTTP server.js "listening" event.
  */
 
 function onListening() {

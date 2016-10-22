@@ -2,8 +2,8 @@
  * Created by hoang on 10/15/2016.
  */
 var mongoose = require('mongoose');
-require('../model/airport');
-require('../model/flight_code');
+require('./airport');
+require('./flight_code');
 
 var Airport = mongoose.model('Airport');
 var FlightCode = mongoose.model('FlightCode');

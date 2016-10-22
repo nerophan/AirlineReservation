@@ -4,11 +4,11 @@
 var async = require('async');
 
 var mongoose = require('mongoose');
-var flightDetail = require('./flightdetail_handler');
-var passenger = require('./passenger_handler');
+var flightDetail = require('./flightdetail.controller');
+var passenger = require('./passenger.controller');
 
-require('../model/book');
-require('../model/book_current_id');
+require('./book');
+require('./book_current_id');
 
 var Book = mongoose.model('Book');
 var BookCurrentId = mongoose.model('BookCurrentId');
