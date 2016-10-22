@@ -265,15 +265,17 @@ _"chuyenbayve" sẽ không có nếu query không có ngayve_
 ### URL params:
 ### Data params:
 ```
-[
-   {
-     "madatcho":String
-     "danhxung":String
-     "ho":String
-     "ten":String
-   },
-   ...
-]
+{
+  "madatcho":String,
+  "passenger":[
+     {
+       "danhxung":String
+       "ho":String
+       "ten":String
+     },
+     ...
+  ]
+}
 ```
 ### Success Response:
 * Code: 200 (success)
