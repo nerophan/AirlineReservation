@@ -1,28 +1,19 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
+var express = require('express'),
+    mongoose = require('./mongoose'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser');
 
 var routes = require('./../routes/index.route.js');
 var users = require('./../routes/users.route.js');
 
 var app = express();
-
-//connect to db
-
-//check if connect successfully to db
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   // we're connected!
-//   console.log("connected to database");
-// });
+mongoose.connect();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.resolve('./app/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -31,7 +22,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.resolve('./public')));
 
 app.use('/', routes);
 app.use('/users', users);
@@ -70,6 +61,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

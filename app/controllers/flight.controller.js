@@ -2,10 +2,6 @@
  * Created by hoang on 10/9/2016.
  */
 var mongoose = require('mongoose');
-require('./flight');
-require('./flight_code');
-require('./flight_detail');
-
 var FlightDetail = mongoose.model('FlightDetail');
 var FlightCode = mongoose.model('FlightCode');
 var Flight = mongoose.model('Flight');
