@@ -82,7 +82,7 @@ id: mã sân bay đi
     _**"id"**_: String,
     "thoigiandatcho": Date
     "tongtien" : Number,
-    _**"trangthai"**_: Number (0 (default): đang đặt chỗ|1: đã đặt)
+    _**"trangthai"**_: 0
   },
   "flightdetail":[
     {
@@ -91,15 +91,6 @@ id: mã sân bay đi
       "ngay": Date,
       "hang": String,
       "mucgia": String
-    },
-    ...
-  ],
-  "passenger":[
-    {
-      _**"madatcho"**_: String,
-      "danhxung": String,
-      "ho":String,
-      "ten": String
     },
     ...
   ]
