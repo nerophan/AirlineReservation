@@ -2,7 +2,7 @@
 
 module.exports = {
     db: {
-        url: 'mongodb://huynh:123456@ds053146.mlab.com:53146/airlinereservation',
+        uri: 'mongodb://huynh:123456@ds053146.mlab.com:53146/airlinereservation',
         options: {
             user: 'huynh',
             pass: '123456'

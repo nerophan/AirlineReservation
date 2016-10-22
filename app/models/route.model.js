@@ -12,4 +12,4 @@ var routeSchema = new mongoose.Schema({
     arrive: String
 });
 
-mongoose.model('Route', flightCodeSchema);
+mongoose.model('Route', routeSchema);

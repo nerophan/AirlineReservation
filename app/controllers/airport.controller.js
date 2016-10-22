@@ -1,12 +1,9 @@
 /**
  * Created by hoang on 10/15/2016.
  */
-var mongoose = require('mongoose');
-require('./airport');
-require('./flight_code');
-
-var Airport = mongoose.model('Airport');
-var FlightCode = mongoose.model('FlightCode');
+var mongoose = require('mongoose'),
+    Airport = mongoose.model('Airport'),
+    FlightCode = mongoose.model('FlightDetail');
 
 var airport = {};
 

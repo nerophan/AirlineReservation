@@ -5,10 +5,10 @@ var mongoose = require('mongoose');
 
 var flightSchema = new mongoose.Schema({
     code: String,
-    departFrom: String,
-    arriveTo: String,
-    time: {
-        type: Number,
+    depart: String,
+    arrive: String,
+    datetime: {
+        type: Date,
         default: new Date().getTime()
     },
     class: String,

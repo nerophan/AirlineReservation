@@ -6,7 +6,7 @@ var config = require('./config'),
     mongoose = require('mongoose');
 
 module.exports.connect = function () {
-    var db = mongoose.connect(config.db.uri, function (err) {
+    mongoose.connect(config.db.uri, function (err) {
         // Log Error
         if (err) {
             console.error(chalk.red('Could not connect to MongoDB!'));
