@@ -135,30 +135,26 @@ id: id mã đặt chỗ
  * Content:
 ```
 {
-  "book":{
-    _**"id"**_: String,
-    "thoigiandatcho": Date
-    "tongtien" : Number,
-    _**"trangthai"**_: Number (0|1)
-  },
-  "flightdetail":[
-    {
-      "machuyenbay":String,
-      "ngay": Date,
-      "hang": String,
-      "mucgia": String
-    },
-    ...
-  ],
-  "passenger":[
-    {
-      "danhxung": String,
-      "ho":String,
-      "ten": String
-    },
-    ...
-  ]
+    "id": String,
+    "status": Integer,
+    "details": [ {
+      "flightId": String,
+      "departure": String,
+      "arrival": String,
+      "flightTime": String,
+      "class": String,
+      "price": String,
+      "priceLevel": String,  
+      }...
+    ],
+    "passenger": [{
+        "gender": String,
+        "firstName":String,
+        "lastName": String
+      }, ...
+     ]
 }
+
 ```
 ### Error Response:
  * Code: 404 (not found)
