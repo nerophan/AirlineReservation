@@ -118,8 +118,8 @@ var findDepartureFlight = function (conditions, callback) {
         depart: conditions.depart,
         arrive: conditions.arrive,
         datetime: {
-            $gte: conditions.departureDate,
-            $lte: conditions.maxDepartureDate
+            $gte: conditions.dateTime,
+            $lte: conditions.maxDateTime
         }
     }, function (err, flights) {
         if (err) {
@@ -130,8 +130,15 @@ var findDepartureFlight = function (conditions, callback) {
     });
 };
 
-var findReturnFlight = function (query, departureDate, returnDate, callback) {
-    Flight.find(query).where('datetime').gte(departureDate).ls(returnDate).exec(function (err, flights) {
+var findReturnFlight = function (conditions, callback) {
+    Flight.find({
+        depart: conditions.depart,
+        arrive: conditions.arrive,
+        datetime: {
+            $gte: conditions.dateTime,
+            $lte: conditions.maxDateTime
+        }
+    }, function (err, flights) {
         if (err) {
             return callback(err);
         }
@@ -143,115 +150,117 @@ var findReturnFlight = function (query, departureDate, returnDate, callback) {
 // Flight search route
 // If query.return date != null then it is round trip flight,
 module.exports.getFlights = function (req, res) {
-  this.getOneWayFlights(req, res);
+    if (req.query.return)
+        this.getRoundTripFlights(req, res);
+    else
+        this.getOneWayFlights(req, res);
 };
+
+function getConditionFromQuery(query, returnFlight) {
+    var conditions = {};
+
+    if (returnFlight) {
+        conditions.depart = query.to;
+        conditions.arrive = query.from;
+    } else  {
+        conditions.depart = query.from;
+        conditions.arrive = query.to;
+    }
+
+    if (returnFlight) {
+        conditions.dateTime = Date.parse(query.return);
+    } else {
+        conditions.dateTime = Date.parse(query.depart);
+    }
+
+    conditions.maxDateTime = conditions.dateTime + 1 * 24 * 3600 * 1000;
+    conditions.numberOfPassenger = query.passengers;
+
+    return conditions;
+}
+
+function filterFlight(conditions, callback) {
+    // Find flight
+    findDepartureFlight(conditions, function (err, flights) {
+        if (err)
+            return callback(err);
+
+        if (flights.length == 0)
+            return callback(null, []);
+
+        // Loop through flights and check available slot
+        var responseFlights = [];
+        var countFlight = 0;
+
+        flights.forEach(function (flight) {
+
+            flightDetailController.countAvailableSlot(flight, function (err, availableSlot) {
+                flight.numberOfSeat = availableSlot;
+                if (availableSlot >= conditions.numberOfPassenger)
+                    responseFlights.push(flight);
+
+                // Response after the last item
+                if (++countFlight == flights.length) {
+                    callback(null, responseFlights);
+                }
+            });
+        });
+    });
+}
 
 // Get one-way flights by query
 module.exports.getOneWayFlights = function (req, res) {
+    console.log('One-way');
 
     // Get query parameters
-    var conditions = {};
-    conditions.depart = req.query.from;
-    conditions.arrive = req.query.to;
+    var conditions = getConditionFromQuery(req.query);
 
-    conditions.departureDate = Date.parse(req.query.depart);
-    conditions.numberOfPassenger = req.query.passengers;
-    // Search for next 7 day flights
-    conditions.maxDepartureDate = conditions.departureDate + 7 * 24 * 3600 * 1000;
-    console.log(conditions);
-
-    // Check valid departure date
-    if (!conditions.departureDate) {
-        res.status(400).end('Invalid departure date');
-        return;
-    }
-
-    // Find flight
-    findDepartureFlight(conditions, function (err, flights) {
+    // Filter flights and response
+    filterFlight(conditions, function (err, flights) {
         if (err) {
-            res.status(400).send('Oops! Something went wrong...');
+            res.status(400).end('Oops! Something went wrong...');
             console.log(err);
         } else {
-            var responseFlights = [];
-            console.log(flights);
-
-            if (flights.length == 0) {
-                res.json([]);
-                return;
-            }
-
-            // Loop through flights and check available slot
-            var countFlight = 0;
-            flights.forEach(function (flight) {
-
-                flightDetailController.countAvailableSlot(flight, function (err, availableSlot) {
-                    flight.numberOfSeat = availableSlot;
-                    if (availableSlot >= conditions.numberOfPassenger)
-                        responseFlights.push(flight);
-
-                    // Response after the last item
-                    if (++countFlight == flights.length) {
-                        res.json(responseFlights);
-                    }
-                });
-            });
+            res.json(flights);
         }
     });
 };
 
 // Get round-trip flight by query
 module.exports.getRoundTripFlights = function (req, res) {
+    console.log('Round-trip');
 
+    var responsed = false;
+    var responseFlights = {};
 
+    // Get query parameters
+    var departureConditions = getConditionFromQuery(req.query);
 
-    var noiDi = req.query.noidi;
-    var noiDen = req.query.noiden;
-    var ngayDi = new Date(req.query.ngaydi);
-    var ngayVe = new Date(req.query.ngayve);
-    var soLuongHanhKhach = parseInt(req.query.soluonghanhkhach);
-    if (soLuongHanhKhach == null) soLuongHanhKhach = 1;
-    if (noiDi == null || noiDen == null || ngayDi == "Invalid Date") {
-        res.status(400).send("Chưa cung cấp đủ thông tin");
-        return;
-    }
-
-
-    var returnData = {};
-    //lấy các chuyến bay thõa nơi đi, nơi đến và ngày giờ (chưa xét số lượng hành khách)
-    Flight.find({
-        'noidi': noiDi,
-        'noiden': noiDen,
-        'ngaygio': {
-            $gte: new Date(ngayDi.getYear() + 1900, ngayDi.getMonth(), ngayDi.getDate()),
-            $lt: new Date(ngayDi.getYear() + 1900, ngayDi.getMonth(), ngayDi.getDate() + 1)
-        }
-    }, function (err, data) {
-        if (err) {
-            res.status(404).send("Lỗi lấy chuyến bay đi");
+    // Filter departure flights
+    filterFlight(departureConditions, function (err, flights) {
+        if (err && !responsed) {
+            res.status(400).end('Oops! Something went wrong...');
+            responsed = true;
         } else {
-            ngayDi;
-            returnData.chuyenbaydi = data;
-            if (ngayVe != "Invalid Date") {
-                Flight.find({
-                    'noidi': noiDen,
-                    'noiden': noiDi,
-                    'ngaygio': {
-                        $gte: new Date(ngayVe.getYear() + 1900, ngayVe.getMonth(), ngayVe.getDate()),
-                        $lt: new Date(ngayVe.getYear() + 1900, ngayVe.getMonth(), ngayVe.getDate() + 1)
+            responseFlights.depart = flights;
+            if (responseFlights.return) {
+                res.json(responseFlights);
+            }
+        }
+    });
 
-                    }
-                }, function (err, data) {
-                    if (err) {
-                        res.status(404).send("Lỗi lấy chuyến bay về");
-                    } else {
-                        returnData.chuyenbayve = data;
-                        filtResult(req, res, returnData, soLuongHanhKhach);
-                        //res.status(200).json(returnData);
-                    }
-                });
-            } else {
-                filtResult(req, res, returnData, soLuongHanhKhach);
-                //res.status(200).json(returnData);
+    // Get return flight condition
+    var arrivalConditions = getConditionFromQuery(req.query, true);
+
+    // Filter return flights
+    filterFlight(arrivalConditions, function (err, flights) {
+        if (err && !responsed) {
+            res.status(400).end('Oops! Something went wrong...');
+            responsed = true;
+        } else {
+            responseFlights.return = flights;
+            if (responseFlights.depart) {
+                res.json(responseFlights);
             }
         }
     });
