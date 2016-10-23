@@ -67,13 +67,13 @@ id: mã sân bay đi
   "flights":[
     {
       "code": String,
-      "datetime":Timestamp,
+      "datetime":Number (Timestamp),
       "priceLevel": String,
       "class": String,
     },
     {
       "code": String,
-      "datetime":Timestamp,
+      "datetime":Number (Timestamp),
       "priceLevel": String,
       "class": String,
     }
@@ -110,7 +110,7 @@ id: mã sân bay đi
     {
       _**"madatcho"**_: String,
       "machuyenbay":String,
-      "ngay": Timestamp,
+      "ngay": Number (Timestamp),
       "hang": String,
       "mucgia": String
     },
@@ -141,7 +141,7 @@ id: id mã đặt chỗ
       "flightId": String,
       "departure": String,
       "arrival": String,
-      "flightTime": String,
+      "datetime": Number (Timestamp),
       "class": String,
       "price": String,
       "priceLevel": String,  
@@ -192,7 +192,7 @@ id: id mã đặt chỗ
 querystring:
  * Required:
   * machuyenbay: String
-  * ngay: Date
+  * ngay: Number (Timestamp)
  * Optional:
   * hang: String
   * mucgia: String 
@@ -227,9 +227,9 @@ querystring:
  * Required:
   * noidi: String
   * noiden: String
-  * ngaydi: Date
+  * ngaydi: Number (Timestamp)
  * Optional:
-  * ngayve: Date,
+  * ngayve: Number (Timestamp),
   * soluonghanhkhach: Number (nếu không mô tả thì mặc định là 1)
   
 ### Method:
@@ -246,7 +246,7 @@ querystring:
       "ma":String,
       "noidi": String,
       "noiden": String,
-      "ngay": Date,
+      "ngay": Number (Timestamp),
       "hang": String,
       "mucgia": String,
       "soluongghe": Number,
@@ -259,7 +259,7 @@ querystring:
       "ma":String,
       "noidi": String,
       "noiden": String,
-      "ngay": Date,
+      "ngay": Number (Timestamp),
       "hang": String,
       "mucgia": String,
       "soluongghe": Number,
@@ -310,7 +310,7 @@ _"chuyenbayve" sẽ không có nếu query không có ngayve_
   "flightdetail":[
     {
       "machuyenbay":String,
-      "ngay": Timestamp,
+      "ngay": Number (Timestamp),
       "hang": String,
       "mucgia": String
     },
