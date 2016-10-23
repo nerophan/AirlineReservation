@@ -139,8 +139,8 @@ id: id mã đặt chỗ
     "status": Integer,
     "flightdetails": [ {
       "flightId": String,
-      "departure": String,
-      "arrival": String,
+      "depart": String,
+      "arrive": String,
       "datetime": Number (Timestamp),
       "class": String,
       "price": String,
