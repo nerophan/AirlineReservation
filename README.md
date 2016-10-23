@@ -15,11 +15,14 @@ Lưu ý: _Ví dụ dữ liệu Date: "Tue Dec 25 2012 00:00:00 GMT+0700 (SE Asia
 ```
   [
     {
-      "_id": "57ff470c9230b4118c24627e",
-      "nhom": "Việt Nam",
-      "ma": "BMV",
-      "ten": "Buôn Ma Thuột",
-      "__v": 0
+      "country":String,
+      "airports":[
+        {
+          "code":String,
+          "name:String
+        },
+        ...
+      ]
     },
     ...
   ]
@@ -42,11 +45,14 @@ id: mã sân bay đi
 ```
   [
     {
-      "_id": "57ff470c9230b4118c24627e",
-      "nhom": "Việt Nam",
-      "ma": "BMV",
-      "ten": "Buôn Ma Thuột",
-      "__v": 0
+      "country":String,
+      "airports":[
+        {
+          "code":String,
+          "name:String
+        },
+        ...
+      ]
     },
     ...
   ]
@@ -80,12 +86,12 @@ id: mã sân bay đi
   ],
   "passengers":[
     {
-      "gender": String,
+      "title": String,
       "firstName":String,
       "lastName": String
     },
     {
-      "gender": String,
+      "title": String,
       "firstName":String,
       "lastName": String
     }...
