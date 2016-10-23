@@ -11,11 +11,12 @@ var FlightCode = mongoose.model('FlightCode');
 var airport = {};
 
 airport.get = function(req,res){
-    var airportId = req.params.id;
+    //var airportId = req.params.id;
+    var airportId = req.query.dep;
     if(airportId == null) {
         Airport.find({}, function (err, data) {
             if (err) {
-                res.status(404).send(err);
+                res.status(404).send({"error":"Requested airport cound not be found"});
             } else {
                 res.status(200).json(data);
             }
@@ -24,7 +25,7 @@ airport.get = function(req,res){
         var toAirportList = new Array();
         FlightCode.find({'noidi':airportId},'-_id noiden',function(err,data){
             if(err){
-                console.log('không có sân bay đén tương ứng trong CSDL');
+                console.log('không có sân bay đến tương ứng trong CSDL');
                 return;
             }
             for(var i=0;i<data.length;i++){
@@ -32,7 +33,7 @@ airport.get = function(req,res){
             }
             Airport.find({'ma':{$in:toAirportList}},function(err,data){
                 if (err) {
-                    res.status(404).send(err);
+                    res.status(404).send({"error":"Error finding departure airport"});
                 } else {
                     res.status(200).json(data);
                 }

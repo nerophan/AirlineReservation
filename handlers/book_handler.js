@@ -9,17 +9,21 @@ var passenger = require('./passenger_handler');
 
 require('../model/book');
 require('../model/book_current_id');
+require('../model/flight');
 
 var Book = mongoose.model('Book');
 var BookCurrentId = mongoose.model('BookCurrentId');
 var FlightDetail = mongoose.model('FlightDetail');
 var Passenger = mongoose.model('Passenger');
+var Flight = mongoose.model('Flight');
 
 var currentId;
 BookCurrentId.find({},function(err,data){
     if(err) console.log("can't find currentId");
     currentId = data[0].currentId;
 });
+
+
 var book = {};
 
 book.get = function(req,res){
@@ -74,34 +78,138 @@ book.get = function(req,res){
 
 };
 
+//temporarily book with status = 0
 book.add = function(req,res){
+    //var data = req.body;
+    // if(data.book == null || data.flightdetail == null || data.passenger == null){
+    //     res.status(400).send("Chưa cung cấp đủ thông tin");
+    // }
+    // //assign new Id for data
+    // var newId = generateBookingId();
+    // data.book.ma = newId;
+    //
+    // for(var i=0;i<data.flightdetail.length;i++){
+    //     data.flightdetail[i].madatcho = newId;
+    //     flightDetail.add(data.flightdetail[i]);
+    // }
+    // for(var i=0;i<data.passenger.length;i++){
+    //     data.passenger[i].madatcho = newId;
+    //     passenger.add(data.passenger[i])
+    // }
+
+    //data = flightdetails
     var data = req.body;
-    if(data.book == null || data.flightdetail == null || data.passenger == null){
-        res.status(400).send("Chưa cung cấp đủ thông tin");
+    if(data == null){
+        res.status(400).send({"error":"No flight is chosen"});
+        return;
     }
-    //assign new Id for data
-    var newId = generateBookId();
-    data.book.ma = newId;
-
-    for(var i=0;i<data.flightdetail.length;i++){
-        data.flightdetail[i].madatcho = newId;
-        flightDetail.add(data.flightdetail[i]);
-    }
-    for(var i=0;i<data.passenger.length;i++){
-        data.passenger[i].madatcho = newId;
-        passenger.add(data.passenger[i])
-    }
-
-    Book.create(data.book,function(err,rs){
+    
+    var booking ={};
+    var newId = generateBookingId();
+    booking.ma = newId;
+    booking.thoigiandatcho = new Date();
+    booking.tongtien = totalCost(data);
+    booking.trangthai = 0;
+    Book.create(booking,function(err,rs){
         if(err){
-            res.status(400).send("Không thể đặt chỗ");
+            res.status(400).send("Error while creating booking");
         }else{
-            res.status(201).json(data);
+            res.status(201).json(rs);
+            setTimeout(checkBookingSession(newId),1000*60*5);
+        }
+    });
+    data.forEach(function(item,index){
+        data[index].madatcho = newId;
+        flightDetail.add(data[index]);
+    });
+};
+
+var totalCost = function(flightDetails){
+    var totalCost = 0;
+    var count = 0;
+    flightDetails.forEach(function(item,index){
+        var date = new Date(item.ngay);
+        Flight.find({'machuyenbay':item.machuyenbay,'hang':item.hang,'mucgia':item.mucgia,
+            'ngay':{$gte: new Date(date.getYear()+1900,date.getMonth(),date.getDate()),$lt:new Date(date.getYear()+1900,date.getMonth(),date.getDate()+1)}},
+        'giaban',function(err,data){
+                count++;
+                if(err){
+                    console.log('Cannot find flight ' + item);
+                    return;
+                }else{
+                    totalCost += data[0].giaban;
+                }
+                if(count >= flightDetails.length){
+                    return totalCost;
+                }
+        });
+    });
+
+}
+
+//find the number of flightdetails then compare to the number of passengers
+book.updateStatus = function(req,res){
+    var bookingId = req.params.id;
+    //flight detail must be fill in when booking. Therefore, search flight detail for checking booking existence
+    FlightDetail.count({'madatcho':bookingId},function(err,count){
+        if(err){
+            res.status(404).send({"error":"Requested booking id could not be found"});
+            return;
+        }else{
+            //continue to find corresponding passengers
+            var numberOfFlightDetail = count;
+            Passenger.count({'madatcho':bookingId},function(err,count){
+                if(err){
+                    res.status(400).send({"error":"Lack of passengers info"});
+                    return;
+                }else{
+                    if(numberOfFlightDetail == count) {
+                        //update status
+                        Book.update({'ma': bookingId}, {$set: {'trangthai': 1}}, function (err, data) {
+                            if (err) {
+                                res.status(500).send({"error": "Error while updating status"});
+                                return;
+                            } else {
+                                Book.find({'ma': bookingId}, function (err, data) {
+                                    if (err) {
+                                        res.status(404).send({"error": "Requested booking id could not be found"});
+                                        return;
+                                    } else {
+                                        res.status(200).json(data);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
         }
     });
 };
 
-var generateBookId = function(){
+var checkBookingSession = function(bookingId){
+    Book.find({'ma':bookingId},'trangthai',function(err,data){
+        if(err){
+            return false;
+        }else{
+            //session timeout
+            if(data[0].trangthai == 0){
+                Book.remove({'ma':bookingId},function(err){
+                    if(err){
+                        return false;
+                    }
+                });
+                FlightDetail.remove({'madatcho':bookingId},function(err){
+                    if(err){
+                        return false;
+                    }
+                });
+            }
+        }
+    });
+};
+
+var generateBookingId = function(){
     var chars = currentId.slice(0,3);
     var numbers = currentId.slice(3,6);
     numbers = parseInt(numbers) + 1;

@@ -8,7 +8,8 @@ var flightDetailSchema = new mongoose.Schema({
     machuyenbay: String,
     ngay:{type:Date,default: Date.now},
     hang: String,
-    mucgia: String
+    mucgia: String,
+    soluong:{type:Number,default:1}
 });
 
 mongoose.model('FlightDetail',flightDetailSchema);

@@ -4,8 +4,10 @@
 var mongoose = require('mongoose');
 
 require('../model/passenger');
+require('../model/flight_detail');
 
 var Passenger = mongoose.model('Passenger');
+var FlightDetail = mongoose.model('FlightDetail');
 
 var passenger = {};
 
@@ -30,10 +32,13 @@ passenger.get = function(bookId,assignedValue){
     }
 };
 
-passenger.add = function(newPassenger){
-    Passenger.create(newPassenger,function(err,data){
-        if(err) return false;
-        return true;
+passenger.add = function(req,res){
+    var bookingId = req.body.madatcho;
+    var passengers = req.body.passenger;
+    //compare the the number of flightdetails and the number of passengers
+    FlightDetail.count({"madatcho":bookingId},function(err,count){
+        //
+        
     });
 };
 
