@@ -8,7 +8,7 @@ var flightSchema = new mongoose.Schema({
     depart: String,
     arrive: String,
     datetime: {
-        type: Date,
+        type: Number,
         default: new Date().getTime()
     },
     class: String,
