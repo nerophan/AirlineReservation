@@ -7,7 +7,7 @@ router
         flightController.getAllFlights(req, res);
     })
     .post('/', function (req, res, next) {
-        flightController.addFlights(req, res);
+        flightController.addSampleData(req, res);
     })
     .delete ('/', function (req, res, next) {
         flightController.clearFlightData(req, res);

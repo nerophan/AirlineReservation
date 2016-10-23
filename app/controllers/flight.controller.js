@@ -12,7 +12,7 @@ module.exports.getAllFlights = function (req, res) {
 };
 
 // Add sample flight data
-module.exports.addFlights = function (req, res) {
+module.exports.addSampleData = function (req, res) {
     var flights = [
         {
             code: "BL326",
@@ -20,7 +20,7 @@ module.exports.addFlights = function (req, res) {
             arrive: "TBB",
             class: "Y",
             priceLevel: "E",
-            numberOfSeat: 100,
+            numberOfSeat: 5,
             price: 100000,
             datetime: "2016-10-15T13:04:51.247Z"
         },
@@ -30,7 +30,7 @@ module.exports.addFlights = function (req, res) {
             arrive: "TBB",
             class: "Y",
             priceLevel: "F",
-            numberOfSeat: 20,
+            numberOfSeat: 2,
             price: 10000,
             datetime: "2016-10-15T13:04:51.247Z"
         },
@@ -53,46 +53,6 @@ module.exports.addFlights = function (req, res) {
             numberOfSeat: 100,
             price: 100000,
             datetime: "2016-10-15T13:04:51.247Z"
-        },
-        {
-            code: "BMVHAN",
-            depart: "BMV",
-            arrive: "HAN",
-            class: "Y",
-            priceLevel: "C",
-            numberOfSeat: 3,
-            price: 100000,
-            datetime: "2016-10-15T11:51:05.000Z"
-        },
-        {
-            code: "BMVHAN",
-            depart: "BMV",
-            arrive: "HAN",
-            class: "Y",
-            priceLevel: "E",
-            numberOfSeat: 20,
-            price: 300000,
-            datetime: "2016-10-15T11:51:05.000Z"
-        },
-        {
-            code: "BMVSGN",
-            depart: "BMV",
-            arrive: "SGN",
-            class: "Y",
-            priceLevel: "F",
-            numberOfSeat: 20,
-            price: 100000,
-            datetime: "2016-10-15T11:51:05.000Z"
-        },
-        {
-            code: "SGNBMV",
-            depart: "SGN",
-            arrive: "BMV",
-            class: "Y",
-            priceLevel: "F",
-            numberOfSeat: 20,
-            price: 100000,
-            datetime: "2016-10-16T11:51:05.000Z"
         }
     ];
 
@@ -211,16 +171,18 @@ module.exports.getOneWayFlights = function (req, res) {
             }
 
             // Loop through flights and check available slot
-            flights.forEach(function (flight, index) {
+            var countFlight = 0;
+            flights.forEach(function (flight) {
 
                 flightDetailController.countAvailableSlot(flight, function (err, availableSlot) {
-                    console.log(availableSlot + '-' + numberOfPassenger);
+                    flight.numberOfSeat = availableSlot;
                     if (availableSlot >= numberOfPassenger)
                         responseFlights.push(flight);
 
                     // Response after the last item
-                    if (index == flights.length - 1)
+                    if (++countFlight == flights.length) {
                         res.json(responseFlights);
+                    }
                 });
             });
         }
@@ -228,7 +190,8 @@ module.exports.getOneWayFlights = function (req, res) {
 };
 
 // Get round-trip flight by query
-module.exports.getRoundTripFlight = function (req, res) {
+module.exports.getRoundTripFlights = function (req, res) {
+
 
 
     var noiDi = req.query.noidi;
