@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     chalk = require('chalk'),
     FlightDetail = mongoose.model('FlightDetail'),
-    Flight = mongoose.model('Flight');
+    Flight = mongoose.model('Flight'),
+    flightDetailController = require('./flightdetail.controller');
 
 // Get all flight
 module.exports.getAllFlights = function (req, res) {
@@ -97,6 +98,7 @@ module.exports.addFlights = function (req, res) {
 
     var i = 0;
     flights.forEach(function (flight) {
+        flight.datetime = Date.parse(flight.datetime);
         var f = new Flight(flight);
         console.log(f);
         f.save(function (err, f) {
@@ -151,8 +153,8 @@ module.exports.deleteFlight = function (req, res) {
     //...
 };
 
-var findFlight = function (query, date, callback) {
-    Flight.find(query).where('datetime').gte(date).exec(function (err, flights) {
+var findDepartureFlight = function (query, departureDate, callback) {
+    Flight.find(query).where('datetime').gte(departureDate).exec(function (err, flights) {
         if (err) {
             return callback(err);
         }
@@ -161,20 +163,66 @@ var findFlight = function (query, date, callback) {
     });
 };
 
+var findReturnFlight = function (query, departureDate, returnDate, callback) {
+    Flight.find(query).where('datetime').gte(departureDate).ls(returnDate).exec(function (err, flights) {
+        if (err) {
+            return callback(err);
+        }
+
+        return callback(null, flights);
+    });
+};
+
+// Flight search route
+// If query.return date != null then it is round trip flight,
+module.exports.getFlights = function (req, res) {
+  this.getOneWayFlights(req, res);
+};
+
 // Get one-way flights by query
 module.exports.getOneWayFlights = function (req, res) {
 
+    // Get query parameters
     var query = {};
     query.depart = req.query.from;
     query.arrive = req.query.to;
 
-    var departDate = req.query.departDate;
+    var departureDate = Date.parse(req.query.depart),
+        numberOfPassenger = req.query.passengers;
 
-    findFlight(query, departDate, function (err, flights) {
+    // Check valid departure date
+    if (!departureDate) {
+        res.status(400).end('Invalid departure date');
+        return;
+    }
+
+    // Find flight
+    findDepartureFlight(query, departureDate, function (err, flights) {
         if (err) {
-            res.statusCode(400).end('Oops! Something went wrong...');
+            res.status(400).send('Oops! Something went wrong...');
+            console.log(err);
         } else {
-            res.json(flights);
+            var responseFlights = [];
+            console.log(flights);
+
+            if (flights.length == 0) {
+                res.json([]);
+                return;
+            }
+
+            // Loop through flights and check available slot
+            flights.forEach(function (flight, index) {
+
+                flightDetailController.countAvailableSlot(flight, function (err, availableSlot) {
+                    console.log(availableSlot + '-' + numberOfPassenger);
+                    if (availableSlot >= numberOfPassenger)
+                        responseFlights.push(flight);
+
+                    // Response after the last item
+                    if (index == flights.length - 1)
+                        res.json(responseFlights);
+                });
+            });
         }
     });
 };
