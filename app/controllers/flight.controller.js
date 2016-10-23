@@ -56,7 +56,6 @@ module.exports.addSampleData = function (req, res) {
         }
     ];
 
-    var i = 0;
     flights.forEach(function (flight) {
         flight.datetime = Date.parse(flight.datetime);
         var f = new Flight(flight);

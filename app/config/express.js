@@ -18,7 +18,8 @@ var routes = require('./../routes/index.route.js'),
     flight = require('./../routes/flight.route'),
     booking = require('./../routes/booking.route'),
     flightDetail = require('./../routes/flightdetail.route'),
-    passenger = require('./../routes/passenger.route');
+    passenger = require('./../routes/passenger.route'),
+    airport = require('./../routes/airport.route');
 
 var app = express();
 mongoose.connect();
@@ -41,6 +42,7 @@ app.use('/flights', flight);
 app.use('/bookings', booking);
 app.use('/flight-details', flightDetail);
 app.use('/passengers', passenger);
+app.use('/airports', airport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
