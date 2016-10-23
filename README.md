@@ -55,7 +55,7 @@ id: mã sân bay đi
  * Code: 404 (not found)
   * Content: error
 
-## Tạo đặt chỗ mới: chọn chuyến bay, số lượng hành khách. Hệ thống sẽ tạo trước dữ liệu chi tiết chuyến bay và booking, chờ người dùng nhập thông tin cá nhân, sau một khoảng thời gian người dùng không điền đủ thông tin cá nhân thì server.js sẽ xóa dữ liệu booking và chi tiết chuyến bay đã tạo trước đó
+## Tạo đặt chỗ mới:
 ### URL: 
 **/book**
 ### Method:
@@ -63,17 +63,38 @@ id: mã sân bay đi
 ### URL params:
 ### Data params:
 ```
-[
-   {
-     "machuyenbay":String,
-     "ngay": Timestamp,
-     "hang": String,
-     "mucgia": String,
-     "soluonghanhkhach":Number
-   },
-   ...
-]
-```
+{
+  "flights":[
+    {
+      "code": String,
+      "datetime":Timestamp,
+      "priceLevel": String,
+      "class": String,
+    },
+    {
+      "code": String,
+      "datetime":Timestamp,
+      "priceLevel": String,
+      "class": String,
+    }
+  ],
+  "passengers":[
+    {
+      "gender": String,
+      "firstName":String,
+      "lastName": String
+    },
+    {
+      "gender": String,
+      "firstName":String,
+      "lastName": String
+    }...
+  ]
+}
+``` 
+
+*Nếu chuyến bay 1 chiều thì mảng flights chỉ có 1 object* 
+
 ### Success Response:
 * Code: 200/201 (success)
  * Content:
