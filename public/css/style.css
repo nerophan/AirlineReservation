@@ -1,8 +1,576 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,400italic,300italic,500,500italic,700,700italic,900,900italic,100,100italic&subset=latin,vietnamese);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,vietnamese);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,700italic,300,400italic,300italic&subset=latin,vietnamese);
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #fff;
+  font: 400 14px "Roboto", "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  color: #424242;
+  margin: 0;
+  padding: 0px;
 }
 
-a {
-  color: #00B7FF;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block
+}
+
+div {
+  display: block;
+}
+
+.main-header {
+  width: 100%;
+  height: 230px;
+  background: url("../img/header-bg.jpg") repeat;
+  display: inline-block;
+}
+
+.main-header h1, h5 {
+  color: #FFFFFF !important;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.logo-img img {
+  margin: auto;
+  top: 20px;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+h5 {
+  padding: 0px;
+}
+
+.main-container {
+  width: 868px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.input-primary {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+input[type="radio"] {
+  height: auto;
+}
+
+input[type="radio"]:checked {
+  background-color: #ff5640;
+}
+
+.input-default {
+  height: 50px;
+  width: 400px !important;
+  background-color: #FFF !important;
+  border: solid #3074C5 2px !important;
+  padding: 6px 16px;
+  font-size: 18px !important;
+  font-weight: bold;
+}
+
+.input-selection-box {
+  padding: 8px 16px 8px 100px !important;
+}
+
+.selection-option {
+  height: 30px;
+  padding-left: 20px;
+}
+
+.location-picker {
+  display: inline-block;
+}
+
+.radio .radio-opt {
+  margin-right: 20px;
+}
+
+.location-picker-title {
+  position: absolute;
+  padding: 14px 14px;
+  height: 50px;
+  font-size: 16px;
+  opacity: 0.5;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center !important;
+  padding: 7px 5px !important;
+  font-size: 12px !important;
+  line-height: 2.00;
+  border-radius: 30px !important;
+  background-color: #eee !important;
+  border: none !important;
+  color: #3074C5 !important;
+}
+
+.btn-round {
+  height: 45px;
+  width: 200px;
+  border-radius: 30px !important;
+  background-color: #3074C5;
+  color: #FFFFFF;
+  text-align: center !important;
+  padding: 10px !important;
+}
+
+.btn-circle:hover {
+  background-color: #3074C5 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+}
+
+.col-md-3 .float-right {
+  margin-top: -5px;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.number-people {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px;
+  color: #3074C5;
+}
+
+.radio-default {
+  height: 30px;
+  width: 3px;
+  border-radius: 15px;
+  background-color: #eeeeee;
+}
+
+.date-return {
+  margin-left: 28px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  text-align: left;
+  padding: 8px !important;
+}
+
+.block-week ul.block-content-change-date > li {
+  border-right: 1px solid #e5e5e5;
+  display: inline-block;
+  font-size: 12px;
+  margin-right: -3px;
+  padding: 10px 21px;
+  text-align: center;
+  width: 118px;
+}
+
+.block-week ul.block-content-change-date > li.active {
+  background: #3074C5;
+  color: #FFFFFF;
+}
+
+.table-col-row {
+  background-color: #e5e5e5;
+}
+
+.ticket-price {
+  color: #ff5640;
+  font-weight: bold;
+  font-size: 16px;
+  height: 30px;
+  margin: 0 auto;
+}
+
+.ticket-place {
+  opacity: 0.54;
+}
+
+td .btn-round {
+  width: auto !important;
+  height: 30px !important;
+  padding: 0px 16px !important;
+  float: right;
+}
+
+.i-result {
+  height: 56px;
+}
+
+.ticket-detail {
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+}
+
+.input-contact-infor {
+  width: 500px;
+  border: 1px solid #e0e0e0;
+  height: 40px;
+  margin-left: 20px;
+  padding: 4px 16px;
+}
+
+.input-normal {
+  border: 1px solid #e0e0e0;
+  height: 40px;
+  margin-left: 20px;
+  padding: 4px 16px;
+}
+
+.label-input {
+  width: 200px;
+  text-align: right;
+  float: left;
+}
+
+.booking-contact h4 {
+  color: #3074C5;
+  margin: 20px 0;
+}
+
+.passenger-infor {
+  margin: 20px 0px;
+}
+
+.ticket-cost {
+  border: 2px dashed #3074C5;
+  height: 60px;
+  width: 100%;
+  color: #3074C5;
+  text-align: center;
+  padding: 12px;
+  margin: 20px 0;
+  background-color: #e0e0e0;
+}
+
+.ticket-cost h2 {
+  color: #ff5640;
+  margin: 0 auto;
+}
+
+main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 24px;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+}
+
+#flight-datepicker {
+  margin-top: 36px;
+}
+
+@media screen and (min-width: 400px) {
+  #flight-datepicker {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+#flight-datepicker .form-item {
+  position: relative;
+  margin: 12px 0 60px;
+}
+
+@media screen and (min-width: 400px) {
+  #flight-datepicker .form-item {
+    margin: 12px 24px 0 0;
+  }
+}
+
+#flight-datepicker label {
+  display: block;
+  margin-bottom: 8px;
+  color: white;
+}
+
+#flight-datepicker input {
+  display: block;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: left;
+  color: #0e3e43;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0;
+  outline: none;
+  -webkit-transition: border-color .2s ease-out;
+  transition: border-color .2s ease-out;
+}
+
+#flight-datepicker input:first-child, #flight-datepicker input:last-child {
+  border-radius: 0;
+}
+
+#flight-datepicker input::-webkit-input-placeholder {
+  color: #0e3e43;
+  font-size: 14px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input:-moz-placeholder {
+  color: #0e3e43;
+  font-size: 14px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input::-moz-placeholder {
+  color: #0e3e43;
+  font-size: 14px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input:-ms-input-placeholder {
+  color: #0e3e43;
+  font-size: 14px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input:focus {
+  border-bottom-color: #125259;
+}
+
+#flight-datepicker input:focus::-webkit-input-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+
+#flight-datepicker input:focus:-moz-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+
+#flight-datepicker input:focus::-moz-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+
+#flight-datepicker input:focus:-ms-input-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+
+#flight-datepicker .date-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  top: calc(100% + 6px);
+  font-size: 12px;
+  color: white;
+}
+
+@media screen and (min-width: 400px) {
+  #flight-datepicker .date-text {
+    top: 100%;
+  }
+}
+
+.datepicker.dropdown-menu {
+  padding: 0;
+  background-clip: border-box;
+  border: none;
+  border-radius: 0;
+  -webkit-animation: popup .2s ease-out forwards;
+  animation: popup .2s ease-out forwards;
+}
+
+.datepicker.dropdown-menu table {
+  background-color: #1b7983;
+}
+
+.datepicker.dropdown-menu table thead {
+  background-color: #1b7983;
+}
+
+.datepicker.dropdown-menu table thead tr {
+  border-top: 0;
+}
+
+.datepicker.dropdown-menu table tbody {
+  background-color: white;
+}
+
+.datepicker.dropdown-menu table tr {
+  border-top: 1px solid #ededed;
+}
+
+.datepicker.dropdown-menu table tr td, .datepicker.dropdown-menu table tr th {
+  width: auto;
+  height: 24px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0;
+  -webkit-transition: background-color .6s ease-out;
+  transition: background-color .6s ease-out;
+}
+
+@media screen and (min-width: 400px) {
+  .datepicker.dropdown-menu table tr td, .datepicker.dropdown-menu table tr th {
+    padding: 12px;
+  }
+}
+
+.datepicker.dropdown-menu table tr td:hover, .datepicker.dropdown-menu table tr td.active:hover, .datepicker.dropdown-menu table tr td:active:hover, .datepicker.dropdown-menu table tr th:hover, .datepicker.dropdown-menu table tr th.active:hover, .datepicker.dropdown-menu table tr th:active:hover {
+  border-color: #ededed;
+  border-radius: 0;
+  -webkit-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+}
+
+.datepicker.dropdown-menu table tr td.focused, .datepicker.dropdown-menu table tr td.selected, .datepicker.dropdown-menu table tr th.focused, .datepicker.dropdown-menu table tr th.selected {
+  background-color: #24A0AD;
+  border-color: #ededed;
+  border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr td.active, .datepicker.dropdown-menu table tr td.active:focus, .datepicker.dropdown-menu table tr td.active.active:hover, .datepicker.dropdown-menu table tr td:active:focus, .datepicker.dropdown-menu table tr td.highlighted, .datepicker.dropdown-menu table tr th.active, .datepicker.dropdown-menu table tr th.active:focus, .datepicker.dropdown-menu table tr th.active.active:hover, .datepicker.dropdown-menu table tr th:active:focus, .datepicker.dropdown-menu table tr th.highlighted {
+  background-color: #1b7983;
+  border-color: #ededed;
+}
+
+.datepicker.dropdown-menu table tr th.datepicker-switch {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 2;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #ffffff;
+  background-color: inherit;
+  border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr th.prev,
+.datepicker.dropdown-menu table tr th.next {
+  color: #ffffff;
+  background-color: #17656e;
+  border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr th.dow {
+  padding: 2px 12px;
+  font-size: 12px;
+  line-height: 2;
+  color: #ffffff;
+  background-color: #19717a;
+  border-top: 1px solid #196d76;
+  border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr td.day {
+  width: 24px;
+  border-right: 1px solid #ededed;
+}
+
+.datepicker.dropdown-menu table tr td.day:last-child {
+  border-right-width: 0;
+}
+
+.datepicker.dropdown-menu table tr td.range {
+  background-color: #eeeeee;
+}
+
+.datepicker.dropdown-menu .new,
+.datepicker.dropdown-menu .old,
+.datepicker.dropdown-menu .disabled,
+.datepicker.dropdown-menu .disabled:hover {
+  color: #ccc;
+}
+
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+.fontawesome-calendar {
+  position: absolute;
+  top: 26px;
+  right: 0;
+  font-size: 24px;
+  z-index: -99;
+}
+
+@-webkit-keyframes popup {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 }

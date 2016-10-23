@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lotusAirline" class="no-js lt-ie9 lt-ie8 lt-ie7"> <!--[if lt IE 7]-->
+<html lang="en" ng-app="lotusAirline" class="no-js lt-ie9 lt-ie8"> <!--[if IE 7]-->
+<html lang="en" ng-app="lotusAirline" class="no-js lt-ie9"> <!--[if IE 8]-->
+<html lang="en" ng-app="lotusAirline" class="no-js"> <!--[if gt IE 8]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>VietNam Lotus Airline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel='stylesheet prefetch'
+          href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+</head>
+<body>
+<div class="main-header">
+    <div class="logo-img">
+        <img src="../img/logo.png" style="margin: 0 auto">
+    </div>
+    <h1>Viet Nam Lotus Airline</h1>
+    <h5>Niềm tin trên những chặng đường</h5>
+</div>
+<div ng-view></div>
+
+<script src="../application.js"></script>
+<script src="../controllers/search-ticket.js"></script>
+<script src="../controllers/ticket-result.js"></script>
+<script src="../controllers/get-passengers-infor.js"></script>
+<script src="../controllers/submition.js"></script>
+
+<script src="../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js'></script>
+</body>
+</html>

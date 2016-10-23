@@ -1,0 +1,94 @@
+<div id="search-box">
+    <div class="main-container">
+        <div>
+            <div class="radio">
+                <label class="radio-opt"><input type="radio" name="tiketType" value="one-way">Vé một chiều</label>
+                <label class="radio-opt"><input type="radio" name="tiketType" value="round-trip">Vé khứ hồi</label>
+            </div>
+        </div>
+        <div>
+            <div class="location-picker">
+                <div class="location-picker-title">
+                    <i class="fa fa-plane" aria-hidden="true"></i>
+                    <span>&nbsp;&nbsp;bay từ</span>
+                </div>
+                <select class="input-default input-selection-box" id="department">
+                    <option class="selection-option">Hồ Chí Minh</option>
+                    <option class="selection-option">Hà Nội</option>
+                    <option class="selection-option">Đà Lạt</option>
+                    <option class="selection-option">Phú Quốc</option>
+                </select>
+            </div>
+            <i class="fa fa-exchange" aria-hidden="true"></i>
+            <div class="location-picker">
+                <div class="location-picker-title">
+                    <i class="fa fa-plane" aria-hidden="true"></i>
+                    <span>&nbsp;&nbsp;bay đến</span>
+                </div>
+                <select class="input-default input-selection-box" id="sel1">
+                    <option>Hồ Chí Minh</option>
+                    <option>Hà Nội</option>
+                    <option>Đà Lạt</option>
+                    <option>Phú Quốc</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <div id="flight-datepicker" class="input-daterange input-group">
+                <div>
+                    <div class="location-picker-title">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <span>&nbsp;&nbsp;đi ngày</span>
+                    </div>
+                    <input type="text" id="start-date" name="start" placeholder="Chọn ngày đi"
+                           data-date-format="DD, MM d" class="input-default input-selection-box"/>
+                </div>
+                <div style="margin-left: 20px">
+                    <div class="location-picker-title">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <span>&nbsp;&nbsp;về ngày</span>
+                    </div>
+                    <input type="text" id="end-date" name="end" placeholder="Chọn ngày về" data-date-format="DD, MM d"
+                           class="input-default input-selection-box"/>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-4">
+                <span>Người lớn</span>
+                <div class="float-right">
+                    <a class="btn btn-circle btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                    <span class="number-people">1</span>
+                    <a class="btn btn-circle btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <span>Trẻ em</span>
+                <div class="float-right">
+                    <a class="btn btn-circle btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                    <span class="number-people">1</span>
+                    <a class="btn btn-circle btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <span>Em bé</span>
+                <div class="float-right">
+                    <a class="btn btn-circle btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                    <span class="number-people">1</span>
+                    <a class="btn btn-circle btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div>
+            <div class="">
+                <div class="radio">
+                    <label class="radio-opt"><input type="radio" name="filter" value="one-way">Bay vào ngày này</label>
+                    <label class="radio-opt"><input type="radio" name="filter" value="round-trip">Tìm vé rẻ nhất</label>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-round float-right"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Tìm vé</a>
+    </div>
+</div>
