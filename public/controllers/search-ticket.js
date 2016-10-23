@@ -41,7 +41,6 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
     $http.get("/airports")
         .then(function (response) {
             $scope.countryDeparture = response.data;
-            console.log($scope.countryDeparture);
         });
 
     $scope.changeTicketType = function () {
@@ -57,15 +56,14 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
 
     // Get arrival airports
     $scope.getArrivalAirport = function () {
-        var curDepartureId = $scope.departure;
 
         // Check depature
-        if (curDepartureId == null) {
+        if ($scope.data.departureAirport == null) {
             alert("Bạn chưa chọn sân bay đi");
         } else {
 
             // Get arrival airports
-            $http.get("/airports/" + curDepartureId)
+            $http.get("/airports/" + $scope.data.departureAirport)
                 .then(function (response) {
                     $scope.countryArrival = response.data;
                 });
@@ -142,7 +140,7 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
             alert("Bạn chưa điền đầy đủ thông tin");
         }
         else {
-            
+
         }
     };
 
