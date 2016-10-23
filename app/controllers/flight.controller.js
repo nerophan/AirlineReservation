@@ -113,8 +113,15 @@ module.exports.deleteFlight = function (req, res) {
     //...
 };
 
-var findDepartureFlight = function (query, departureDate, callback) {
-    Flight.find(query).where('datetime').gte(departureDate).exec(function (err, flights) {
+var findDepartureFlight = function (conditions, callback) {
+    Flight.find({
+        depart: conditions.depart,
+        arrive: conditions.arrive,
+        datetime: {
+            $gte: conditions.departureDate,
+            $lte: conditions.maxDepartureDate
+        }
+    }, function (err, flights) {
         if (err) {
             return callback(err);
         }
@@ -143,21 +150,24 @@ module.exports.getFlights = function (req, res) {
 module.exports.getOneWayFlights = function (req, res) {
 
     // Get query parameters
-    var query = {};
-    query.depart = req.query.from;
-    query.arrive = req.query.to;
+    var conditions = {};
+    conditions.depart = req.query.from;
+    conditions.arrive = req.query.to;
 
-    var departureDate = Date.parse(req.query.depart),
-        numberOfPassenger = req.query.passengers;
+    conditions.departureDate = Date.parse(req.query.depart);
+    conditions.numberOfPassenger = req.query.passengers;
+    // Search for next 7 day flights
+    conditions.maxDepartureDate = conditions.departureDate + 7 * 24 * 3600 * 1000;
+    console.log(conditions);
 
     // Check valid departure date
-    if (!departureDate) {
+    if (!conditions.departureDate) {
         res.status(400).end('Invalid departure date');
         return;
     }
 
     // Find flight
-    findDepartureFlight(query, departureDate, function (err, flights) {
+    findDepartureFlight(conditions, function (err, flights) {
         if (err) {
             res.status(400).send('Oops! Something went wrong...');
             console.log(err);
@@ -176,7 +186,7 @@ module.exports.getOneWayFlights = function (req, res) {
 
                 flightDetailController.countAvailableSlot(flight, function (err, availableSlot) {
                     flight.numberOfSeat = availableSlot;
-                    if (availableSlot >= numberOfPassenger)
+                    if (availableSlot >= conditions.numberOfPassenger)
                         responseFlights.push(flight);
 
                     // Response after the last item
