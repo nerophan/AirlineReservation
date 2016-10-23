@@ -14,20 +14,16 @@ Lưu ý: _Ví dụ dữ liệu Date: "Tue Dec 25 2012 00:00:00 GMT+0700 (SE Asia
  * Content:
 ```
   [
-    "Việt Nam":[
-      {
-        "code":String,
-        "name:String
-      },
-      ...
-    ],
-    "Lào":[
-      {
-        "code":String,
-        "name:String
-      },
-      ...
-    ],
+    {
+      "country":String,
+      "airports":[
+        {
+          "code":String,
+          "name:String
+        },
+        ...
+      ]
+    },
     ...
   ]
 ```
@@ -48,20 +44,16 @@ id: mã sân bay đi
  * Content:
 ```
   [
-    "Việt Nam":[
-      {
-        "code":String,
-        "name:String
-      },
-      ...
-    ],
-    "Lào":[
-      {
-        "code":String,
-        "name:String
-      },
-      ...
-    ],
+    {
+      "country":String,
+      "airports":[
+        {
+          "code":String,
+          "name:String
+        },
+        ...
+      ]
+    },
     ...
   ]
 ```
