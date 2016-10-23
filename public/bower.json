@@ -1,0 +1,28 @@
+{
+  "name": "lotus-airline",
+  "homepage": "https://github.com/hoanghuynh1995/AirlineReservation",
+  "authors": [
+    "Tuan Nguyen <Nguyenvantuan.itus@gmail.com>",
+    "Ke Nguyen <Kenguyen276@gmail.com>",
+    "Huynh Phan <Unlimited493@gmail.com>"
+  ],
+  "description": "Booking flight page",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.14",
+    "angular-route": "~1.4.14",
+    "angular-loader": "~1.4.14",
+    "angular-mocks": "~1.4.14",
+    "angular-sanitize": "^1.5.6",
+    "html5-boilerplate": "~5.2.0",
+    "bootstrap": "^3.3.6"
+  }
+}
