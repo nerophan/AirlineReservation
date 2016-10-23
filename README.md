@@ -137,7 +137,7 @@ id: id mã đặt chỗ
 {
     "id": String,
     "status": Integer,
-    "details": [ {
+    "flightdetails": [ {
       "flightId": String,
       "departure": String,
       "arrival": String,
@@ -147,7 +147,7 @@ id: id mã đặt chỗ
       "priceLevel": String,  
       }...
     ],
-    "passenger": [{
+    "passengers": [{
         "gender": String,
         "firstName":String,
         "lastName": String
