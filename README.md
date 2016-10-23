@@ -55,7 +55,7 @@ id: mã sân bay đi
  * Code: 404 (not found)
   * Content: error
 
-## Tạo đặt chỗ mới
+## Tạo đặt chỗ mới: chọn chuyến bay, số lượng hành khách. Hệ thống sẽ tạo trước dữ liệu chi tiết chuyến bay và booking, chờ người dùng nhập thông tin cá nhân, sau một khoảng thời gian người dùng không điền đủ thông tin cá nhân thì server.js sẽ xóa dữ liệu booking và chi tiết chuyến bay đã tạo trước đó
 ### URL: 
 **/book**
 ### Method:
@@ -63,29 +63,16 @@ id: mã sân bay đi
 ### URL params:
 ### Data params:
 ```
-{
-  "book":{
-    "thoigiandatcho": Date
-    "tongtien" : Number
-  },
-  "flightdetail":[
-    {
-      "machuyenbay":String,
-      "ngay": Date,
-      "hang": String,
-      "mucgia": String
-    },
-    ...
-  ],
-  "passenger":[
-    {
-      "danhxung": String,
-      "ho":String,
-      "ten": String
-    },
-    ...
-  ]
-}
+[
+   {
+     "machuyenbay":String,
+     "ngay": Timestamp,
+     "hang": String,
+     "mucgia": String,
+     "soluonghanhkhach":Number
+   },
+   ...
+]
 ```
 ### Success Response:
 * Code: 200/201 (success)
@@ -94,26 +81,17 @@ id: mã sân bay đi
 {
   "book":{
     _**"id"**_: String,
-    "thoigiandatcho": Date
+    "thoigiandatcho": Timestamp
     "tongtien" : Number,
-    _**"trangthai"**_: Number (0 (default): đang đặt chỗ|1: đã đặt)
+    _**"trangthai"**_: 0
   },
   "flightdetail":[
     {
       _**"madatcho"**_: String,
       "machuyenbay":String,
-      "ngay": Date,
+      "ngay": Timestamp,
       "hang": String,
       "mucgia": String
-    },
-    ...
-  ],
-  "passenger":[
-    {
-      _**"madatcho"**_: String,
-      "danhxung": String,
-      "ho":String,
-      "ten": String
     },
     ...
   ]
@@ -278,3 +256,60 @@ _"chuyenbayve" sẽ không có nếu query không có ngayve_
 ### Error Response:
  * Code: 404 (not found)
   * Content: error
+
+## Thêm hành khách
+### URL: 
+**/passengers** 
+  
+### Method:
+**POST**
+### URL params:
+### Data params:
+```
+{
+  "madatcho":String,
+  "passenger":[
+     {
+       "danhxung":String
+       "ho":String
+       "ten":String
+     },
+     ...
+  ]
+}
+```
+### Success Response:
+* Code: 200 (success)
+ * Content:
+```
+{
+  "booking":{
+      "ma":String,
+      "thoigiandatcho": Timestamp,
+      "tongtien": Number,
+      "trangthai": 1
+      }
+  ,
+  "flightdetail":[
+    {
+      "machuyenbay":String,
+      "ngay": Timestamp,
+      "hang": String,
+      "mucgia": String
+    },
+    ...
+  ],
+  "passenger":[
+    {
+      "danhxung":String,
+      "ho":String,
+      "ten":String
+    },
+    ...
+  ]
+}
+```
+### Error Response:
+ * Code: 400 (bad request)
+  * Content: error
+
