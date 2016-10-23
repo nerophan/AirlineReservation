@@ -80,12 +80,12 @@ id: mã sân bay đi
   ],
   "passengers":[
     {
-      "gender": String,
+      "title": String,
       "firstName":String,
       "lastName": String
     },
     {
-      "gender": String,
+      "title": String,
       "firstName":String,
       "lastName": String
     }...
