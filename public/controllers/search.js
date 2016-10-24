@@ -127,6 +127,10 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
 
         console.log($scope.data);
     };
+    
+    function getTicket() {
+        
+    }
 
     function formartDate(date) {
         var newDate = date.split("/");

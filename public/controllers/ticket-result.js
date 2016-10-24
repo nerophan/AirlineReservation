@@ -6,4 +6,6 @@ var ticketResultModule = angular.module('lotusAirline.ticketResults', []);
 
 ticketResultModule.controller('TicketResultCtrl', ['$scope','$window', function ($scope, $window) {
 
+    
+    
 }]);

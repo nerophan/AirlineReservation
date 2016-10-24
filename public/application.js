@@ -8,6 +8,61 @@ var app = angular.module('lotusAirline', [
     'lotusAirline.passengerInfor',
     'lotusAirline.submition']);
 
+app.factory('tickets', function () {
+    var oneWayTicket = {
+        "_id": '',
+        "code": '',
+        "depart": '',
+        "arrive": '',
+        "class": '',
+        "priceLevel": '',
+        "numberOfSeat": 0,
+        "price": 0,
+        "__v": 0,
+        "datetime": 0
+    };
+    var roundTripTicket = {
+        "return": [
+            {
+                "_id": '',
+                "code": '',
+                "depart": '',
+                "arrive": '',
+                "class": '',
+                "priceLevel": '',
+                "numberOfSeat": 0,
+                "price": 0,
+                "__v": 0,
+                "datetime": 0
+            }
+        ],
+        "depart": [
+            {
+                "_id": '',
+                "code": '',
+                "depart": '',
+                "arrive": '',
+                "class": '',
+                "priceLevel": '',
+                "numberOfSeat": 0,
+                "price": 0,
+                "__v": 0,
+                "datetime": 0
+            }
+        ]
+    };
+
+    return {
+        getOneWayTicket: function () {
+            return oneWayTicket;
+        },
+
+        getRounfTripTicket: function () {
+            return roundTripTicket;
+        }
+    };
+});
+
 app.config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/', {
