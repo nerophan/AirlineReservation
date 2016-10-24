@@ -302,3 +302,43 @@ td .btn-round {
     font-weight: bold;
 }
 
+.not-found {
+    width: 100%;
+    text-align: center;
+    color: #757575;
+    margin: 40px;
+}
+
+.ticket-table {
+    margin-bottom: 20px;
+}
+
+.modal-dialog.login-modal {
+    width: 700px;
+}
+
+.center-text {
+    text-align: center;
+}
+.modal-title-custom {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.modal-footer {
+    background: #FAFAFA;
+    border-radius: 0 0 4px 4px;
+    padding: 8px;
+    font-weight: 400;
+}
+
+.modal-dialog .modal-body {
+    box-shadow: none !important;
+    padding: 10px;
+    margin: 12px 8px 10px 8px;
+    overflow: hidden;
+}
+
+.ticket-id {
+    color: #3074C5;
+}

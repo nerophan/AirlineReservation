@@ -9,9 +9,10 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
         $scope.children = 0;
         $scope.baby = 0;
 
-        $rootScope.departTickets = {};
-        $rootScope.returnTickets = {};
+        $rootScope.departTickets = {}; // Displayed in ticket-result module
+        $rootScope.returnTickets = {}; // Displayed in ticket-result module
 
+        // Global data
         $rootScope.data = {
             "type": "round-trip",
             "departureAirport": "",
@@ -19,7 +20,9 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
             "depart": "",
             "passengers": 1,
             "return": "",
-            "filter": "exactly"
+            "filter": "exactly",
+            "departTicket": {},
+            "returnTicket": {}
         };
 
         // GET all available airports
@@ -140,8 +143,7 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
                 + "&return=" + $scope.data.return
                 + "&passengers=" + $scope.data.passengers;
 
-            // Test...
-            // URL = "/flights/search?from=SGN&to=TBB&depart=2016-10-25&return=&passengers=1";
+            console.log(URL);
 
             $http.get(URL)
                 .then(function (response) {

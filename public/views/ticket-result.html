@@ -1,7 +1,8 @@
 <div id="tickets-result" class="main-container" ng-controller="TicketCtrl">
     <div class="ticket-table">
         <h4 class="trip-title"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-            &nbsp;&nbsp;Lựa chọn chuyến bay chặng đi <strong>{{data.departureAirport}}</strong> đến <strong>{{data.arrivalAirport}}</strong></h4>
+            &nbsp;&nbsp;Lựa chọn chuyến bay chặng đi <strong>{{data.departureAirport}}</strong> đến <strong>{{data.arrivalAirport}}</strong>
+        </h4>
         <table>
             <thead>
             <tr class="table-col-row">
@@ -24,7 +25,7 @@
                 <td>{{ticket.priceLevel}}</td>
                 <td>
                     <span class="ticket-price">{{ticket.price}} VNĐ</span>
-                    <button class="btn btn-round" ng-click="showTicketDetail($index)">Chọn</button>
+                    <button class="btn btn-round" ng-click="selectTicket($index, 'depart')">Chọn</button>
                 </td>
             </tr>
             <tr>
@@ -34,14 +35,14 @@
             </tr>
             </tbody>
         </table>
-        <div ng-show="tickets.length == 0">
-            <h2>Méo có vé nào nhá :3</h2>
+        <div ng-show="departTickets.length == 0">
+            <h3 class="not-found">Không tìm thấy vé phù hợp</h3>
         </div>
     </div>
-
     <div class="ticket-table" ng-show="data.type == 'round-trip'">
         <h4 class="trip-title"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-            &nbsp;&nbsp;Lựa chọn chuyến bay chặng về <strong>{{data.arrivalAirport}}</strong> đến <strong>{{data.departureAirport}}</strong></h4>
+            &nbsp;&nbsp;Lựa chọn chuyến bay chặng về <strong>{{data.arrivalAirport}}</strong> đến <strong>{{data.departureAirport}}</strong>
+        </h4>
         <table>
             <thead>
             <tr class="table-col-row">
@@ -64,7 +65,7 @@
                 <td>{{ticket.priceLevel}}</td>
                 <td>
                     <span class="ticket-price">{{ticket.price}} VNĐ</span>
-                    <button class="btn btn-round" ng-click="showTicketDetail($index)">Chọn</button>
+                    <button class="btn btn-round" ng-click="selectTicket($index, 'arrive')">Chọn</button>
                 </td>
             </tr>
             <tr>
@@ -74,10 +75,12 @@
             </tr>
             </tbody>
         </table>
-        <div ng-show="tickets.length == 0">
-            <h2>Méo có vé nào nhá :3</h2>
+        <div ng-show="returnTickets.length == 0">
+            <h3 class="not-found">Không tìm thấy vé phù hợp</h3>
         </div>
     </div>
+    <a class="btn btn-round float-right" ng-click="continueBooking()">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;&nbsp;Tiếp tục đặt vé</a>
 </div>
 <div class="ticket-detail">
     <h4>Tổng: 100000 VNĐ</h4>
@@ -85,24 +88,24 @@
         <hr/>
         <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay đi</h5>
         <hr/>
-        <p>- Hạng vé: {{}}</p>
-        <p>- Chuyến bay: </p>
-        <p>- Khởi hành: </p>
-        <p>06:40 - 20/10/2016</p>
-        <p> Mức giá vé: Y</p>
-        <p>- Đến nơi: </p>
-        <p>06:40 - 20/10/2016</p>
+        <p>- Hạng vé: {{departTicket.class}}</p>
+        <p>- Chuyến bay: {{departTicket.code}}</p>
+        <p>- Khởi hành: {{departTicket.depart.name}}</p>
+        <p>{{getTime(departTicket.departAt)}} - {{getDate(departTicket.departAt)}}</p>
+        <p> Mức giá vé: {{departTicket.priceLevel}}</p>
+        <p>- Đến nơi: {{departTicket.arrive.name}}</p>
+        <p>{{getTime(departTicket.arriveAt)}} - {{getDate(departTicket.arriveAt)}}</p>
     </div>
     <div>
         <hr/>
-        <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay về</h5>
+        <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay Về</h5>
         <hr/>
-        <p>- Hạng vé: {{}}</p>
-        <p>- Chuyến bay: </p>
-        <p>- Khởi hành: </p>
-        <p>06:40 - 20/10/2016</p>
-        <p> Mức giá vé: Y</p>
-        <p>- Đến nơi: </p>
-        <p>06:40 - 20/10/2016</p>
+        <p>- Hạng vé: {{returnTicket.class}}</p>
+        <p>- Chuyến bay: {{returnTicket.code}}</p>
+        <p>- Khởi hành: {{returnTicket.depart.name}}</p>
+        <p>{{getTime(returnTicket.departAt)}} - {{getDate(returnTicket.departAt)}}</p>
+        <p> Mức giá vé: {{returnTicket.priceLevel}}</p>
+        <p>- Đến nơi: {{returnTicket.arrive.name}}</p>
+        <p>{{getTime(returnTicket.arriveAt)}} - {{getDate(returnTicket.arriveAt)}}</p>
     </div>
 </div>

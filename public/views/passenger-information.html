@@ -1,69 +1,26 @@
-<div id="booking-information" class="main-container">
-    <div class="booking-contact">
-        <h4>1. Thông tin người liên hệ</h4>
-        <div class="row">
-            <p class="label-input">Họ và tên(*)</p>
-            <input type="text" class="input-primary input-contact-infor"/>
-        </div>
-        <div class="row">
-            <p class="label-input">Số điện thoại(*)</p>
-            <input type="text" class="input-primary input-contact-infor"/>
-        </div>
-        <div class="row">
-            <p class="label-input">Địa chỉ email(*)</p>
-            <input type="text" class="input-primary input-contact-infor"/>
-        </div>
-        <div class="row">
-            <p class="label-input">Địa chỉ</p>
-            <input type="text" class="input-primary input-contact-infor"/>
-        </div>
-    </div>
-    <div class="booking-contact">
-        <h4>2. Thông tin hành khách</h4>
+<div id="booking-information" class="main-container" ng-controller="PassengersCtrl">
+    <h4>Thông tin hành khách</h4>
+    <div class="booking-contact" ng-repeat="passenger in bookingInfor.passengers">
         <div class="row passenger-infor">
-            <div class="col-md-4">
-                <p>Người lớn 1 (*)</p>
+            <div class="col-md-2">
+                <p>Hành khách</p>
             </div>
-            <div class="col-md-4">
-                <select class="input-normal">
+            <div class="col-md-2">
+                <select class="input-normal" ng-model="passenger.title">
                     <option>Nam</option>
                     <option>Nữ</option>
                 </select>
             </div>
-            <div class="col-md-4">
-                <input type="text" placeholder="Họ và tên" class="input-normal"/>
+            <div class="col-md-3">
+                <input type="text" placeholder="Họ" class="input-normal" ng-model="passenger.firstName"/>
             </div>
-        </div>
-        <div class="row passenger-infor">
-            <div class="col-md-4">
-                <p>Người lớn 2 (*)</p>
-            </div>
-            <div class="col-md-4">
-                <select class="input-normal">
-                    <option>Nam</option>
-                    <option>Nữ</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <input type="text" placeholder="Họ và tên" class="input-normal"/>
-            </div>
-        </div>
-        <div class="row passenger-infor">
-            <div class="col-md-4">
-                <p>Trẻ em 1 (*)</p>
-            </div>
-            <div class="col-md-4">
-                <select class="input-normal">
-                    <option>Nam</option>
-                    <option>Nữ</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <input type="text" placeholder="Họ và tên" class="input-normal"/>
+            <div class="col-md-5">
+                <input type="text" placeholder="Tên" class="input-normal float-right" ng-model="passenger.lastName"/>
             </div>
         </div>
     </div>
     <div>
-        <button class="btn btn-round float-right">Tiếp tục đặt vé</button>
+        <button class="btn btn-round float-right" ng-click="continueBooking()">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;&nbsp;Tiếp tục đặt vé</button>
     </div>
 </div>
