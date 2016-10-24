@@ -28,7 +28,8 @@
                     <i class="fa fa-plane" aria-hidden="true"></i>
                     <span>&nbsp;&nbsp;bay đến</span>
                 </div>
-                <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport" ng-click="getArrivalAirport()">
+                <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport"
+                        ng-click="getArrivalAirport()">
                     <optgroup ng-repeat="country in countryArrival" label="{{country.country}}">
                         <option ng-repeat="airport in country.airports" class="selection-option"
                                 value="{{airport.code}}">{{airport.name}}
@@ -42,15 +43,15 @@
                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                 <span>&nbsp;&nbsp;đi ngày</span>
             </div>
-            <input type="text" id="start-date" name="start" placeholder="Chọn ngày đi"
-                   data-date-format="DD, MM d" class="input-default input-selection-box"/>
+            <input type="text" id="start-date" name="daterange"
+                   placeholder="Chọn ngày đi" class="input-default input-selection-box"/>
             <div style="margin-left: 20px">
                 <div class="location-picker-title">
                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                     <span>&nbsp;&nbsp;về ngày</span>
                 </div>
-                <input type="text" id="end-date" name="end" placeholder="Chọn ngày về" data-date-format="DD, MM d"
-                       class="input-default input-selection-box"/>
+                <input type="text" id="end-date" name="daterange"
+                       placeholder="Chọn ngày về" class="input-default input-selection-box"/>
             </div>
         </div>
         <hr/>
@@ -89,7 +90,7 @@
         <hr/>
         <div class="radio">
             <label class="radio-opt">
-                <input type="radio" ng-model="data.filter" value="exactly" checked="checked">Bay vào ngày
+                <input type="radio" ng-model="data.filter" value="exactly">Bay vào ngày
                 này</label>
             <label class="radio-opt">
                 <input type="radio" ng-model="data.filter" value="cheapest">Tìm vé rẻ nhất</label>
