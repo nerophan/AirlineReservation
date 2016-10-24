@@ -14,6 +14,9 @@ router
     })
     .get('/search', function (req, res, next) {
       flightController.getFlights(req, res);
+    })
+    .get('/test', function (req, res) {
+        flightController.test(req, res);
     });
 
 module.exports = router;
