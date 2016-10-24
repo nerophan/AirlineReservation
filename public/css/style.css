@@ -302,3 +302,10 @@ td .btn-round {
     font-weight: bold;
 }
 
+.not-found {
+    width: 100%;
+    text-align: center;
+    color: #757575;
+    margin: 40px;
+}
+
