@@ -2,7 +2,8 @@ var mongoose = require('mongoose'),
     chalk = require('chalk'),
     FlightDetail = mongoose.model('FlightDetail'),
     Flight = mongoose.model('Flight'),
-    flightDetailController = require('./flightdetail.controller');
+    flightDetailController = require('./flightdetail.controller'),
+    airportController = require('./airport.controller');
 
 // Get all flight
 module.exports.getAllFlights = function (req, res) {
@@ -218,13 +219,33 @@ module.exports.getOneWayFlights = function (req, res) {
     // Get query parameters
     var conditions = getConditionFromQuery(req.query);
 
+    var departureAirport = null;
+    var arriveAirport = null;
+
+    airportController.getAirportDetail(conditions.depart, function (err, airport) {
+        departureAirport = {code: airport.code, name: airport.name};
+        console.log(departureAirport);
+    });
+
+    airportController.getAirportDetail(conditions.arrive, function (err, airport) {
+        arriveAirport = {code: airport.code, name: airport.name};
+        console.log(arriveAirport);
+    });
+
     // Filter flights and response
     filterFlight(conditions, function (err, flights) {
         if (err) {
             res.status(400).end('Oops! Something went wrong...');
             console.log(err);
         } else {
-            res.json(flights);
+            var responseFlights = [];
+            for (var i = 0; i < flights.length; i++) {
+                responseFlights.push(JSON.parse(JSON.stringify(flights[i])));
+                responseFlights[i].depart = departureAirport;
+                responseFlights[i].arrive = arriveAirport;
+            }
+
+            res.json(responseFlights);
         }
     });
 };

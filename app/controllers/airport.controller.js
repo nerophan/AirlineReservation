@@ -181,11 +181,13 @@ var getDepartureAirports = function (callback) {
             callback(err);
         } else {
             var responseAirports = [];
+            var count = 0;
 
             countries.forEach(function (country, index) {
                 Airport.find({country: country}).select('name code -_id').exec(function (err, airports) {
                     responseAirports.push({country: country, airports: airports});
-                    if (index == countries.length - 1) {
+
+                    if (responseAirports.length == countries.length) {
                         callback(null, responseAirports);
                     }
                 });
@@ -281,6 +283,8 @@ module.exports.add = function (req, res) {
 };
 
 // Get airport detail
-module.exports.getAirportDetail = function (req, res) {
-
+module.exports.getAirportDetail = function (airportCode, callback) {
+    Airport.findOne({code: airportCode}, function (err, airport) {
+        callback(err, airport);
+    });
 }
