@@ -11,6 +11,4 @@ router
     });
 
 module.exports = router;
-/**
- * Created by hoang on 10/23/2016.
- */
+

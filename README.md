@@ -1,7 +1,6 @@
 # AirlineReservation
 Mô tả các API 
 
-Lưu ý: _Ví dụ dữ liệu Date: "Tue Dec 25 2012 00:00:00 GMT+0700 (SE Asia Standard Time)"_
 ## Trả về các mã sân bay đi có trong CSDL
 ### URL: 
 **/airports**
@@ -15,11 +14,14 @@ Lưu ý: _Ví dụ dữ liệu Date: "Tue Dec 25 2012 00:00:00 GMT+0700 (SE Asia
 ```
   [
     {
-      "_id": "57ff470c9230b4118c24627e",
-      "nhom": "Việt Nam",
-      "ma": "BMV",
-      "ten": "Buôn Ma Thuột",
-      "__v": 0
+      "countryName":String,
+      "airports":[
+        {
+          "code":String,
+          "name:String
+        },
+        ...
+      ]
     },
     ...
   ]
@@ -42,11 +44,14 @@ id: mã sân bay đi
 ```
   [
     {
-      "_id": "57ff470c9230b4118c24627e",
-      "nhom": "Việt Nam",
-      "ma": "BMV",
-      "ten": "Buôn Ma Thuột",
-      "__v": 0
+      "countryName":String,
+      "airports":[
+        {
+          "code":String,
+          "name:String
+        },
+        ...
+      ]
     },
     ...
   ]
@@ -55,7 +60,7 @@ id: mã sân bay đi
  * Code: 404 (not found)
   * Content: error
 
-## Tạo đặt chỗ mới: chọn chuyến bay, số lượng hành khách. Hệ thống sẽ tạo trước dữ liệu chi tiết chuyến bay và booking, chờ người dùng nhập thông tin cá nhân, sau một khoảng thời gian người dùng không điền đủ thông tin cá nhân thì server.js sẽ xóa dữ liệu booking và chi tiết chuyến bay đã tạo trước đó
+## Tạo đặt chỗ mới:
 ### URL: 
 **/book**
 ### Method:
@@ -63,38 +68,63 @@ id: mã sân bay đi
 ### URL params:
 ### Data params:
 ```
-[
-   {
-     "machuyenbay":String,
-     "ngay": Timestamp,
-     "hang": String,
-     "mucgia": String,
-     "soluonghanhkhach":Number
-   },
-   ...
-]
-```
+{
+  "flights":[
+    {
+      "code": String,
+      "datetime":Number (Timestamp),
+      "priceLevel": String,
+      "class": String,
+    },
+    {
+      "code": String,
+      "datetime":Number (Timestamp),
+      "priceLevel": String,
+      "class": String,
+    }
+  ],
+  "passengers":[
+    {
+      "title": String,
+      "firstName":String,
+      "lastName": String
+    },
+    {
+      "title": String,
+      "firstName":String,
+      "lastName": String
+    }...
+  ]
+}
+``` 
+
+*Nếu chuyến bay 1 chiều thì mảng flights chỉ có 1 object* 
+
 ### Success Response:
 * Code: 200/201 (success)
  * Content:
 ```
 {
-  "book":{
-    _**"id"**_: String,
-    "thoigiandatcho": Timestamp
-    "tongtien" : Number,
-    _**"trangthai"**_: 0
-  },
-  "flightdetail":[
-    {
-      _**"madatcho"**_: String,
-      "machuyenbay":String,
-      "ngay": Timestamp,
-      "hang": String,
-      "mucgia": String
-    },
-    ...
-  ]
+  {
+    "id": String,
+    "status": Integer,
+    "flightdetails": [ {
+      "flightId": String,
+      "depart": String,
+      "arrive": String,
+      "datetime": Number (Timestamp),
+      "class": String,
+      "price": String,
+      "priceLevel": String,  
+      }...
+    ],
+    "passengers": [{
+        "gender": String,
+        "firstName":String,
+        "lastName": String
+      }, ...
+    ]
+}
 }
 ```
 ### Error Response:
@@ -114,30 +144,26 @@ id: id mã đặt chỗ
  * Content:
 ```
 {
-  "book":{
-    _**"id"**_: String,
-    "thoigiandatcho": Date
-    "tongtien" : Number,
-    _**"trangthai"**_: Number (0|1)
-  },
-  "flightdetail":[
-    {
-      "machuyenbay":String,
-      "ngay": Date,
-      "hang": String,
-      "mucgia": String
-    },
-    ...
-  ],
-  "passenger":[
-    {
-      "danhxung": String,
-      "ho":String,
-      "ten": String
-    },
-    ...
-  ]
+    "id": String,
+    "status": Integer,
+    "flightdetails": [ {
+      "flightId": String,
+      "depart": String,
+      "arrive": String,
+      "datetime": Number (Timestamp),
+      "class": String,
+      "price": String,
+      "priceLevel": String,  
+      }...
+    ],
+    "passengers": [{
+        "gender": String,
+        "firstName":String,
+        "lastName": String
+      }, ...
+     ]
 }
+
 ```
 ### Error Response:
  * Code: 404 (not found)
@@ -175,7 +201,7 @@ id: id mã đặt chỗ
 querystring:
  * Required:
   * machuyenbay: String
-  * ngay: Date
+  * ngay: Number (Timestamp)
  * Optional:
   * hang: String
   * mucgia: String 
@@ -210,9 +236,9 @@ querystring:
  * Required:
   * noidi: String
   * noiden: String
-  * ngaydi: Date
+  * ngaydi: Number (Timestamp)
  * Optional:
-  * ngayve: Date,
+  * ngayve: Number (Timestamp),
   * soluonghanhkhach: Number (nếu không mô tả thì mặc định là 1)
   
 ### Method:
@@ -229,7 +255,7 @@ querystring:
       "ma":String,
       "noidi": String,
       "noiden": String,
-      "ngay": Date,
+      "ngay": Number (Timestamp),
       "hang": String,
       "mucgia": String,
       "soluongghe": Number,
@@ -242,7 +268,7 @@ querystring:
       "ma":String,
       "noidi": String,
       "noiden": String,
-      "ngay": Date,
+      "ngay": Number (Timestamp),
       "hang": String,
       "mucgia": String,
       "soluongghe": Number,
@@ -293,7 +319,7 @@ _"chuyenbayve" sẽ không có nếu query không có ngayve_
   "flightdetail":[
     {
       "machuyenbay":String,
-      "ngay": Timestamp,
+      "ngay": Number (Timestamp),
       "hang": String,
       "mucgia": String
     },
