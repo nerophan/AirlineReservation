@@ -8,7 +8,8 @@ var bookingSchema = new mongoose.Schema({
         type: String,
         uppercase: true,
         minlength: 6,
-        maxlength: 6
+        maxlength: 6,
+        unique: true
     },
     bookedAt: {
         type: Number,
