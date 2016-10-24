@@ -143,6 +143,8 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
                 + "&return=" + $scope.data.return
                 + "&passengers=" + $scope.data.passengers;
 
+            console.log(URL);
+
             $http.get(URL)
                 .then(function (response) {
                     if ($rootScope.data.type == "one-way") {

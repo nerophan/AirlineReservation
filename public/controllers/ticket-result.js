@@ -26,6 +26,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             }
 
             console.log($scope.bookingInfor);
+            console.log($rootScope.data);
         };
 
         // Add new flight to booking infor
@@ -60,7 +61,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             $window.location.href = '#/get-passengers-information';
         };
 
-        $scope.getTime = function (timestamp) {
+        $rootScope.getTime = function (timestamp) {
             var date = new Date(timestamp);
             var hour = date.getHours();
             var minute = date.getMinutes();
@@ -71,7 +72,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             return hour + ":" + minute;
         };
 
-        $scope.getDate = function (timestamp) {
+        $rootScope.getDate = function (timestamp) {
             var date = new Date(timestamp);
             var dd = date.getDate();
             var mm = date.getMonth();
