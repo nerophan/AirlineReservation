@@ -1,0 +1,65 @@
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="#"><i class="fa fa-plane" aria-hidden="true"></i> Flights</a>
+        </li>
+        <li role="presentation"><a href="#">Bookings</a></li>
+        <li role="presentation"><a href="#">Passengers</a></li>
+        <li role="presentation" class="active"><a href="#">Routes</a></li>
+    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-plane" aria-hidden="true"></i> Add new route</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="departureRouteCountry">Country:</label>
+                        <select ng-sel class="form-control" ng-model="departureCountry" id="departureRouteCountry">
+                            <option ng-repeat="departure in departures" value="{{$index}}">{{departure.country}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="departureRouteAirport">Departure airport:</label>
+                        <select class="form-control" ng-model="departureRouteAirport" id="departureRouteAirport">
+                            <option ng-repeat="airport in departureAirports" value="{{airport.code}}">{{airport.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="arrivalRouteCountry">Country:</label>
+                        <select class="form-control" ng-model="arrivalCountry" id="arrivalRouteCountry">
+                            <option ng-repeat="arrival in arrivals" value="{{$index}}">{{arrival.country}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="arrivalRouteAirport">Arrival airport:</label>
+                        <select class="form-control" ng-model="arrivalRouteAirport" id="arrivalRouteAirport">
+                            <option ng-repeat="airport in arrivalAirports" value="{{airport.code}}">{{airport.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding: 0px 15px">
+                <div ng-show="message.type=='error'" class="alert alert-danger" role="alert">
+                    <p ng-bind="message.content"></p>
+                </div>
+                <div ng-show="message.type=='success'" class="alert alert-success" role="alert">
+                    <p ng-bind="message.content"></p>
+                </div>
+                <button ng-click="addNewRoute()" class="btn btn-primary">Add</button>
+                <p ng-bind>msg</p>
+            </div>
+        </div>
+    </div>
+</div>

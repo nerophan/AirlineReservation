@@ -10,7 +10,9 @@ var app = angular.module('lotusAirline', [
     'lotusAirline.submition',
     'lotusAirline.dashboard',
     'lotusAirline.airport',
-    'lotusAirline.flight']);
+    'lotusAirline.flight',
+    'lotusAirline.route',
+    'lotusAirline.flightRoute']);
 
 app.config(['$routeProvider', function ($routeProvider) {
 
@@ -33,6 +35,9 @@ app.config(['$routeProvider', function ($routeProvider) {
     }).when('/admin', {
         templateUrl: 'views/admin/dashboard.html',
         controller: 'DashboardCtrl'
+    }).when('/admin/route', {
+        templateUrl: 'views/admin/route.html',
+        controller: 'RouteCtrl'
     }).otherwise({
         redirectTo: '/'
     });

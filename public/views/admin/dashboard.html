@@ -2,29 +2,12 @@
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#"><i class="fa fa-plane" aria-hidden="true"></i> Flights</a>
         </li>
-        <li role="presentation"><a href="#">Bookings</a></li>
+        <li role="presentation"><a href="/route">Bookings</a></li>
         <li role="presentation"><a href="#">Passengers</a></li>
-        <li role="presentation"><a href="#">Routes</a></li>
+        <li role="presentation"><a href="#/admin/route">Routes</a></li>
     </ul>
-    <div class="container">
-        <div class="row">
-            <div class='col-sm-6'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' class="form-control"/>
-                        <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                    </div>
-                </div>
-            </div>
-            <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker1').datetimepicker();
-                });
-            </script>
-        </div>
-    </div>
+
+
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -36,7 +19,8 @@
                     <div class="form-group">
                         <label for="departureCountry">Country:</label>
                         <select ng-sel class="form-control" ng-model="departureCountry" id="departureCountry">
-                            <option ng-repeat="departure in departures" value="{{$index}}">{{departure.country}}</option>
+                            <option ng-repeat="departure in departures" value="{{$index}}">{{departure.country}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -44,7 +28,8 @@
                     <div class="form-group">
                         <label for="departureAirports">Departure airport:</label>
                         <select class="form-control" ng-model="flight.depart" id="departureAirports">
-                            <option ng-repeat="airport in departureAirports" value="{{airport.code}}">{{airport.name}}</option>
+                            <option ng-repeat="airport in departureAirports" value="{{airport.code}}">{{airport.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -61,7 +46,8 @@
                     <div class="form-group">
                         <label for="arrivalAirports">Arrival airport:</label>
                         <select class="form-control" ng-model="flight.arrive" id="arrivalAirports">
-                            <option ng-repeat="airport in arrivalAirports" value="{{airport.code}}">{{airport.name}}</option>
+                            <option ng-repeat="airport in arrivalAirports" value="{{airport.code}}">{{airport.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -71,13 +57,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="departureDateTime">Departure date time:</label>
-                        <input ng-model="departAt" value="2016-10-25T13:11:30" class="form-control" id="departureDateTime" type="datetime-local"/>
+                        <input ng-model="departAt" value="2016-10-25T13:11:30" class="form-control"
+                               id="departureDateTime" type="datetime-local"/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="arrivalDateTime">Arrival date time:</label>
-                        <input ng-model="arriveAt" value="2016-10-25T13:11:30" class="form-control" id="arrivalDateTime" type="datetime-local"/>
+                        <input ng-model="arriveAt" value="2016-10-25T13:11:30" class="form-control" id="arrivalDateTime"
+                               type="datetime-local"/>
                     </div>
                 </div>
             </div>
@@ -104,7 +92,8 @@
                         <td>{{ticket.price}}</td>
                         <td>
                             <button class="btn"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                            <button ng-click="removeTicket($index)" class="btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button ng-click="removeTicket($index)" class="btn"><i class="fa fa-trash"
+                                                                                   aria-hidden="true"></i></button>
                         </td>
                     </tr>
                     <tr>
