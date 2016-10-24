@@ -13,7 +13,7 @@ var flightSchema = new mongoose.Schema({
     },
     arriveAt: {
         type: Number,
-        default: new Date().getTime()
+        default: new Date().getTime() + 3 * 3600 * 1000
     },
     class: String,
     priceLevel: String,
