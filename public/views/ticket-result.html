@@ -1,24 +1,5 @@
 <div id="tickets-result" class="main-container" ng-controller="TicketCtrl">
-    <!--<div class="block-week">-->
-    <!--<ul class="block-content-change-date">-->
-    <!--<li class="active">Thứ 2 <br>18/10/2016</li>-->
-    <!--<li>Thứ 3 <br>19/10/2016</li>-->
-    <!--<li>Thứ 4 <br>20/10/2016</li>-->
-    <!--<li>Thứ 5 <br>1/10/2016</li>-->
-    <!--<li>Thứ 6 <br>22/10/2016</li>-->
-    <!--<li>Thứ 7 <br>23/10/2016</li>-->
-    <!--<li>Chủ nhật <br>24/10/2016</li>-->
-    <!--</ul>-->
-    <!--</div>-->
     <div class="ticket-table">
-        <!--<div class="row table-col-row">-->
-        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
-        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
-        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
-        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
-        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
-        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
-        <!--</div>-->
         <table>
             <thead>
             <tr class="table-col-row">
@@ -34,32 +15,32 @@
             <tr class="i-result">
                 <td>{{ticket.code}}</td>
                 <td>{{ticket.class}}</td>
-                <td><strong>{{ticket.start}}</strong><br><span class="ticket-place">Hà Nội</span></td>
-                <td><strong>{{ticket.end}}</strong><br><span class="ticket-place">Hồ Chí Minh</span></td>
+                <td><strong>{{getTime(ticket.departAt)}}</strong><br><span class="ticket-place">Hà Nội</span></td>
+                <td><strong>{{getTime(ticket.arriveAt)}}</strong><br><span class="ticket-place">Hồ Chí Minh</span></td>
                 <td>{{ticket.priceLevel}}</td>
                 <td>
                     <span class="ticket-price">{{ticket.price}} VNĐ</span>
                     <button class="btn btn-round" ng-click="showTicketDetail($index)">Chọn</button>
                 </td>
             </tr>
-            <tr class="ticket-detail" ng-show="">
+            <tr class="ticket-detail" ng-show="currIndex == $index">
                 <td colspan="6">
                     <table class="subtable" cellspacing="0" width="100%">
                         <tbody>
                         <tr>
                             <td>Từ <strong>TP Hồ Chí Minh</strong></td>
                             <td>Đến <strong>Hà Nội</strong></td>
-                            <td>Hãng: <strong>VietJet</strong></td>
+                            <td>Hãng: <strong>LotusAirline</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>22:40</strong>, 18/10/2016</td>
-                            <td><strong>00:45</strong>, 18/10/2016</td>
-                            <td>Hạng vé: <strong>Eco</strong></td>
+                            <td><strong>{{getTime(ticket.departAt)}}</strong>, {{getDate(ticket.departAt)}}</td>
+                            <td><strong>{{getTime(ticket.arriveAt)}}</strong>, {{getDate(ticket.arriveAt)}}</td>
+                            <td>Hạng vé: <strong>{{ticket.class}}</strong></td>
                         </tr>
                         <tr>
                             <td>Sân bay: Tansonnhat</td>
                             <td>Sân bay: Noibai</td>
-                            <td>Chuyến bay: <strong>VJ184</strong></td>
+                            <td>Chuyến bay: <strong>{{ticket.code}}</strong></td>
                         </tr>
                         </tbody>
                     </table>
@@ -76,7 +57,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Người lớn</td>
+                            <td>Hành khách</td>
                             <td>1</td>
                             <td>699.000 VNĐ</td>
                             <td>369.900 VNĐ</td>
@@ -120,6 +101,11 @@
                         </tr>
                         </tbody>
                     </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="divider" colspan="6">
+                    <hr/>
                 </td>
             </tr>
             </tbody>

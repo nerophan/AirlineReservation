@@ -145,7 +145,7 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
             + "&passengers=" + $scope.data.passengers;
 
         // Test...
-        URL = "/flights/search?from=SGN&to=TBB&depart=2016-10-15&return=&passengers=1";
+        URL = "/flights/search?from=SGN&to=TBB&depart=2016-10-25&return=&passengers=1";
 
         $http.get(URL)
             .then(function (response) {
