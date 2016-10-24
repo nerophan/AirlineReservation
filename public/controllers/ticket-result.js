@@ -8,15 +8,18 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
     function ($scope, $window, $http, $rootScope, $location) {
 
         $scope.currIndex = -1;
-        $rootScope.selectedTicket = {};
 
         $scope.showTicketDetail = function ($index) {
 
-
+            getTotalCost();
 
             // Show ticket detail
             $scope.currIndex = $index;
         };
+
+        function getTotalCost() {
+            
+        }
 
         $scope.getTime = function (timestamp) {
             var date = new Date(timestamp);

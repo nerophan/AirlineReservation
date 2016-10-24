@@ -1,5 +1,7 @@
 <div id="tickets-result" class="main-container" ng-controller="TicketCtrl">
     <div class="ticket-table">
+        <h4 class="trip-title"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+            &nbsp;&nbsp;Lựa chọn chuyến bay chặng đi <strong>{{data.departureAirport}}</strong> đến <strong>{{data.arrivalAirport}}</strong></h4>
         <table>
             <thead>
             <tr class="table-col-row">
@@ -11,7 +13,7 @@
                 <th>Giá</th>
             </tr>
             </thead>
-            <tbody ng-repeat="ticket in tickets">
+            <tbody ng-repeat="ticket in departTickets">
             <tr class="i-result">
                 <td>{{ticket.code}}</td>
                 <td>{{ticket.class}}</td>
@@ -25,84 +27,44 @@
                     <button class="btn btn-round" ng-click="showTicketDetail($index)">Chọn</button>
                 </td>
             </tr>
-            <tr class="ticket-detail" ng-show="currIndex == $index">
-                <td colspan="6">
-                    <table class="subtable" cellspacing="0" width="100%">
-                        <tbody>
-                        <tr>
-                            <td>Từ <strong>{{ticket.depart.name}}</strong></td>
-                            <td>Đến <strong>{{ticket.arrive.name}}</strong></td>
-                            <td>Hãng: <strong>LotusAirline</strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{getTime(ticket.departAt)}}</strong>, {{getDate(ticket.departAt)}}</td>
-                            <td><strong>{{getTime(ticket.arriveAt)}}</strong>, {{getDate(ticket.arriveAt)}}</td>
-                            <td>Hạng vé: <strong>{{ticket.class}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Sân bay: Tansonnhat</td>
-                            <td>Sân bay: Noibai</td>
-                            <td>Chuyến bay: <strong>{{ticket.code}}</strong></td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <tr>
+                <td class="divider" colspan="6">
                     <hr/>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Hành khách</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
-                            <th>Thuế &amp; Phí</th>
-                            <th>Tổng cộng</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Hành khách</td>
-                            <td>1</td>
-                            <td>699.000 VNĐ</td>
-                            <td>369.900 VNĐ</td>
-                            <td>1.068.900 VNĐ</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"></td>
-                            <td colspan="2" style="color: #3074C5"><strong>Tổng cộng: 1.068.900 VNĐ</strong></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <hr/>
-                    <table class="subtable" cellspacing="0" width="100%">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <h4>Điều kiện hành lý</h4>
-                                <p>Hành lý xách tay : Mỗi hành khách (ngoại trừ em bé) được phép mang 01 kiện hành
-                                    lý xách tay chính và 01 kiện hành lý xách tay nhỏ với tổng trọng lượng tối đa không
-                                    vượt quá 07kg
-                                    <br>* Kiện hành lý xách tay chính có kích thước tối đa 56cm x 36cm x 23cm
-                                    <br>* Kiện hành lý xách tay nhỏ (bao gồm những túi sau)
-                                    <br>+ 01 túi xách phụ nữ hoặc sách, tạp chí, máy ảnh, túi đựng thức ăn cho em bé,
-                                    túi
-                                    mua hàng tại sân bay...có kích thước không quá 30cm x 20cm x 10cm
-                                    <br>+ 01 túi đựng áo khoác có kích thước tối đa khi mở ra không quá 114cm x 60cm x
-                                    11cm
-                                    <br>+ 01 túi đựng máy tính xách tay có khích thước tối đa là 40cm x 30cm x 10cm
-                                    <br><br>Hành lý ký gửi : Vui lòng chọn bước sau
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-show="tickets.length == 0">
+            <h2>Méo có vé nào nhá :3</h2>
+        </div>
+    </div>
 
-                                    <strong><br><br>ĐIỀU KIỆN GIÁ VÉ<br></strong>
-
-                                    * Hoàn vé : Không được phép
-                                    <br>*Đổi hành trình : Phí đổi
-                                    <br>+ Chênh lêch giá vé (nếu có)
-                                    <br>*Đổi tên, ngày giờ bay : Phí đổi
-                                    <br>+ Chênh lêch giá vé (nếu có)
-                                    <br><strong>(Mọi thay đổi phải thực hiện tối thiểu trước giờ khởi hành 4h)</strong>
-                                </p>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+    <div class="ticket-table" ng-show="data.type == 'round-trip'">
+        <h4 class="trip-title"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+            &nbsp;&nbsp;Lựa chọn chuyến bay chặng về <strong>{{data.arrivalAirport}}</strong> đến <strong>{{data.departureAirport}}</strong></h4>
+        <table>
+            <thead>
+            <tr class="table-col-row">
+                <th>Chuyến bay</th>
+                <th>Hạng vé</th>
+                <th>Khởi hành</th>
+                <th>Đến</th>
+                <th>Mức giá vé</th>
+                <th>Giá</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="ticket in returnTickets">
+            <tr class="i-result">
+                <td>{{ticket.code}}</td>
+                <td>{{ticket.class}}</td>
+                <td><strong>{{getTime(ticket.departAt)}}</strong><br>
+                    <span class="ticket-place">{{ticket.depart.name}}</span></td>
+                <td><strong>{{getTime(ticket.arriveAt)}}</strong><br>
+                    <span class="ticket-place">{{ticket.arrive.name}}</span></td>
+                <td>{{ticket.priceLevel}}</td>
+                <td>
+                    <span class="ticket-price">{{ticket.price}} VNĐ</span>
+                    <button class="btn btn-round" ng-click="showTicketDetail($index)">Chọn</button>
                 </td>
             </tr>
             <tr>
@@ -112,5 +74,35 @@
             </tr>
             </tbody>
         </table>
+        <div ng-show="tickets.length == 0">
+            <h2>Méo có vé nào nhá :3</h2>
+        </div>
+    </div>
+</div>
+<div class="ticket-detail">
+    <h4>Tổng: 100000 VNĐ</h4>
+    <div>
+        <hr/>
+        <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay đi</h5>
+        <hr/>
+        <p>- Hạng vé: {{}}</p>
+        <p>- Chuyến bay: </p>
+        <p>- Khởi hành: </p>
+        <p>06:40 - 20/10/2016</p>
+        <p> Mức giá vé: Y</p>
+        <p>- Đến nơi: </p>
+        <p>06:40 - 20/10/2016</p>
+    </div>
+    <div>
+        <hr/>
+        <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay về</h5>
+        <hr/>
+        <p>- Hạng vé: {{}}</p>
+        <p>- Chuyến bay: </p>
+        <p>- Khởi hành: </p>
+        <p>06:40 - 20/10/2016</p>
+        <p> Mức giá vé: Y</p>
+        <p>- Đến nơi: </p>
+        <p>06:40 - 20/10/2016</p>
     </div>
 </div>

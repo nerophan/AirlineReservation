@@ -224,9 +224,15 @@ td .btn-round {
 }
 
 .ticket-detail {
-  background-color: #fafafa;
-  border: 1px solid #e0e0e0;
-  padding: 16px;
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 16px;
+    color: #000;
+    position: absolute;
+    right: 38px;
+    top: 260px;
+    width: 300px;
+    margin-bottom: 40px;
 }
 
 .input-contact-infor {
@@ -278,3 +284,21 @@ td .btn-round {
 .date-picker {
     margin-top: 36px;
 }
+
+.trip-title {
+    height: 40px;
+    padding: 10px 10px;
+    color: #FFFFFF;
+    background-color: #3074C5;
+    margin-bottom: 20px;
+}
+
+.ticket-detail h5 {
+    color: #3074C5 !important;
+}
+
+.ticket-detail h4 {
+    color: #ff5640;
+    font-weight: bold;
+}
+
