@@ -1,35 +1,48 @@
-<div id="tickets-result" class="main-container">
-    <div class="block-week">
-        <ul class="block-content-change-date">
-            <li class="active">Thứ 2 <br>18/10/2016</li>
-            <li>Thứ 3 <br>19/10/2016</li>
-            <li>Thứ 4 <br>20/10/2016</li>
-            <li>Thứ 5 <br>1/10/2016</li>
-            <li>Thứ 6 <br>22/10/2016</li>
-            <li>Thứ 7 <br>23/10/2016</li>
-            <li>Chủ nhật <br>24/10/2016</li>
-        </ul>
-    </div>
+<div id="tickets-result" class="main-container" ng-controller="TicketCtrl">
+    <!--<div class="block-week">-->
+    <!--<ul class="block-content-change-date">-->
+    <!--<li class="active">Thứ 2 <br>18/10/2016</li>-->
+    <!--<li>Thứ 3 <br>19/10/2016</li>-->
+    <!--<li>Thứ 4 <br>20/10/2016</li>-->
+    <!--<li>Thứ 5 <br>1/10/2016</li>-->
+    <!--<li>Thứ 6 <br>22/10/2016</li>-->
+    <!--<li>Thứ 7 <br>23/10/2016</li>-->
+    <!--<li>Chủ nhật <br>24/10/2016</li>-->
+    <!--</ul>-->
+    <!--</div>-->
     <div class="ticket-table">
+        <!--<div class="row table-col-row">-->
+        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
+        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
+        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
+        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
+        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
+        <!--<div class="col-md-2"><p>Chuyến bay</p></div>-->
+        <!--</div>-->
         <table>
             <thead>
             <tr class="table-col-row">
                 <th>Chuyến bay</th>
+                <th>Hạng vé</th>
                 <th>Khởi hành</th>
                 <th>Đến</th>
+                <th>Mức giá vé</th>
                 <th>Giá</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody ng-repeat="ticket in tickets">
             <tr class="i-result">
-                <td>VNL170</td>
-                <td><strong>22:35</strong><br><span class="ticket-place">Hà Nội</span></td>
-                <td><strong>00:40</strong><br><span class="ticket-place">Hồ Chí Minh</span></td>
+                <td>{{ticket.code}}</td>
+                <td>{{ticket.class}}</td>
+                <td><strong>{{ticket.start}}</strong><br><span class="ticket-place">Hà Nội</span></td>
+                <td><strong>{{ticket.end}}</strong><br><span class="ticket-place">Hồ Chí Minh</span></td>
+                <td>{{ticket.priceLevel}}</td>
                 <td>
-                    <span class="ticket-price">699.000 VNĐ</span>
-                    <button class="btn btn-round">Chọn</button>
+                    <span class="ticket-price">{{ticket.price}} VNĐ</span>
+                    <button class="btn btn-round" ng-click="showTicketDetail($index)">Chọn</button>
                 </td>
-            <tr class="ticket-detail">
+            </tr>
+            <tr class="ticket-detail" ng-show="">
                 <td colspan="6">
                     <table class="subtable" cellspacing="0" width="100%">
                         <tbody>
@@ -107,34 +120,6 @@
                         </tr>
                         </tbody>
                     </table>
-                </td>
-            </tr>
-            </tr>
-            <tr class="i-result">
-                <td>VNL110</td>
-                <td><strong>10:30</strong><br><span class="ticket-place">Hà Nội</span></td>
-                <td><strong>13:00</strong><br><span class="ticket-place">Hồ Chí Minh</span></td>
-                <td>
-                    <span class="ticket-price">999.000 VNĐ</span>
-                    <button class="btn btn-round">Chọn</button>
-                </td>
-            </tr>
-            <tr class="i-result">
-                <td>VJ170</td>
-                <td><strong>22:35</strong><br><span class="ticket-place">Hà Nội</span></td>
-                <td><strong>00:40</strong><br><span class="ticket-place">Hồ Chí Minh</span></td>
-                <td>
-                    <span class="ticket-price">1.099.000 VNĐ</span>
-                    <button class="btn btn-round">Chọn</button>
-                </td>
-            </tr>
-            <tr class="i-result">
-                <td>VJ170</td>
-                <td><strong>22:35</strong><br><span class="ticket-place">Hà Nội</span></td>
-                <td><strong>00:40</strong><br><span class="ticket-place">Hồ Chí Minh</span></td>
-                <td>
-                    <span class="ticket-price">1.099.000 VNĐ</span>
-                    <button class="btn btn-round">Chọn</button>
                 </td>
             </tr>
             </tbody>

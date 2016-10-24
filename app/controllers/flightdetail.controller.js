@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
     FlightDetail = mongoose.model('FlightDetail'),
     passengerController = require('./../controllers/passenger.controller');
 
+
 var flightDetail = {};
 
 // Add samples dummy data

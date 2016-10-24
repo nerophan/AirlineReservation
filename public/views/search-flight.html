@@ -1,100 +1,99 @@
-<div id="search-box">
-    <div class="main-container">
-        <div class="radio">
-            <label class="radio-opt">
-                <input type="radio" ng-model="data.type" value="round-trip" checked="checked"
-                       ng-change="changeTicketType()">Vé khứ hồi</label>
-            <label class="radio-opt">
-                <input type="radio" ng-model="data.type" value="one-way"
-                       ng-change="changeTicketType()">Vé một chiều</label>
-        </div>
-        <div>
-            <div class="location-picker">
-                <div class="location-picker-title">
-                    <i class="fa fa-plane" aria-hidden="true"></i>
-                    <span>&nbsp;&nbsp;bay từ</span>
-                </div>
-                <select id="selectDepature" class="input-default input-selection-box" ng-model="data.departureAirport">
-                    <optgroup ng-repeat="country in countryDeparture" label="{{country.country}}">
-                        <option ng-repeat="airport in country.airports" class="selection-option"
-                                value="{{airport.code}}">{{airport.name}}
-                        </option>
-                    </optgroup>
-                </select>
+<div id="search-box" class="main-container" ng-controller="SearchCtrl">
+    <div class="radio">
+        <label class="radio-opt">
+            <input type="radio" ng-model="data.type" value="round-trip" checked="checked"
+                   ng-change="changeTicketType()">Vé khứ hồi</label>
+        <label class="radio-opt">
+            <input type="radio" ng-model="data.type" value="one-way"
+                   ng-change="changeTicketType()">Vé một chiều</label>
+    </div>
+    <div>
+        <div class="location-picker">
+            <div class="location-picker-title">
+                <i class="fa fa-plane" aria-hidden="true"></i>
+                <span>&nbsp;&nbsp;bay từ</span>
             </div>
-            <i class="fa fa-exchange" aria-hidden="true"></i>
-            <div class="location-picker">
-                <div class="location-picker-title">
-                    <i class="fa fa-plane" aria-hidden="true"></i>
-                    <span>&nbsp;&nbsp;bay đến</span>
-                </div>
-                <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport" ng-click="getArrivalAirport()">
-                    <optgroup ng-repeat="country in countryArrival" label="{{country.country}}">
-                        <option ng-repeat="airport in country.airports" class="selection-option"
-                                value="{{airport.code}}">{{airport.name}}
-                        </option>
-                    </optgroup>
-                </select>
-            </div>
+            <select id="selectDepature" class="input-default input-selection-box" ng-model="data.departureAirport">
+                <optgroup ng-repeat="country in countryDeparture" label="{{country.country}}">
+                    <option ng-repeat="airport in country.airports" class="selection-option"
+                            value="{{airport.code}}">{{airport.name}}
+                    </option>
+                </optgroup>
+            </select>
         </div>
-        <div id="flight-datepicker" class="input-daterange input-group">
+        <i class="fa fa-exchange" aria-hidden="true"></i>
+        <div class="location-picker">
+            <div class="location-picker-title">
+                <i class="fa fa-plane" aria-hidden="true"></i>
+                <span>&nbsp;&nbsp;bay đến</span>
+            </div>
+            <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport"
+                    ng-click="getArrivalAirport()">
+                <optgroup ng-repeat="country in countryArrival" label="{{country.country}}">
+                    <option ng-repeat="airport in country.airports" class="selection-option"
+                            value="{{airport.code}}">{{airport.name}}
+                    </option>
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    <div id="flight-datepicker" class="input-daterange input-group">
+        <div class="location-picker-title">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            <span>&nbsp;&nbsp;đi ngày</span>
+        </div>
+        <input type="text" id="start-date" name="daterange"
+               placeholder="Chọn ngày đi" class="input-default input-selection-box"/>
+        <div style="margin-left: 20px">
             <div class="location-picker-title">
                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                <span>&nbsp;&nbsp;đi ngày</span>
+                <span>&nbsp;&nbsp;về ngày</span>
             </div>
-            <input type="text" id="start-date" name="start" placeholder="Chọn ngày đi"
-                   data-date-format="DD, MM d" class="input-default input-selection-box"/>
-            <div style="margin-left: 20px">
-                <div class="location-picker-title">
-                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                    <span>&nbsp;&nbsp;về ngày</span>
-                </div>
-                <input type="text" id="end-date" name="end" placeholder="Chọn ngày về" data-date-format="DD, MM d"
-                       class="input-default input-selection-box"/>
-            </div>
+            <input type="text" id="end-date" name="daterange"
+                   placeholder="Chọn ngày về" class="input-default input-selection-box"/>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="col-md-4">
-                <span>Người lớn</span>
-                <div class="float-right">
-                    <a class="btn btn-circle btn-primary" ng-click="removePassenger('adult')">
-                        <i class="fa fa-minus" aria-hidden="true"></i></a>
-                    <span class="number-people">{{adult}}</span>
-                    <a class="btn btn-circle btn-primary" ng-click="addPassenger('adult')">
-                        <i class="fa fa-plus" aria-hidden="true"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <span>Trẻ em</span>
-                <div class="float-right">
-                    <a class="btn btn-circle btn-primary" ng-click="removePassenger('children')">
-                        <i class="fa fa-minus" aria-hidden="true"></i></a>
-                    <span class="number-people">{{children}}</span>
-                    <a class="btn btn-circle btn-primary" ng-click="addPassenger('children')">
-                        <i class="fa fa-plus" aria-hidden="true"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <span>Em bé</span>
-                <div class="float-right">
-                    <a class="btn btn-circle btn-primary" ng-click="removePassenger('baby')">
-                        <i class="fa fa-minus" aria-hidden="true"></i></a>
-                    <span class="number-people">{{baby}}</span>
-                    <a class="btn btn-circle btn-primary" ng-click="addPassenger('baby')">
-                        <i class="fa fa-plus" aria-hidden="true"></i></a>
-                </div>
-            </div>
-        </div>
-        <hr/>
-        <div class="radio">
-            <label class="radio-opt">
-                <input type="radio" ng-model="data.filter" value="exactly" checked="checked">Bay vào ngày
-                này</label>
-            <label class="radio-opt">
-                <input type="radio" ng-model="data.filter" value="cheapest">Tìm vé rẻ nhất</label>
-        </div>
-        <a class="btn btn-round float-right" ng-click="findTicket()">
-            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Tìm vé</a>
     </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <span>Người lớn</span>
+            <div class="float-right">
+                <a class="btn btn-circle btn-primary" ng-click="removePassenger('adult')">
+                    <i class="fa fa-minus" aria-hidden="true"></i></a>
+                <span class="number-people">{{adult}}</span>
+                <a class="btn btn-circle btn-primary" ng-click="addPassenger('adult')">
+                    <i class="fa fa-plus" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span>Trẻ em</span>
+            <div class="float-right">
+                <a class="btn btn-circle btn-primary" ng-click="removePassenger('children')">
+                    <i class="fa fa-minus" aria-hidden="true"></i></a>
+                <span class="number-people">{{children}}</span>
+                <a class="btn btn-circle btn-primary" ng-click="addPassenger('children')">
+                    <i class="fa fa-plus" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span>Em bé</span>
+            <div class="float-right">
+                <a class="btn btn-circle btn-primary" ng-click="removePassenger('baby')">
+                    <i class="fa fa-minus" aria-hidden="true"></i></a>
+                <span class="number-people">{{baby}}</span>
+                <a class="btn btn-circle btn-primary" ng-click="addPassenger('baby')">
+                    <i class="fa fa-plus" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="radio">
+        <label class="radio-opt">
+            <input type="radio" ng-model="data.filter" value="exactly">Bay vào ngày
+            này</label>
+        <label class="radio-opt">
+            <input type="radio" ng-model="data.filter" value="cheapest">Tìm vé rẻ nhất</label>
+    </div>
+    <a class="btn btn-round float-right" ng-click="findTicket()">
+        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Tìm vé</a>
 </div>

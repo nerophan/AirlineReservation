@@ -1,6 +1,7 @@
 var searchModule = angular.module('lotusAirline.search', []);
 
-searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($scope, $window, $http) {
+searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope', '$location',
+    function ($scope, $window, $http, $rootScope, $location) {
 
     $scope.countryDeparture = [];
     $scope.countryArrival = [];
@@ -18,25 +19,6 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
         "filter": "exactly"
     };
 
-    var dateSelect = $('#flight-datepicker');
-    var dateDepart = $('#start-date');
-    var dateReturn = $('#end-date');
-    var spanDepart = $('.date-depart');
-    var spanReturn = $('.date-return');
-    var spanDateFormat = 'ddd, MMMM D yyyy';
-
-    dateSelect.datepicker({
-        autoclose: true,
-        format: "dd/mm/yyyy",
-        maxViewMode: 0,
-        startDate: "now"
-    }).on('change', function () {
-        var start = $.format.date(dateDepart.datepicker('getDate'), spanDateFormat);
-        var end = $.format.date(dateReturn.datepicker('getDate'), spanDateFormat);
-        spanDepart.text(start);
-        spanReturn.text(end);
-    });
-
     // GET all available airports
     $http.get("/airports")
         .then(function (response) {
@@ -44,14 +26,7 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
         });
 
     $scope.changeTicketType = function () {
-        if ($scope.data.type == "one-way") {
-            document.getElementById('end-date').disabled = true;
-            // document.getElementById('end-date').style.borderColor = "#757575";
-        }
-        else {
-            document.getElementById('end-date').disabled = false;
-            // document.getElementById('end-date').style.borderColor = "#3074C5";
-        }
+        document.getElementById('end-date').disabled = $scope.data.type == "one-way";
     };
 
     // Get arrival airports
@@ -63,7 +38,7 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
         } else {
 
             // Get arrival airports
-            $http.get("/airports/" + $scope.data.departureAirport)
+            $http.get("/airports?depart=" + $scope.data.departureAirport)
                 .then(function (response) {
                     $scope.countryArrival = response.data;
                 });
@@ -131,17 +106,56 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
     };
 
     $scope.findTicket = function () {
-        console.log($scope.data);
+        // TEST :3
+        getTicket();
+        $window.location.href = '#/ticket-results';
+        return;
 
-        if ($scope.data.departureAirport == null
-            || $scope.data.arrivalAirport == null
-            || $scope.data.depart == null
-            || ($scope.data.type == "round-trip" && $scope.data.return == null)) {
+        $scope.data.depart = $('#start-date').val();
+        $scope.data.return = $('#end-date').val();
+
+        // Check data
+        if ($scope.data.departureAirport == ""
+            || $scope.data.arrivalAirport == ""
+            || $scope.data.depart == ""
+            || ($scope.data.type == "round-trip" && $scope.data.return == "")) {
             alert("Bạn chưa điền đầy đủ thông tin");
+            return;
         }
-        else {
 
-        }
+        // Format depart date
+        $scope.data.depart = formartDate($scope.data.depart);
+        $scope.data.return = formartDate($scope.data.return);
+
+        // One-way ticket has no return
+        if ($scope.data.type != "round-trip")
+            $scope.data.return = "";
+
+        // console.log($scope.data);
+        getTicket();
+        $window.location.href = '#/ticket-results';
     };
 
+    function getTicket() {
+        var URL = "/flights/search?"
+            + "from=" + $scope.data.departureAirport
+            + "&to=" + $scope.data.arrivalAirport
+            + "&depart=" + $scope.data.depart
+            + "&return=" + $scope.data.return
+            + "&passengers=" + $scope.data.passengers;
+
+        // Test...
+        URL = "/flights/search?from=SGN&to=TBB&depart=2016-10-15&return=&passengers=1";
+
+        $http.get(URL)
+            .then(function (response) {
+                $rootScope.tickets = response.data;
+                console.log($rootScope.tickets);
+            });
+    }
+
+    function formartDate(date) {
+        var newDate = date.split("/");
+        return newDate[2] + "-" + newDate[1] + "-" + newDate[0];
+    }
 }]);

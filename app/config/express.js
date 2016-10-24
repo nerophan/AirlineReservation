@@ -15,6 +15,7 @@ require('./../models/route.model');
 
 var routes = require('./../routes/index.route.js'),
     users = require('./../routes/users.route.js'),
+
     flight = require('./../routes/flight.route'),
     booking = require('./../routes/booking.route'),
     flightDetail = require('./../routes/flightdetail.route'),
@@ -39,6 +40,7 @@ app.use(express.static(path.resolve('./public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/flights', flight);
+
 app.use('/bookings', booking);
 app.use('/flight-details', flightDetail);
 app.use('/passengers', passenger);

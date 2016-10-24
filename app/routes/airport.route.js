@@ -1,3 +1,4 @@
+
 var express = require('express'),
     router = express.Router(),
     airportController = require('./../controllers/airport.controller');
@@ -9,6 +10,5 @@ router
     .post('/', function (req, res) {
         airportController.add(req, res);
     });
-
 
 module.exports = router;
