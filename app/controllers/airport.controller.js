@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
     Airport = mongoose.model('Airport'),
-    routeController = require('./../controllers/route.controller'),
-    FlightCode = mongoose.model('FlightDetail');
+    routeController = require('./../controllers/route.controller');
 
 // Use this seed database with samples
 module.exports.addSampleData = function (req, res) {
