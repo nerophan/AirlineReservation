@@ -8,8 +8,8 @@ var routeSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
-    depart: String,
-    arrive: String
+    from: String,
+    to: String
 });
 
 mongoose.model('Route', routeSchema);

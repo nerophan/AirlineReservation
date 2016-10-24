@@ -4,10 +4,10 @@ var express = require('express'),
 
 router
     .get('/', function (req, res) {
-        airportController.getDepartureAirports(req, res);
+        airportController.getAirports(req, res);
     })
     .post('/', function (req, res) {
-        airportController.addSampleData(req, res);
+        airportController.add(req, res);
     });
 
 

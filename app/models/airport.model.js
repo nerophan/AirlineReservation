@@ -10,7 +10,8 @@ var airportSchema = new mongoose.Schema({
         uppercase: true,
         minlength: 3,
         maxlength: 3,
-        trim: true
+        trim: true,
+        unique: true
     },
     name: {
         type: String,
