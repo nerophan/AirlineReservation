@@ -14,13 +14,11 @@ var airport = {};
 airport.get = function (req, res) {
     //var airportId = req.params.id;
     var airportId = req.query.dep;
+    var result = {};
+
     if (airportId == null) {
-        Airport.find({}, function (err, data) {
-            if (err) {
-                res.status(404).send({"error": "Requested airport cound not be found"});
-            } else {
-                res.status(200).json(data);
-            }
+        Airport.find().exec(function(err,data){
+            console.log(data);
         });
     } else {
         var toAirportList = new Array();

@@ -11,7 +11,7 @@ var bookingSchema = new mongoose.Schema({
         maxlength: 6
     },
     bookedAt: {
-        type: Date,
+        type: Number,
         default: new Date().getTime()
     },
     price: Number,

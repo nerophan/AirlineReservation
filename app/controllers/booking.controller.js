@@ -78,7 +78,7 @@ book.add = function(req,res){
         var datetime = new Date(data.flights[0].datetime);
         //check if flight exist
         Flight.find({"code":data.flights[0].code,"class":data.flights[0].class,"priceLevel":data.flights[0].priceLevel,
-            "datetime":{"$gte": new Date(2012, 7, 14)}
+            "datetime":data.flights[0].datetime
         },function(err,flight){
             datetime;
             if(err || flight.length == 0){

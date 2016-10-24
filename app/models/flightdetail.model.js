@@ -7,7 +7,7 @@ var flightDetailSchema = new mongoose.Schema({
     bookingCode: String,
     flightCode: String,
     date: {
-        type: Date,
+        type: Number,
         default: new Date().getTime()
     },
     class: String,
