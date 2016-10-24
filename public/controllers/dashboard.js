@@ -93,5 +93,14 @@ dashboardModule.controller('DashboardCtrl', ['$scope', '$timeout', 'Airports', '
             }, 1500);
         });
     }
+
+    $scope.removeTicket = function (index) {
+        $scope.tickets.splice(index, 1);
+    }
+
+    $scope.resetForm = function () {
+        init();
+    }
+
 }]);
 
