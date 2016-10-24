@@ -18,18 +18,18 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
         $scope.selectTicket = function ($index, type) {
             if (type == 'depart') {
                 $scope.departTicket = $rootScope.departTickets[$index];
-                updateFlights($scope.departTicket);
+                updateFlights($scope.departTicket, type);
             }
             else {
                 $scope.returnTicket = $rootScope.returnTickets[$index];
-                updateFlights($scope.returnTicket);
+                updateFlights($scope.returnTicket, type);
             }
 
             console.log($scope.bookingInfor);
         };
 
         // Add new flight to booking infor
-        function updateFlights(flight) {
+        function updateFlights(flight, type) {
             var newFlight = {
                 "code": flight.code,
                 "departAt": flight.departAt,
@@ -38,8 +38,27 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
                 "class": flight.class
             };
 
-            $scope.bookingInfor.flights.push(newFlight);
+            var pos = 1;
+            if (type == 'depart') pos = 0;
+
+            if ($scope.bookingInfor.flights.length < pos + 1)
+                $scope.bookingInfor.flights.push(newFlight);
+            else
+                $scope.bookingInfor.flights[pos] = newFlight;
         }
+
+        $scope.continueBooking = function () {
+            // Push passengers to data
+            for (var i = 0; i < $rootScope.data.passengers; i++) {
+                $rootScope.bookingInfor.passengers.push({
+                    "title": "",
+                    "firstName": "",
+                    "lastName": ""
+                });
+            }
+
+            $window.location.href = '#/get-passengers-information';
+        };
 
         $scope.getTime = function (timestamp) {
             var date = new Date(timestamp);

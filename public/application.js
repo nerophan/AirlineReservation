@@ -22,7 +22,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         templateUrl: 'views/passenger-information.html',
         controller: 'PassengersCtrl'
 
-    }).when('/search', {
+    }).when('/submition', {
         templateUrl: 'views/submition.html',
         controller: 'SubmitionCtrl'
 

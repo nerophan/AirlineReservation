@@ -39,7 +39,6 @@
             <h3 class="not-found">Không tìm thấy vé phù hợp</h3>
         </div>
     </div>
-
     <div class="ticket-table" ng-show="data.type == 'round-trip'">
         <h4 class="trip-title"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
             &nbsp;&nbsp;Lựa chọn chuyến bay chặng về <strong>{{data.arrivalAirport}}</strong> đến <strong>{{data.departureAirport}}</strong>
@@ -80,6 +79,8 @@
             <h3 class="not-found">Không tìm thấy vé phù hợp</h3>
         </div>
     </div>
+    <a class="btn btn-round float-right" ng-click="continueBooking()">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;&nbsp;Tiếp tục đặt vé</a>
 </div>
 <div class="ticket-detail">
     <h4>Tổng: 100000 VNĐ</h4>
