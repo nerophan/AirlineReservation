@@ -6,7 +6,11 @@ var mongoose = require('mongoose');
 var flightDetailSchema = new mongoose.Schema({
     bookingCode: String,
     flightCode: String,
-    date: {
+    departAt: {
+        type: Number,
+        default: new Date().getTime()
+    },
+    arriveAt: {
         type: Number,
         default: new Date().getTime()
     },
