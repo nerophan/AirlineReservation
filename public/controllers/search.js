@@ -1,6 +1,6 @@
 var searchModule = angular.module('lotusAirline.search', []);
 
-searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($scope, $window, $http) {
+searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope', function ($scope, $window, $http, $rootScope) {
 
     $scope.countryDeparture = [];
     $scope.countryArrival = [];
@@ -122,14 +122,29 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', function ($
         $scope.data.return = formartDate($scope.data.return);
 
         // One-way ticket has no return
-        if($scope.data.type != "round-trip")
+        if ($scope.data.type != "round-trip")
             $scope.data.return = "";
 
-        console.log($scope.data);
+        // console.log($scope.data);
+        getTicket();
     };
-    
+
     function getTicket() {
-        
+        var URL = "/flights/search?"
+            + "from=" + $scope.data.departureAirport
+            + "&to=" + $scope.data.arrivalAirport
+            + "&depart=" + $scope.data.depart
+            + "&return=" + $scope.data.return
+            + "&passengers=" + $scope.data.passengers;
+
+        // Test...
+        URL = "/flights/search?from=SGN&to=TBB&depart=2016-10-15&return=&passengers=1";
+
+        $http.get(URL)
+            .then(function (response) {
+                $rootScope.tickets = response.data;
+                console.log($rootScope.tickets);
+            });
     }
 
     function formartDate(date) {

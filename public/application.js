@@ -8,8 +8,8 @@ var app = angular.module('lotusAirline', [
     'lotusAirline.passengerInfor',
     'lotusAirline.submition']);
 
-app.factory('tickets', function () {
-    var oneWayTicket = {
+app.factory('Tickets', function () {
+    var oneWayTicket = [{
         "_id": '',
         "code": '',
         "depart": '',
@@ -20,8 +20,9 @@ app.factory('tickets', function () {
         "price": 0,
         "__v": 0,
         "datetime": 0
-    };
-    var roundTripTicket = {
+    }];
+
+    var roundTripTicket = [{
         "return": [
             {
                 "_id": '',
@@ -50,7 +51,7 @@ app.factory('tickets', function () {
                 "datetime": 0
             }
         ]
-    };
+    }];
 
     return {
         getOneWayTicket: function () {
@@ -59,6 +60,10 @@ app.factory('tickets', function () {
 
         getRounfTripTicket: function () {
             return roundTripTicket;
+        },
+
+        updateOneWayTicket: function (tickets) {
+            oneWayTicket = tickets;
         }
     };
 });
@@ -71,7 +76,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 
     }).when('/ticket-results', {
         templateUrl: 'views/ticket-result.html',
-        controller: 'TicketResultCtrl'
+        controller: 'TicketCtrl'
 
     }).when('/get-passengers-information', {
         templateUrl: 'views/passenger-information.html',
