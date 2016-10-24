@@ -13,7 +13,8 @@
                 <i class="fa fa-plane" aria-hidden="true"></i>
                 <span>&nbsp;&nbsp;bay từ</span>
             </div>
-            <select id="selectDepature" class="input-default input-selection-box" ng-model="data.departureAirport">
+            <select id="selectDepature" class="input-default input-selection-box"
+                    ng-model="data.departureAirport" ng-change="getArrivalAirport()">
                 <optgroup ng-repeat="country in countryDeparture" label="{{country.country}}">
                     <option ng-repeat="airport in country.airports" class="selection-option"
                             value="{{airport.code}}">{{airport.name}}
@@ -27,8 +28,7 @@
                 <i class="fa fa-plane" aria-hidden="true"></i>
                 <span>&nbsp;&nbsp;bay đến</span>
             </div>
-            <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport"
-                    ng-click="getArrivalAirport()">
+            <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport">
                 <optgroup ng-repeat="country in countryArrival" label="{{country.country}}">
                     <option ng-repeat="airport in country.airports" class="selection-option"
                             value="{{airport.code}}">{{airport.name}}

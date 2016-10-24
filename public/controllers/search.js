@@ -31,8 +31,6 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
 
     // Get arrival airports
     $scope.getArrivalAirport = function () {
-
-        // Check depature
         if ($scope.data.departureAirport == null) {
             alert("Bạn chưa chọn sân bay đi");
         } else {
@@ -106,11 +104,6 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
     };
 
     $scope.findTicket = function () {
-        // TEST :3
-        getTicket();
-        $window.location.href = '#/ticket-results';
-        return;
-
         $scope.data.depart = $('#start-date').val();
         $scope.data.return = $('#end-date').val();
 
@@ -145,7 +138,7 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
             + "&passengers=" + $scope.data.passengers;
 
         // Test...
-        URL = "/flights/search?from=SGN&to=TBB&depart=2016-10-25&return=&passengers=1";
+        // URL = "/flights/search?from=SGN&to=TBB&depart=2016-10-25&return=&passengers=1";
 
         $http.get(URL)
             .then(function (response) {
