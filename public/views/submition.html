@@ -58,7 +58,6 @@
                 </tr>
                 </tbody>
             </table>
-            <hr/>
         </div>
         <hr/>
         <table>
@@ -138,5 +137,5 @@
     <div class="ticket-cost">
         <h2>Giá vé: {{data.departTicket.price + data.returnTicket.price}} VNĐ</h2>
     </div>
-    <button class="btn btn-round float-right">Hoàn tất đặt vé</button>
+    <button class="btn btn-round float-right" ng-click="submitBooking()">Hoàn tất đặt vé</button>
 </div>

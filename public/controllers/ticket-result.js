@@ -25,7 +25,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
                 updateFlights($rootScope.data.returnTicket, type);
             }
 
-            console.log($scope.bookingInfor);
+            console.log($rootScope.bookingInfor);
             console.log($rootScope.data);
         };
 
@@ -42,16 +42,17 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             var pos = 1;
             if (type == 'depart') pos = 0;
 
-            if ($scope.bookingInfor.flights.length < pos + 1)
-                $scope.bookingInfor.flights.push(newFlight);
+            if ($rootScope.bookingInfor.flights.length < pos + 1)
+                $rootScope.bookingInfor.flights.push(newFlight);
             else
-                $scope.bookingInfor.flights[pos] = newFlight;
+                $rootScope.bookingInfor.flights[pos] = newFlight;
         }
 
         // Continue booking
         $scope.continueBooking = function () {
             // Check booking info
-            if($rootScope.data.type == 'round-trip' && $rootScope.bookingInfor.flights != 2) {
+            if ($rootScope.bookingInfor.flights.length == 0
+                || ($rootScope.data.type == 'round-trip' && $rootScope.bookingInfor.flights.length != 2)) {
                 alert('Bạn chưa chọn chuyến bay về');
                 return;
             }
