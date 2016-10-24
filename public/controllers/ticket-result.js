@@ -8,7 +8,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
 
         $scope.currIndex = -1;
 
-        // Booking infor
+        // Booking infor - global variable
         $rootScope.bookingInfor = {
             "flights": [],
             "passengers": []
@@ -17,12 +17,12 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
         // Select ticket
         $scope.selectTicket = function ($index, type) {
             if (type == 'depart') {
-                $scope.departTicket = $rootScope.departTickets[$index];
-                updateFlights($scope.departTicket, type);
+                $rootScope.data.departTicket = $rootScope.departTickets[$index];
+                updateFlights($rootScope.data.departTicket, type);
             }
             else {
-                $scope.returnTicket = $rootScope.returnTickets[$index];
-                updateFlights($scope.returnTicket, type);
+                $rootScope.data.returnTicket = $rootScope.returnTickets[$index];
+                updateFlights($rootScope.data.returnTicket, type);
             }
 
             console.log($scope.bookingInfor);

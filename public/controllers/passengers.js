@@ -12,15 +12,16 @@ passengerInforModule.controller('PassengersCtrl', ['$scope', '$window', '$http',
             if (checkPassengerInfo())
                 $window.location.href = "#/submition";
             else
-                alert('Bạn chưa nhập đủ thông tin');
+                alert('Bạn chưa nhập đủ thông tin hành khách');
         };
 
         checkPassengerInfo = function () {
-            for(var i = 0; i < $rootScope.bookingInfor.passengers.length; i++) {
-                var pass = $rootScope.bookingInfor.passengers.length[i];
-                
+            for (var i = 0; i < $rootScope.bookingInfor.passengers.length; i++) {
+                if ($rootScope.bookingInfor.passengers[i].title == ""
+                    || $rootScope.bookingInfor.passengers[i].firstName == ""
+                    || $rootScope.bookingInfor.passengers[i].lastName == "")
+                    return false;
             }
-
 
             return true;
         }
