@@ -26,6 +26,9 @@ app.config(['$routeProvider', function ($routeProvider) {
         templateUrl: 'views/submition.html',
         controller: 'SubmitionCtrl'
 
+    }).when('/admin', {
+        templateUrl: 'views/admin/dashboard.html',
+        controller: 'DashboardController'
     }).otherwise({
         redirectTo: '/'
     });

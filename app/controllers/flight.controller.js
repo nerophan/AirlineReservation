@@ -195,11 +195,15 @@ function filterFlight(conditions, callback) {
 
             flightDetailController.countAvailableSlot(flight, function (err, availableSlot) {
                 flight.numberOfSeat = availableSlot;
-                if (availableSlot >= conditions.numberOfPassenger)
+                if (availableSlot >= conditions.numberOfPassenger) {
                     responseFlights.push(flight);
+                    console.log('add');
+                }
+
 
                 // Response after the last item
                 if (++countFlight == flights.length) {
+                    console.log('end');
                     callback(null, responseFlights);
                 }
             });

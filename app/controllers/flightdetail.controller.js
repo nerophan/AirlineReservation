@@ -49,11 +49,14 @@ flightDetail.countAvailableSlot = function(flight, callback) {
 
         // Count total number of passenger in each booking
         var booked = 0;
+        var i = 0;
         details.forEach(function (detail, index) {
             passengerController.countPassengerByFlight(detail, function (err, count) {
                 booked += count;
 
-                if (index == details.length - 1) {
+                if (++i == details.length) {
+                    console.log('booked');
+                    console.log(booked);
                     callback(err, flight.numberOfSeat - booked);
                 }
             });

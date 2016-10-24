@@ -1,0 +1,75 @@
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#"><i class="fa fa-plane" aria-hidden="true"></i> Flights</a></li>
+        <li role="presentation"><a href="#">Bookings</a></li>
+        <li role="presentation"><a href="#">Passengers</a></li>
+        <li role="presentation"><a href="#">Routes</a></li>
+    </ul>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-plane" aria-hidden="true"></i> Add new flight</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="main-container">
+                <div class="radio">
+                    <label class="radio-opt">
+                        <input type="radio" name="flightType" ng-model="data.type" value="round-trip" checked="checked"
+                               ng-change="changeTicketType()">Round-trip flight</label>
+                    <label class="radio-opt">
+                        <input type="radio" name="flightType" ng-model="data.type" value="one-way"
+                               ng-change="changeTicketType()">One-way flight</label>
+                </div>
+                <div>
+                    <div class="location-picker">
+                        <div class="location-picker-title">
+                            <i class="fa fa-plane" aria-hidden="true"></i>
+                            <span>&nbsp;&nbsp;Departure airport</span>
+                        </div>
+                        <select id="selectDepature" class="input-default input-selection-box" ng-model="data.departureAirport">
+                            <optgroup ng-repeat="country in countryDeparture" label="{{country.country}}">
+                                <option ng-repeat="airport in country.airports" class="selection-option"
+                                        value="{{airport.code}}">{{airport.name}}
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                    <div class="location-picker">
+                        <div class="location-picker-title">
+                            <i class="fa fa-plane" aria-hidden="true"></i>
+                            <span>&nbsp;&nbsp;Arrival airport</span>
+                        </div>
+                        <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport" ng-click="getArrivalAirport()">
+                            <optgroup ng-repeat="country in countryArrival" label="{{country.country}}">
+                                <option ng-repeat="airport in country.airports" class="selection-option"
+                                        value="{{airport.code}}">{{airport.name}}
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div id="flight-datepicker" class="input-daterange input-group">
+                    <div class="location-picker-title">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <span>&nbsp;&nbsp;Departure date</span>
+                    </div>
+                    <input type="text" id="start-date" name="start" placeholder="Pick a date"
+                           data-date-format="DD, MM d" class="input-default input-selection-box"/>
+                    <div style="margin-left: 20px">
+                        <div class="location-picker-title">
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            <span>&nbsp;Return date</span>
+                        </div>
+                        <input type="text" id="end-date" name="end" placeholder="Pick a date" data-date-format="DD, MM d"
+                               class="input-default input-selection-box"/>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+
+                </div>
+            </div>
+    </div>
+</div>

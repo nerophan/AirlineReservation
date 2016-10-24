@@ -277,3 +277,8 @@ module.exports.add = function (req, res) {
         }
     });
 };
+
+// Get airport detail
+module.exports.getAirportDetail = function (req, res) {
+
+}
