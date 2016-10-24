@@ -7,6 +7,7 @@ var passengerInforModule = angular.module('lotusAirline.passengerInfor', []);
 passengerInforModule.controller('PassengersCtrl', ['$scope', '$window', '$http', '$rootScope',
     function ($scope, $window, $http, $rootScope) {
 
+        // Continue booking with current booking info
         $scope.continueBooking = function () {
             console.log($rootScope.bookingInfor);
             if (checkPassengerInfo())
@@ -15,6 +16,7 @@ passengerInforModule.controller('PassengersCtrl', ['$scope', '$window', '$http',
                 alert('Bạn chưa nhập đủ thông tin hành khách');
         };
 
+        // Check passenger info
         checkPassengerInfo = function () {
             for (var i = 0; i < $rootScope.bookingInfor.passengers.length; i++) {
                 if ($rootScope.bookingInfor.passengers[i].title == ""

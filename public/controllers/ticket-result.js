@@ -14,7 +14,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             "passengers": []
         };
 
-        // Select ticket
+        // Select ticket handler
         $scope.selectTicket = function ($index, type) {
             if (type == 'depart') {
                 $rootScope.data.departTicket = $rootScope.departTickets[$index];
@@ -29,7 +29,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             console.log($rootScope.data);
         };
 
-        // Add new flight to booking infor
+        // Add new flight to booking info
         function updateFlights(flight, type) {
             var newFlight = {
                 "code": flight.code,
@@ -48,7 +48,14 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
                 $scope.bookingInfor.flights[pos] = newFlight;
         }
 
+        // Continue booking
         $scope.continueBooking = function () {
+            // Check booking info
+            if($rootScope.data.type == 'round-trip' && $rootScope.bookingInfor.flights != 2) {
+                alert('Bạn chưa chọn chuyến bay về');
+                return;
+            }
+
             // Push passengers to data
             for (var i = 0; i < $rootScope.data.passengers; i++) {
                 $rootScope.bookingInfor.passengers.push({
@@ -61,6 +68,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             $window.location.href = '#/get-passengers-information';
         };
 
+        // Get time (HH:MM) from timestamp
         $rootScope.getTime = function (timestamp) {
             var date = new Date(timestamp);
             var hour = date.getHours();
@@ -72,6 +80,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
             return hour + ":" + minute;
         };
 
+        // Get date (HH:MM) from timestamp
         $rootScope.getDate = function (timestamp) {
             var date = new Date(timestamp);
             var dd = date.getDate();

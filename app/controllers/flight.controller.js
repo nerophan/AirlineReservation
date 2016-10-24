@@ -260,13 +260,32 @@ module.exports.getRoundTripFlights = function (req, res) {
     // Get query parameters
     var departureConditions = getConditionFromQuery(req.query);
 
+    var departureAirport = null;
+    var arriveAirport = null;
+
+    airportController.getAirportDetail(departureConditions.depart, function (err, airport) {
+        departureAirport = {code: airport.code, name: airport.name};
+        console.log(departureAirport);
+    });
+
+    airportController.getAirportDetail(departureConditions.arrive, function (err, airport) {
+        arriveAirport = {code: airport.code, name: airport.name};
+        console.log(arriveAirport);
+    });
+
     // Filter departure flights
     filterFlight(departureConditions, function (err, flights) {
         if (err && !responsed) {
             res.status(400).end('Oops! Something went wrong...');
             responsed = true;
         } else {
-            responseFlights.depart = flights;
+            responseFlights.depart = [];
+            for (var i = 0; i < flights.length; i++) {
+                responseFlights.depart.push(JSON.parse(JSON.stringify(flights[i])));
+                responseFlights.depart[i].depart = departureAirport;
+                responseFlights.depart[i].arrive = arriveAirport;
+            }
+
             if (responseFlights.return) {
                 res.json(responseFlights);
             }
@@ -282,7 +301,13 @@ module.exports.getRoundTripFlights = function (req, res) {
             res.status(400).end('Oops! Something went wrong...');
             responsed = true;
         } else {
-            responseFlights.return = flights;
+            responseFlights.return = [];
+
+            for (var i = 0; i < flights.length; i++) {
+                responseFlights.return.push(JSON.parse(JSON.stringify(flights[i])));
+                responseFlights.return[i].depart = arriveAirport;
+                responseFlights.return[i].arrive = departureAirport;
+            }
             if (responseFlights.depart) {
                 res.json(responseFlights);
             }
