@@ -1,7 +1,7 @@
+
 var mongoose = require('mongoose'),
     Airport = mongoose.model('Airport'),
-    routeController = require('./../controllers/route.controller'),
-    FlightCode = mongoose.model('FlightDetail');
+    routeController = require('./../controllers/route.controller');
 
 // Use this seed database with samples
 module.exports.addSampleData = function (req, res) {
@@ -201,7 +201,6 @@ var getArrivalAirports = function (departureAirports, callback) {
         if (err) {
             callback(err);
         } else {
-
             if (!routes.length)
                 callback(null, []);
 
@@ -263,9 +262,11 @@ module.exports.getAirports = function (req, res) {
                 res.json(airports);
                 console.log(airports);
             }
+
         });
     }
 };
+
 
 // Add new airport
 module.exports.add = function (req, res) {

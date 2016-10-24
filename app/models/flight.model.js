@@ -16,5 +16,12 @@ var flightSchema = new mongoose.Schema({
     numberOfSeat: Number,
     price: Number
 });
+// var flightSchema = new mongoose.Schema({
+//     planeId: String,
+//     datetime: {
+//         type: Date,
+//         default: new Date().getTime()
+//     },
+// });
 
 mongoose.model('Flight', flightSchema);

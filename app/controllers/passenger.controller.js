@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     Passenger = mongoose.model('Passenger');
 
+
 module.exports.countPassengerByFlight = function (flightDetail, callback) {
     Passenger.find({bookingCode: flightDetail.bookingCode}).count(function (err, count) {
         callback(err, count);
