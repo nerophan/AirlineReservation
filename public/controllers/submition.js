@@ -12,6 +12,8 @@ submitionModule.controller('SubmitionCtrl', ['$scope', '$window', '$http', '$roo
             $http.post("/bookings", $rootScope.bookingInfor)
                 .then(function (response) {
                     console.log(response.data);
+                    $scope.ticketID = response.data.id;
+                    $("#TicketInfoModal").modal("show");
                 });
         };
     }]);
