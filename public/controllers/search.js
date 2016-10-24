@@ -1,6 +1,7 @@
 var searchModule = angular.module('lotusAirline.search', []);
 
-searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope', function ($scope, $window, $http, $rootScope) {
+searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope', '$location',
+    function ($scope, $window, $http, $rootScope, $location) {
 
     $scope.countryDeparture = [];
     $scope.countryArrival = [];
@@ -105,6 +106,11 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
     };
 
     $scope.findTicket = function () {
+        // TEST :3
+        getTicket();
+        $window.location.href = '#/ticket-results';
+        return;
+
         $scope.data.depart = $('#start-date').val();
         $scope.data.return = $('#end-date').val();
 
@@ -127,6 +133,7 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
 
         // console.log($scope.data);
         getTicket();
+        $window.location.href = '#/ticket-results';
     };
 
     function getTicket() {
