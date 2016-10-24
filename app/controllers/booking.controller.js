@@ -35,22 +35,48 @@ book.get = function(req,res){
             console.log(err);
             res.status(404).send({"error":"error getting flight detail"});
         } else {
-            bookDetail.flightdetails = flightdetails;
+            //bookDetail.flightdetails = flightdetails;
+            for(var i=0;i<flightdetails.length;i++){
+
+                // bookDetail.flightdetails[i].flightCode = flightdetails[i].flightCode;
+                // bookDetail.flightdetails[i].departAt = flightdetails[i].departAt;
+                // bookDetail.flightdetails[i].arriveAt = flightdetails[i].arriveAt;
+                // bookDetail.flightdetails[i].class = flightdetails[i].class;
+                // bookDetail.flightdetails[i].priceLevel = flightdetails[i].priceLevel;
+                // bookDetail.flightdetails[i] = flightdetails[i];
+                bookDetail.flightdetails[i] = {"flightCode":flightdetails[i].flightCode,"departAt":flightdetails[i].departAt,
+                "arriveAt":flightdetails[i].arriveAt,"class":flightdetails[i].class,"priceLevel":flightdetails[i].priceLevel,
+                "depart":"","arrive":"","price":0};
+                // bookDetail.flightdetails[i].depart = "ABC";
+                // bookDetail.flightdetails[i].arrive = "ABC";
+            }
             Passenger.find({"bookingCode": bookId}, '-_id title lastName firstName', function (err, data) {
                 if (err) {
                     console.log(err);
                     res.status(404).send("lỗi lấy dữ liệu hành khách cho mã đặt chỗ này");
                 } else {
                     bookDetail.passengers = data;
-                    bookDetail.flightdetails.forEach(function(item,index){
-                        Flight.find({"code":item.flightCode}).limit(1).select('code depart arrive').exec(function(err,flight){
-                            item.depart = flight.depart;
-                            item.arrive = flight.arrive;
-                            if(index >= bookDetail.flightdetails.length - 1){
-                                res.status(200).send(bookDetail);
+                    var flightLoop = 0;
+                    for(var i=0;i<bookDetail.flightdetails.length;i++){
+                        Flight.find({"code":bookDetail.flightdetails[i].flightCode}).limit(1).select('code depart arrive price').exec(function(err,flight){
+                            bookDetail.flightdetails[flightLoop].depart = flight[0].depart;
+                            bookDetail.flightdetails[flightLoop].arrive = flight[0].arrive;
+                            bookDetail.flightdetails[flightLoop].price = flight[0].price;
+                            flightLoop++;
+                            if(flightLoop > bookDetail.flightdetails.length - 1){
+                                res.status(200).json(bookDetail);
                             }
                         });
-                    });
+                    }
+                    // bookDetail.flightdetails.forEach(function(item,index){
+                    //     Flight.find({"code":item.flightCode}).limit(1).select('code depart arrive').exec(function(err,flight){
+                    //         item.depart = flight[0].depart;
+                    //         item.arrive = flight[0].arrive;
+                    //         if(index >= bookDetail.flightdetails.length - 1){
+                    //             res.status(200).json(bookDetail);
+                    //         }
+                    //     });
+                    // });
                 }
             });
         }
@@ -143,6 +169,7 @@ book.add = function(req,res){
                         //flightdetail array document
                         for(var i=0;i<data.flights.length;i++){
                             data.flights[i].bookingCode = newId;
+                            data.flights[i].flightCode = data.flights[i].code;
                         }
                         //passenger array document
                         for(var i=0;i<data.passengers.length;i++){
