@@ -10,50 +10,35 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
 
         // Booking infor
         $rootScope.bookingInfor = {
-            "flights": [
-                {
-                    "code": "",
-                    "departAt": 0,
-                    "arriveAt": 0,
-                    "priceLevel": "",
-                    "class": ""
-                }
-            ],
-            "passengers": [
-                {
-                    "title": "",
-                    "firstName": "",
-                    "lastName": ""
-                }
-            ]
+            "flights": [],
+            "passengers": []
         };
 
+        // Select ticket
         $scope.selectTicket = function ($index, type) {
-            if (type == 'depart')
+            if (type == 'depart') {
                 $scope.departTicket = $rootScope.departTickets[$index];
-            else
+                updateFlights($scope.departTicket);
+            }
+            else {
                 $scope.returnTicket = $rootScope.returnTickets[$index];
+                updateFlights($scope.returnTicket);
+            }
 
-            updateBookingInfor();
             console.log($scope.bookingInfor);
-            console.log($scope.departTicket);
-            console.log($scope.returnTicket);
         };
 
-        function updateBookingInfor() {
-            // Update depart root
-            $scope.bookingInfor.flights[0].code = $scope.departTicket.code;
-            $scope.bookingInfor.flights[0].departAt = $scope.departTicket.departAt;
-            $scope.bookingInfor.flights[0].arriveAt = $scope.departTicket.arriveAt;
-            $scope.bookingInfor.flights[0].priceLevel = $scope.departTicket.priceLevel;
-            $scope.bookingInfor.flights[0].class = $scope.departTicket.class;
+        // Add new flight to booking infor
+        function updateFlights(flight) {
+            var newFlight = {
+                "code": flight.code,
+                "departAt": flight.departAt,
+                "arriveAt": flight.arriveAt,
+                "priceLevel": flight.priceLevel,
+                "class": flight.class
+            };
 
-            // Update arrival root
-            // $scope.bookingInfor.flights[1].code = $scope.returnTicket.code;
-            // $scope.bookingInfor.flights[1].departAt = $scope.returnTicket.departAt;
-            // $scope.bookingInfor.flights[1].arriveAt = $scope.returnTicket.arriveAt;
-            // $scope.bookingInfor.flights[1].priceLevel = $scope.returnTicket.priceLevel;
-            // $scope.bookingInfor.flights[1].class = $scope.returnTicket.class;
+            $scope.bookingInfor.flights.push(newFlight);
         }
 
         $scope.getTime = function (timestamp) {
