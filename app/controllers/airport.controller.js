@@ -281,6 +281,8 @@ module.exports.add = function (req, res) {
 };
 
 // Get airport detail
-module.exports.getAirportDetail = function (req, res) {
-
+module.exports.getAirportDetail = function (airportCode, callback) {
+    Airport.findOne({code: airportCode}, function (err, airport) {
+        callback(err, airport);
+    });
 }
