@@ -55,8 +55,6 @@ flightDetail.countAvailableSlot = function(flight, callback) {
                 booked += count;
 
                 if (++i == details.length) {
-                    console.log('booked');
-                    console.log(booked);
                     callback(err, flight.numberOfSeat - booked);
                 }
             });

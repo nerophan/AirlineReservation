@@ -22,7 +22,8 @@ module.exports.addSampleData = function (req, res) {
             priceLevel: "E",
             numberOfSeat: 5,
             price: 100000,
-            datetime: "2016-10-15T13:04:51.247Z"
+            departAt: "2016-10-25T13:04:51.247Z",
+            arriveAt: "2016-10-25T13:06:30.247Z"
         },
         {
             code: "BL326",
@@ -32,7 +33,8 @@ module.exports.addSampleData = function (req, res) {
             priceLevel: "F",
             numberOfSeat: 2,
             price: 10000,
-            datetime: "2016-10-15T13:04:51.247Z"
+            departAt: "2016-10-25T13:04:51.247Z",
+            arriveAt: "2016-10-25T13:06:30.247Z"
         },
         {
             code: "BL326",
@@ -42,7 +44,8 @@ module.exports.addSampleData = function (req, res) {
             priceLevel: "G",
             numberOfSeat: 10,
             price: 500000,
-            datetime: "2016-10-15T13:04:51.247Z"
+            departAt: "2016-10-25T13:04:51.247Z",
+            arriveAt: "2016-10-25T13:06:30.247Z"
         },
         {
             code: "BL327",
@@ -52,23 +55,23 @@ module.exports.addSampleData = function (req, res) {
             priceLevel: "E",
             numberOfSeat: 100,
             price: 100000,
-            datetime: "2016-10-15T13:04:51.247Z"
+            departAt: "2016-10-26T13:04:51.247Z",
+            arriveAt: "2016-10-26T13:06:45.247Z"
         }
     ];
 
     flights.forEach(function (flight) {
-        flight.datetime = Date.parse(flight.datetime);
+        flight.departAt = Date.parse(flight.departAt);
+        flight.arriveAt = Date.parse(flight.arriveAt);
         var f = new Flight(flight);
-        console.log(f);
         f.save(function (err, f) {
             if (err)
                 console.log(err);
             else console.log(f);
-            if (++i === 9) {
-                this.getFlights(req, res);
-            }
         });
     });
+
+    res.end('Add successful');
 };
 
 // Clear all flight data in database
@@ -116,7 +119,7 @@ var findDepartureFlight = function (conditions, callback) {
     Flight.find({
         depart: conditions.depart,
         arrive: conditions.arrive,
-        datetime: {
+        departAt: {
             $gte: conditions.dateTime,
             $lte: conditions.maxDateTime
         }
@@ -197,13 +200,10 @@ function filterFlight(conditions, callback) {
                 flight.numberOfSeat = availableSlot;
                 if (availableSlot >= conditions.numberOfPassenger) {
                     responseFlights.push(flight);
-                    console.log('add');
                 }
-
 
                 // Response after the last item
                 if (++countFlight == flights.length) {
-                    console.log('end');
                     callback(null, responseFlights);
                 }
             });
