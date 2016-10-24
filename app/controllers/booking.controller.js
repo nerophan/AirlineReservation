@@ -29,15 +29,14 @@ book.get = function(req,res){
     bookDetail.passengers = [];
     Booking.find({"code":bookId},function(err,booking){
         bookDetail.status = booking[0].status;
-
     });
-    FlightDetail.find({"bookingCode": bookId}, 'flightCode date class priceLevel', function (err, flightdetails) {
+    FlightDetail.find({"bookingCode": bookId}, '-_id flightCode departAt arriveAt class priceLevel', function (err, flightdetails) {
         if (err) {
             console.log(err);
             res.status(404).send({"error":"error getting flight detail"});
         } else {
             bookDetail.flightdetails = flightdetails;
-            Passenger.find({"bookingCode": bookId}, 'title lastName firstName', function (err, data) {
+            Passenger.find({"bookingCode": bookId}, '-_id title lastName firstName', function (err, data) {
                 if (err) {
                     console.log(err);
                     res.status(404).send("lỗi lấy dữ liệu hành khách cho mã đặt chỗ này");
