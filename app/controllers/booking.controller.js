@@ -14,9 +14,9 @@ var Passenger = mongoose.model('Passenger');
 var Flight = mongoose.model('Flight');
 
 var currentId;
-Booking.findOne().sort({"bookedAt":-1}).limit(1).exec(function(err,data){
-    currentId = data.code;
-});
+// Booking.findOne().sort({"bookedAt":-1}).limit(1).exec(function(err,data){
+//     currentId = data.code;
+// });
 
 
 var book = {};

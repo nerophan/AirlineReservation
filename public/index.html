@@ -16,8 +16,12 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <script type="text/javascript" src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
 <body>
 <div class="main-header">
@@ -30,11 +34,15 @@
 <div ng-view></div>
 
 <script src="application.js"></script>
+<script src="services/airport.service.js"></script>
+<script src="services/flight.service.js"></script>
 
 <script src="controllers/search.js"></script>
 <script src="controllers/ticket-result.js"></script>
 <script src="controllers/passengers.js"></script>
 <script src="controllers/submition.js"></script>
+<script src="controllers/dashboard.js"></script>
+
 
 <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>

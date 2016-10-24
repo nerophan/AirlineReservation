@@ -110,9 +110,7 @@ module.exports.addSampleData = function (req, res) {
             country: "Việt Nam",
             code: "VDH",
             name: "Đồng Hới"
-        }
-    ];
-    var usa = [
+        },
         {
             country: "United States",
             code: "ATL",
@@ -155,7 +153,7 @@ module.exports.addSampleData = function (req, res) {
         }
     ];
 
-    usa.forEach(function (airport) {
+    airports.forEach(function (airport) {
         Airport.create(airport, function (err, data) {
             console.log(data);
         });

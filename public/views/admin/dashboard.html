@@ -1,75 +1,150 @@
 <div class="container">
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#"><i class="fa fa-plane" aria-hidden="true"></i> Flights</a></li>
+        <li role="presentation" class="active"><a href="#"><i class="fa fa-plane" aria-hidden="true"></i> Flights</a>
+        </li>
         <li role="presentation"><a href="#">Bookings</a></li>
         <li role="presentation"><a href="#">Passengers</a></li>
         <li role="presentation"><a href="#">Routes</a></li>
     </ul>
+    <div class="container">
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control"/>
+                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker1').datetimepicker();
+                });
+            </script>
+        </div>
+    </div>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-plane" aria-hidden="true"></i> Add new flight</h3>
         </div>
         <div class="panel-body">
-
-            <div class="main-container">
-                <div class="radio">
-                    <label class="radio-opt">
-                        <input type="radio" name="flightType" ng-model="data.type" value="round-trip" checked="checked"
-                               ng-change="changeTicketType()">Round-trip flight</label>
-                    <label class="radio-opt">
-                        <input type="radio" name="flightType" ng-model="data.type" value="one-way"
-                               ng-change="changeTicketType()">One-way flight</label>
-                </div>
-                <div>
-                    <div class="location-picker">
-                        <div class="location-picker-title">
-                            <i class="fa fa-plane" aria-hidden="true"></i>
-                            <span>&nbsp;&nbsp;Departure airport</span>
-                        </div>
-                        <select id="selectDepature" class="input-default input-selection-box" ng-model="data.departureAirport">
-                            <optgroup ng-repeat="country in countryDeparture" label="{{country.country}}">
-                                <option ng-repeat="airport in country.airports" class="selection-option"
-                                        value="{{airport.code}}">{{airport.name}}
-                                </option>
-                            </optgroup>
-                        </select>
-                    </div>
-                    <i class="fa fa-exchange" aria-hidden="true"></i>
-                    <div class="location-picker">
-                        <div class="location-picker-title">
-                            <i class="fa fa-plane" aria-hidden="true"></i>
-                            <span>&nbsp;&nbsp;Arrival airport</span>
-                        </div>
-                        <select id="selectArrival" class="input-default input-selection-box" ng-model="data.arrivalAirport" ng-click="getArrivalAirport()">
-                            <optgroup ng-repeat="country in countryArrival" label="{{country.country}}">
-                                <option ng-repeat="airport in country.airports" class="selection-option"
-                                        value="{{airport.code}}">{{airport.name}}
-                                </option>
-                            </optgroup>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="departureCountry">Country:</label>
+                        <select ng-sel class="form-control" ng-model="departureCountry" id="departureCountry">
+                            <option ng-repeat="departure in departures" value="{{$index}}">{{departure.country}}</option>
                         </select>
                     </div>
                 </div>
-                <div id="flight-datepicker" class="input-daterange input-group">
-                    <div class="location-picker-title">
-                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                        <span>&nbsp;&nbsp;Departure date</span>
-                    </div>
-                    <input type="text" id="start-date" name="start" placeholder="Pick a date"
-                           data-date-format="DD, MM d" class="input-default input-selection-box"/>
-                    <div style="margin-left: 20px">
-                        <div class="location-picker-title">
-                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                            <span>&nbsp;Return date</span>
-                        </div>
-                        <input type="text" id="end-date" name="end" placeholder="Pick a date" data-date-format="DD, MM d"
-                               class="input-default input-selection-box"/>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="departureAirports">Departure airport:</label>
+                        <select class="form-control" ng-model="flight.depart" id="departureAirports">
+                            <option ng-repeat="airport in departureAirports" value="{{airport.code}}">{{airport.name}}</option>
+                        </select>
                     </div>
                 </div>
-                <hr/>
-                <div class="row">
 
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="arrivalCountry">Country:</label>
+                        <select class="form-control" ng-model="arrivalCountry" id="arrivalCountry">
+                            <option ng-repeat="arrival in arrivals" value="{{$index}}">{{arrival.country}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="arrivalAirports">Arrival airport:</label>
+                        <select class="form-control" ng-model="flight.arrive" id="arrivalAirports">
+                            <option ng-repeat="airport in arrivalAirports" value="{{airport.code}}">{{airport.name}}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="departureDateTime">Departure date time:</label>
+                        <input ng-model="departAt" value="2016-10-25T13:11:30" class="form-control" id="departureDateTime" type="datetime-local"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="arrivalDateTime">Arrival date time:</label>
+                        <input ng-model="arriveAt" value="2016-10-25T13:11:30" class="form-control" id="arrivalDateTime" type="datetime-local"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding: 15px">
+                <table class="table">
+                    <label for="departureDateTime">Tickets</label>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Class</th>
+                        <th>Price level</th>
+                        <th>The number of seat</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="ticket in tickets">
+                        <th scope="row">{{$index + 1}}</th>
+                        <td>{{ticket.class}}</td>
+                        <td>{{ticket.priceLevel}}</td>
+                        <td>{{ticket.numberOfSeat}}</td>
+                        <td>{{ticket.price}}</td>
+                        <td>
+                            <button class="btn"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                            <button class="btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>
+                            <select ng-model="ticket.class" class="form-control">
+                                <option value="C">C</option>
+                                <option value="Y">Y</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select ng-model="ticket.priceLevel" class="form-control">
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input ng-model="ticket.numberOfSeat" class="form-control" type="number"/>
+                        </td>
+                        <td>
+                            <input ng-model="ticket.price" class="form-control" type="number"/>
+                        </td>
+                        <td>
+                            <button ng-click="addTicket()" class="btn btn-primary">Add</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-primary" ng-click="addNewFlight()">Save</button>
+                    <button class="btn btn-warning" ng-click="resetForm()">Reset</button>
+                </div>
+                <div class="col-md-8">
+                    <p ng-bind="message"></p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

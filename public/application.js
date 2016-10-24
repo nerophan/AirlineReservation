@@ -3,10 +3,14 @@
 var app = angular.module('lotusAirline', [
     'ngRoute',
     'ngSanitize',
+    'ngResource',
     'lotusAirline.search',
     'lotusAirline.ticketResults',
     'lotusAirline.passengerInfor',
-    'lotusAirline.submition']);
+    'lotusAirline.submition',
+    'lotusAirline.dashboard',
+    'lotusAirline.airport',
+    'lotusAirline.flight']);
 
 app.config(['$routeProvider', function ($routeProvider) {
 
@@ -28,7 +32,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 
     }).when('/admin', {
         templateUrl: 'views/admin/dashboard.html',
-        controller: 'DashboardController'
+        controller: 'DashboardCtrl'
     }).otherwise({
         redirectTo: '/'
     });

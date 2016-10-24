@@ -88,14 +88,47 @@ module.exports.clearFlightData = function (req, res) {
     });
 };
 
+function generateFlightCode(departureAirport, arrivalAirport, callback) {
+    Flight.find({depart: departureAirport, arrive: arrivalAirport}).distinct('code').exec(function (err, count) {
+        console.log(count);
+        callback(err, count.length);
+    });
+}
+
 // Add new flight
 module.exports.addFlight = function (req, res) {
-    var newFlight = req.body;
-    Flight.create(newFlight, function (err, rs) {
-        if (err) res.send(err);
-        else {
-            res.json(rs);
+
+    var flightInfo = req.body.flight;
+    var tickets = req.body.tickets;
+
+    console.log(tickets);
+
+    generateFlightCode(flightInfo.depart, flightInfo.arrive, function (err, count) {
+
+        var flight = JSON.parse(JSON.stringify(flightInfo));
+
+        if (count > 10 && count < 100)
+            count = '0' + count;
+        else if (count >= 0 && count < 10)
+            count = '00' + count;
+
+        flight.code = flight.depart + flight.arrive + count;
+
+        for (var i = 0; i < tickets.length; i++) {
+
+            flight.price = tickets[i].price;
+            flight.class = tickets[i].class;
+            flight.priceLevel = tickets[i].priceLevel;
+            flight.numberOfSeat = tickets[i].numberOfSeat;
+
+            console.log(flight);
+            Flight.create(flight, function (err, rs) {
+                if (err)
+                    console.log(err);
+            });
         }
+
+        res.end('End');
     });
 };
 
@@ -165,7 +198,7 @@ function getConditionFromQuery(query, returnFlight) {
     if (returnFlight) {
         conditions.depart = query.to;
         conditions.arrive = query.from;
-    } else  {
+    } else {
         conditions.depart = query.from;
         conditions.arrive = query.to;
     }
@@ -260,13 +293,32 @@ module.exports.getRoundTripFlights = function (req, res) {
     // Get query parameters
     var departureConditions = getConditionFromQuery(req.query);
 
+    var departureAirport = null;
+    var arriveAirport = null;
+
+    airportController.getAirportDetail(departureConditions.depart, function (err, airport) {
+        departureAirport = {code: airport.code, name: airport.name};
+        console.log(departureAirport);
+    });
+
+    airportController.getAirportDetail(departureConditions.arrive, function (err, airport) {
+        arriveAirport = {code: airport.code, name: airport.name};
+        console.log(arriveAirport);
+    });
+
     // Filter departure flights
     filterFlight(departureConditions, function (err, flights) {
         if (err && !responsed) {
             res.status(400).end('Oops! Something went wrong...');
             responsed = true;
         } else {
-            responseFlights.depart = flights;
+            responseFlights.depart = [];
+            for (var i = 0; i < flights.length; i++) {
+                responseFlights.depart.push(JSON.parse(JSON.stringify(flights[i])));
+                responseFlights.depart[i].depart = departureAirport;
+                responseFlights.depart[i].arrive = arriveAirport;
+            }
+
             if (responseFlights.return) {
                 res.json(responseFlights);
             }
@@ -282,7 +334,13 @@ module.exports.getRoundTripFlights = function (req, res) {
             res.status(400).end('Oops! Something went wrong...');
             responsed = true;
         } else {
-            responseFlights.return = flights;
+            responseFlights.return = [];
+
+            for (var i = 0; i < flights.length; i++) {
+                responseFlights.return.push(JSON.parse(JSON.stringify(flights[i])));
+                responseFlights.return[i].depart = arriveAirport;
+                responseFlights.return[i].arrive = departureAirport;
+            }
             if (responseFlights.depart) {
                 res.json(responseFlights);
             }
