@@ -8,7 +8,9 @@ var mongoose = require('mongoose'),
 // Get all flight
 module.exports.getAllFlights = function (req, res) {
     Flight.find({}, function (err, flights) {
-        res.json(flights);
+        if (err)
+            res.status(400).send(err);
+        else res.json(flights);
     });
 };
 
@@ -90,7 +92,6 @@ module.exports.clearFlightData = function (req, res) {
 
 function generateFlightCode(departureAirport, arrivalAirport, callback) {
     Flight.find({depart: departureAirport, arrive: arrivalAirport}).distinct('code').exec(function (err, count) {
-        console.log(count);
         callback(err, count.length);
     });
 }
@@ -98,10 +99,44 @@ function generateFlightCode(departureAirport, arrivalAirport, callback) {
 // Add new flight
 module.exports.addFlight = function (req, res) {
 
+    var currentTime = new Date().getTime();
+
     var flightInfo = req.body.flight;
     var tickets = req.body.tickets;
 
-    console.log(tickets);
+    if (!flightInfo.arrive || !flightInfo.depart || !flightInfo.departAt || !flightInfo.arriveAt) {
+        res.status(422).send("Invalid data.");
+        return;
+    };
+
+    if (flightInfo.departAt - currentTime < 6 * 3600 * 1000) {
+        res.status(422).send("The departure time must be larger than current at least 6 hours.");
+        return;
+    };
+
+
+    if (flightInfo.arriveAt <= flightInfo.departAt) {
+        res.status(422).send("Arrival time cannot less than or equal departure time");
+        return;
+    };
+
+    if (flightInfo.depart === flightInfo.arrive) {
+        res.status(422).send("Departure airport and arrival airport must be different.");
+        return;
+    }
+
+    for (var i = 0; i < tickets.length; i++) {
+        if (tickets[i].numberOfSeat <= 0) {
+            res.status(422).send("Number of seat must greater than 0");
+            return;
+        }
+
+        if (tickets[i].price <= 0) {
+            res.status(422).send("Price must be greater than 0");
+            return;
+        }
+    }
+
 
     generateFlightCode(flightInfo.depart, flightInfo.arrive, function (err, count) {
 
@@ -114,6 +149,10 @@ module.exports.addFlight = function (req, res) {
 
         flight.code = flight.depart + flight.arrive + count;
 
+        var responseData = [];
+
+        var c = 0;
+        var r = false;
         for (var i = 0; i < tickets.length; i++) {
 
             flight.price = tickets[i].price;
@@ -121,14 +160,21 @@ module.exports.addFlight = function (req, res) {
             flight.priceLevel = tickets[i].priceLevel;
             flight.numberOfSeat = tickets[i].numberOfSeat;
 
-            console.log(flight);
-            Flight.create(flight, function (err, rs) {
-                if (err)
-                    console.log(err);
+            Flight.create(flight, function (err, flight) {
+                if (err && !r) {
+                    res.status(422).send(err);
+                    r = true;
+                }
+                else
+                    responseData.push(flight);
+
+                if (responseData.length == tickets.length) {
+                    //res.json(responseData);
+                }
             });
         }
 
-        res.end('End');
+        res.json({success: true});
     });
 };
 
@@ -150,6 +196,12 @@ module.exports.deleteFlight = function (req, res) {
 };
 
 var findDepartureFlight = function (conditions, callback) {
+
+    var currentTime = new Date().getTime();
+    if (conditions.dateTime <= currentTime) {
+        conditions.dateTime = currentTime + 30 * 6000;
+    }
+
     Flight.find({
         depart: conditions.depart,
         arrive: conditions.arrive,
@@ -215,7 +267,58 @@ function getConditionFromQuery(query, returnFlight) {
     return conditions;
 }
 
+
+function validateSearchQuery(query) {
+
+    if (!query.from || !query.to || !query.depart || !query.passengers) {
+        return {
+            error: true,
+            message: "Invalid search query format."
+        }
+    }
+
+    if (query.from == query.to) {
+        return {
+            error: true,
+            message: "Departure and arrival airport must be different."
+        }
+    }
+
+    var departureDate = new Date(query.depart);
+    var returnDate = new Date(query.return);
+
+
+    console.log(departureDate);
+
+    if (departureDate == 'Invalid Date') {
+        return {
+            error: true,
+            message: "Departure date has invalid format. Correct format is yyyy-MM-dd."
+        }
+    }
+
+    if (query.return && returnDate == 'Invalid Date') {
+        return {
+            error: true,
+            message: "Return date has invalid format. Correct format is yyyy-MM-dd."
+        }
+    }
+
+    if (!query.passengers || query.passengers <= 0) {
+        return {
+            error: true,
+            message: "The number of passengers must be greater than 0."
+        }
+    }
+
+    return {
+        error: false
+    }
+}
+
+
 function filterFlight(conditions, callback) {
+
     // Find flight
     findDepartureFlight(conditions, function (err, flights) {
         if (err)
@@ -248,6 +351,13 @@ function filterFlight(conditions, callback) {
 // Get one-way flights by query
 module.exports.getOneWayFlights = function (req, res) {
     console.log('One-way');
+
+    var validateResult = validateSearchQuery(req.query);
+
+    if (validateResult.error) {
+        res.status(400).send(validateResult.message);
+        return;
+    }
 
     // Get query parameters
     var conditions = getConditionFromQuery(req.query);
@@ -289,6 +399,12 @@ module.exports.getRoundTripFlights = function (req, res) {
 
     var responsed = false;
     var responseFlights = {};
+
+    var validateResult = validateSearchQuery(req.query);
+
+    if (validateResult.error) {
+        res.status(400).send(validateResult.message);
+    }
 
     // Get query parameters
     var departureConditions = getConditionFromQuery(req.query);

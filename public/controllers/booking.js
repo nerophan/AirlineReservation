@@ -1,5 +1,5 @@
 angular.module('lotusAirline.booking', [])
-    .controller('BookingCtrl', ['$scope', '$timeout', '$http', 'Flights', 'Airports', function ($scope, $timeout, $http, Flights, Airports ) {
+    .controller('BookingCtrl', ['$scope', '$timeout', '$filter', '$http', 'Flights', 'Airports', function ($scope, $timeout, $filter, $http, Flights, Airports ) {
         $scope.flights = [];
         $scope.flightCode = "";
         $scope.bookings = [];
@@ -12,6 +12,9 @@ angular.module('lotusAirline.booking', [])
 
         $http.get('/flights/list').then(function (response) {
             $scope.flights = response.data;
+            for (var i = 0; i < $scope.flights.length; i++) {
+                $scope.flights[i].departAt = $filter('date')($scope.flights[i].departAt, 'HH:mm -  dd/MM/yyyy');
+            }
 
             $scope.flights.forEach(function (flight) {
                 airportNames.set(flight.depart.code, flight.depart.name);
@@ -50,7 +53,7 @@ angular.module('lotusAirline.booking', [])
                 $scope.detailMessage = "";
                 var tempFlights = response.data.flightdetails;
                 for (var i = 0; i < tempFlights.length; i++) {
-                    tempFlights[i].depart = airportNames.get(tempFlights[i].arrive);
+                    tempFlights[i].depart = airportNames.get(tempFlights[i].depart);
                     tempFlights[i].arrive = airportNames.get(tempFlights[i].arrive);
 
 

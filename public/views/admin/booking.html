@@ -24,7 +24,7 @@
                     <div class="form-group">
 
                         <select ng-sel class="form-control" ng-model="flightCode" id="flightList">
-                            <option ng-repeat="flight in flights" value="{{flight.code}}">{{flight.code + " | " +
+                            <option ng-repeat="flight in flights" value="{{flight.code}}">{{"[" + flight.code + "] - " +
                                 flight.depart.name + " - " + flight.arrive.name + " - " + flight.departAt}}
                             </option>
                         </select>
@@ -79,7 +79,6 @@
                 <div ng-show="message.type=='success'" class="alert alert-success" role="alert">
                     <p ng-bind="message.content"></p>
                 </div>
-                <button ng-click="addNewRoute()" class="btn btn-primary">Add</button>
                 <p ng-bind>msg</p>
             </div>
         </div>
@@ -145,7 +144,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>

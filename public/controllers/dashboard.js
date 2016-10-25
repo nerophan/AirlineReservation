@@ -59,6 +59,12 @@ dashboardModule.controller('DashboardCtrl', ['$scope', '$timeout', 'Airports', '
         $scope.ticket = {};
 
         $scope.message = "";
+
+        for (var i = 0; i < c.length; i++) {
+            for (var j = 0; j < p.length; j++) {
+                classPrices.set(c[i]+p[j], false);
+            }
+        }
     };
 
     var departureAirports = Airports.query(function () {
@@ -121,9 +127,18 @@ dashboardModule.controller('DashboardCtrl', ['$scope', '$timeout', 'Airports', '
     };
 
     $scope.addNewFlight = function () {
+        $scope.message = "";
+
+        var currentTime = new Date().getTime();
 
         $scope.flight.departAt = $scope.departAt.getTime();
         $scope.flight.arriveAt = $scope.arriveAt.getTime();
+
+
+        if ($scope.flight.departAt - currentTime < 6 * 3600 * 1000) {
+            $scope.message = "The departure time must be larger than current at least 6 hours.";
+            return;
+        }
 
         if ($scope.flight.departAt >= $scope.flight.arriveAt) {
             $scope.message = "Invalid arrival time. The arrival time must be less than departure time.";
@@ -144,7 +159,6 @@ dashboardModule.controller('DashboardCtrl', ['$scope', '$timeout', 'Airports', '
 
         $scope.message = "Processing... Please wait!";
 
-
         Flights.save({flight: $scope.flight, tickets: $scope.tickets}, function () {
             $scope.message = "Flight was added successfully!";
 
@@ -153,15 +167,16 @@ dashboardModule.controller('DashboardCtrl', ['$scope', '$timeout', 'Airports', '
                 init();
             }, 1500);
         });
-    }
+    };
 
     $scope.removeTicket = function (index) {
         $scope.tickets.splice(index, 1);
-    }
+    };
 
     $scope.resetForm = function () {
         init();
     }
 
 }]);
+
 
