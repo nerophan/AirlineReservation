@@ -1,0 +1,155 @@
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="#/admin/"><i class="fa fa-plane" aria-hidden="true"></i> Flights</a>
+        </li>
+        <li role="presentation" class="active"><a href="#/admin/booking">Bookings</a></li>
+        <li role="presentation"><a href="#/admin/passenger">Passengers</a></li>
+        <li role="presentation"><a href="#/admin/route">Routes</a></li>
+    </ul>
+
+    <div class="row" style="padding: 0px 15px; margin-top: 20px">
+        <div ng-show="message" class="alert alert-info" role="alert">
+            <p ng-bind="message"></p>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-plane" aria-hidden="true"></i> Flights</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1"><label style="line-height: 35px" for="flightList">Flights:</label></div>
+                <div class="col-md-8">
+                    <div class="form-group">
+
+                        <select ng-sel class="form-control" ng-model="flightCode" id="flightList">
+                            <option ng-repeat="flight in flights" value="{{flight.code}}">{{flight.code + " | " +
+                                flight.depart.name + " - " + flight.arrive.name + " - " + flight.departAt}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-1"><label style="line-height: 35px" for="flightList">Bookings:</label></div>
+                <div class="col-md-8">
+                    <table style="padding: 0 15px" class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Booking code</th>
+                            <th>Booked at</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="booking in bookings">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>{{booking.code}}</td>
+                            <td>{{booking.bookedAt | date:'HH:mm -  dd/MM/yyyy'}}</td>
+                            <td>{{booking.price | currency}}</td>
+                            <td>
+                                <span ng-show="booking.bookedAt">Verified</span>
+                                <span ng-hide="booking.bookedAt">Pending</span>
+                            </td>
+                            <td>
+                                <button ng-click="showBookingDetail(booking.code)" type="button" data-toggle="modal" data-target="#myModal"
+                                        class="btn btn-primary"><i class="fa fa-ticket" aria-hidden="true"></i></button>
+                                <button class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                                <button ng-click="removeTicket($index)" class="btn btn-danger"><i class="fa fa-trash"
+                                                                                                  aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row" style="padding: 0px 15px">
+                <div ng-show="message.type=='error'" class="alert alert-danger" role="alert">
+                    <p ng-bind="message.content"></p>
+                </div>
+                <div ng-show="message.type=='success'" class="alert alert-success" role="alert">
+                    <p ng-bind="message.content"></p>
+                </div>
+                <button ng-click="addNewRoute()" class="btn btn-primary">Add</button>
+                <p ng-bind>msg</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Booking detail</h4>
+                </div>
+                <div class="modal-body">
+                    <p ng-bind="detailMessage"></p>
+                    <table class="table">
+                        <caption><label>Flights in this booking</label></caption>
+                        <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Depart at</th>
+                            <th>Arrive at</th>
+                            <th>Class</th>
+                            <th>Price level</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="flight in bookingFlights">
+                            <th scope="row">{{flight.flightCode}}</th>
+                            <td>{{flight.depart}}</td>
+                            <td>{{flight.arrive}}</td>
+                            <td>{{flight.departAt | date:'HH:mm -  dd/MM/yyyy'}}</td>
+                            <td>{{flight.arriveAt | date:'HH:mm -  dd/MM/yyyy'}}</td>
+                            <th>{{flight.class}}</th>
+                            <th>{{flight.priceLevel}}</th>
+                            <th>{{flight.price | currency:"$USD ":0}}</th>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <caption><label>Passengers: </label></caption>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="passenger in bookingPassengers">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>{{passenger.title}}</td>
+                            <td>{{passenger.firstName}}</td>
+                            <td>{{passenger.lastName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

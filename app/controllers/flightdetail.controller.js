@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     FlightDetail = mongoose.model('FlightDetail'),
-    passengerController = require('./../controllers/passenger.controller');
+    passengerController = require('./../controllers/passenger.controller'),
+    bookingController = require('./../controllers/booking.controller');
 
 
 var flightDetail = {};
@@ -89,5 +90,35 @@ flightDetail.add = function(newFlightDetail){
         if(err) return false;
         return true;
     })
+}
+
+flightDetail.getDistinctBooking = function (req, res) {
+    var flightCode = req.params.flightCode;
+    console.log(flightCode);
+
+    FlightDetail.find({flightCode: flightCode}).distinct('bookingCode').exec(function (err, bookingCodes) {
+
+        if (bookingCodes.length == 0)
+            res.json([]);
+
+        var responseData = [];
+        for (var i = 0; i < bookingCodes.length; i++) {
+            bookingController.getBookingDetail(bookingCodes[i], function (err, bookingDetail) {
+                if (bookingDetail) {
+
+                    responseData.push({
+                        code: bookingDetail.code,
+                        price: bookingDetail.price,
+                        status: bookingDetail.status,
+                        bookedAt: new Date(bookingDetail.bookedAt),
+                    });
+
+                    if (responseData.length == bookingCodes.length) {
+                        res.json(responseData);
+                    }
+                }
+            });
+        }
+    });
 }
 module.exports = flightDetail;

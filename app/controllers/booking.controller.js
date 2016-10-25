@@ -489,4 +489,17 @@ var increaseChar = function (char) {
 //         if(err) console.error("error updating static current book Id");
 //     });
 // }
+
+book.getBookingList = function (req, res) {
+    Booking.find({}, function (err, bookings) {
+        res.json(bookings);
+    });
+};
+
+book.getBookingDetail = function (bookingCode, callback) {
+    Booking.findOne({code: bookingCode}, function (err, booking) {
+        callback(err, booking);
+    });
+};
+
 module.exports = book;

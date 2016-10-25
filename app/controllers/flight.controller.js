@@ -347,3 +347,34 @@ module.exports.getRoundTripFlights = function (req, res) {
         }
     });
 };
+
+module.exports.getDistinctFlights = function (req, res) {
+    Flight.find({}).distinct('code').exec(function (err, flights) {
+        var response = [];
+        for (var i = 0; i < flights.length; i++) {
+            Flight.findOne({code: flights[i]}, function (err, flight) {
+                var f = {code: flight.code, departAt: new Date(flight.departAt)};
+
+                airportController.getAirportDetail(flight.arrive, function (err, airport) {
+                    f.arrive = {code: airport.code, name: airport.name};
+                    if (f.depart) {
+                        response.push(f);
+                        if (response.length == flights.length) {
+                            res.json(response);
+                        }
+                    }
+                });
+
+                airportController.getAirportDetail(flight.depart, function (err, airport) {
+                    f.depart = {code: airport.code, name: airport.name};
+                    if (f.arrive) {
+                        response.push(f);
+                        if (response.length == flights.length) {
+                            res.json(response);
+                        }
+                    }
+                });
+            })
+        }
+    })
+};

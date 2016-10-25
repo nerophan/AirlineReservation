@@ -15,8 +15,8 @@ router
     .get('/search', function (req, res, next) {
       flightController.getFlights(req, res);
     })
-    .get('/test', function (req, res) {
-        flightController.test(req, res);
+    .get('/list', function (req, res) {
+        flightController.getDistinctFlights(req, res);
     });
 
 module.exports = router;
