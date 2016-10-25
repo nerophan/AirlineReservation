@@ -12,8 +12,7 @@ var app = angular.module('lotusAirline', [
     'lotusAirline.airport',
     'lotusAirline.flight',
     'lotusAirline.route',
-    'lotusAirline.flightRoute',
-    'lotusAirline.booking']);
+    'lotusAirline.flightRoute']);
 
 app.config(['$routeProvider', function ($routeProvider) {
 
