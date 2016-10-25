@@ -74,14 +74,14 @@
             <tr>
                 <td>Hành khách</td>
                 <td>{{bookingInfor.passengers.length}}</td>
-                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}}</td>
+                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}} VNĐ</td>
                 <td>0 VNĐ</td>
-                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}}</td>
+                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}} VNĐ</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td colspan="2" style="color: #3074C5"><strong>Tổng cộng: {{data.departTicket.price +
-                    data.returnTicket.price}} VNĐ</strong></td>
+                <td colspan="2" style="color: #3074C5"><strong>Tổng cộng: {{formatMoney(data.departTicket.price +
+                    data.returnTicket.price)}} VNĐ</strong></td>
             </tr>
             </tbody>
         </table>

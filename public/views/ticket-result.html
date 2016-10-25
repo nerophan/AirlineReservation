@@ -96,7 +96,7 @@
         <p>- <strong>Đến nơi: {{data.departTicket.arrive.name}}</strong></p>
         <p>{{getTime(data.departTicket.arriveAt)}} - {{getDate(data.departTicket.arriveAt)}}</p>
     </div>
-    <div>
+    <div ng-show="data.type == 'round-trip'">
         <hr/>
         <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay Về</h5>
         <hr/>
