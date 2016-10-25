@@ -16,6 +16,10 @@
     "test",
     "tests"
   ],
+  "scripts": {
+    "postinstall" : "bower install",
+    "start": "node app/server/app.js"
+  },
   "dependencies": {
     "angular": "~1.5.8",
     "angular-route": "~1.5.8",

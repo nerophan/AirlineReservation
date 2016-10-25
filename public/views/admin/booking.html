@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="panel panel-primary">
+    <div style="padding: 15px" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-plane" aria-hidden="true"></i> Flights</h3>
         </div>
@@ -45,7 +45,7 @@
                             <th>Booked at</th>
                             <th>Total</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th>Detail</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -61,10 +61,10 @@
                             <td>
                                 <button ng-click="showBookingDetail(booking.code)" type="button" data-toggle="modal" data-target="#myModal"
                                         class="btn btn-primary"><i class="fa fa-ticket" aria-hidden="true"></i></button>
-                                <button class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                                <button ng-click="removeTicket($index)" class="btn btn-danger"><i class="fa fa-trash"
-                                                                                                  aria-hidden="true"></i>
-                                </button>
+                                <!--<button class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>-->
+                                <!--<button ng-click="removeTicket($index)" class="btn btn-danger"><i class="fa fa-trash"-->
+                                                                                                  <!--aria-hidden="true"></i>-->
+                                <!--</button>-->
                             </td>
                         </tr>
                         </tbody>

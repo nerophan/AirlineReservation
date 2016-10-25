@@ -8,8 +8,7 @@
     </ul>
 
 
-
-    <div class="panel panel-primary">
+    <div style="margin-top: 20px" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-plane" aria-hidden="true"></i> Add new flight</h3>
         </div>
@@ -50,6 +49,12 @@
                             </option>
                         </select>
                     </div>
+                </div>
+            </div>
+
+            <div style="margin: 0px" ng-show="routeMessage" class="row">
+                <div class="alert alert-danger" role="alert">
+                    <p ng-bind="routeMessage"></p>
                 </div>
             </div>
 
@@ -112,10 +117,10 @@
                             </select>
                         </td>
                         <td>
-                            <input ng-model="ticket.numberOfSeat" class="form-control" type="number"/>
+                            <input ng-model="ticket.numberOfSeat" min="10" class="form-control" type="number"/>
                         </td>
                         <td>
-                            <input ng-model="ticket.price" class="form-control" type="number"/>
+                            <input ng-model="ticket.price" min="0" class="form-control" type="number"/>
                         </td>
                         <td>
                             <button ng-click="addTicket()" class="btn btn-primary">Add</button>

@@ -64,6 +64,24 @@ angular.module('lotusAirline.route', [])
 
     $scope.addNewRoute = function () {
 
+        if (!$scope.departureRouteAirport) {
+            $scope.message = {
+                type: 'error',
+                content: 'Departure airport can not be blank.'
+            };
+
+            return;
+        }
+
+        if (!$scope.arrivalRouteAirport) {
+            $scope.message = {
+                type: 'error',
+                content: 'Arrival airport can not be blank.'
+            };
+            return;
+        }
+
+
         $scope.msg = "Processing... Please wait!";
 
         FlightRoutes.save({
