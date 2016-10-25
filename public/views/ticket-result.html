@@ -1,4 +1,4 @@
-<div id="tickets-result" class="main-container" ng-controller="TicketCtrl">
+<div id="tickets-result" class="main-container">
     <div class="ticket-table">
         <h4 class="trip-title"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
             &nbsp;&nbsp;Lựa chọn chuyến bay chặng đi <strong>{{data.departureAirport}}</strong> đến <strong>{{data.arrivalAirport}}</strong>
@@ -83,29 +83,29 @@
         <i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;&nbsp;Tiếp tục đặt vé</a>
 </div>
 <div class="ticket-detail">
-    <h4>Tổng: 100000 VNĐ</h4>
+    <h4>Tổng: {{totalCost}} VNĐ</h4>
     <div>
         <hr/>
         <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay đi</h5>
         <hr/>
-        <p>- Hạng vé: {{departTicket.class}}</p>
-        <p>- Chuyến bay: {{departTicket.code}}</p>
-        <p>- Khởi hành: {{departTicket.depart.name}}</p>
-        <p>{{getTime(departTicket.departAt)}} - {{getDate(departTicket.departAt)}}</p>
-        <p> Mức giá vé: {{departTicket.priceLevel}}</p>
-        <p>- Đến nơi: {{departTicket.arrive.name}}</p>
-        <p>{{getTime(departTicket.arriveAt)}} - {{getDate(departTicket.arriveAt)}}</p>
+        <p>- Hạng vé: {{data.departTicket.class}}</p>
+        <p>- Chuyến bay: {{data.departTicket.code}}</p>
+        <p>- <strong>Khởi hành: {{data.departTicket.depart.name}}</strong></p>
+        <p>{{getTime(data.departTicket.departAt)}} - {{getDate(data.departTicket.departAt)}}</p>
+        <p>- Mức giá vé: {{data.departTicket.priceLevel}}</p>
+        <p>- <strong>Đến nơi: {{data.departTicket.arrive.name}}</strong></p>
+        <p>{{getTime(data.departTicket.arriveAt)}} - {{getDate(data.departTicket.arriveAt)}}</p>
     </div>
     <div>
         <hr/>
         <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay Về</h5>
         <hr/>
-        <p>- Hạng vé: {{returnTicket.class}}</p>
-        <p>- Chuyến bay: {{returnTicket.code}}</p>
-        <p>- Khởi hành: {{returnTicket.depart.name}}</p>
-        <p>{{getTime(returnTicket.departAt)}} - {{getDate(returnTicket.departAt)}}</p>
-        <p> Mức giá vé: {{returnTicket.priceLevel}}</p>
-        <p>- Đến nơi: {{returnTicket.arrive.name}}</p>
-        <p>{{getTime(returnTicket.arriveAt)}} - {{getDate(returnTicket.arriveAt)}}</p>
+        <p>- Hạng vé: {{data.returnTicket.class}}</p>
+        <p>- Chuyến bay: {{data.returnTicket.code}}</p>
+        <p>- <strong>Khởi hành: {{data.returnTicket.depart.name}}</strong></p>
+        <p>{{getTime(data.returnTicket.departAt)}} - {{getDate(data.returnTicket.departAt)}}</p>
+        <p>- Mức giá vé: {{data.returnTicket.priceLevel}}</p>
+        <p>- <strong>Đến nơi: {{data.returnTicket.arrive.name}}</strong></p>
+        <p>{{getTime(data.returnTicket.arriveAt)}} - {{getDate(data.returnTicket.arriveAt)}}</p>
     </div>
 </div>
