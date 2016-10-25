@@ -65,7 +65,11 @@ book.get = function (req, res) {
                     bookDetail.passengers = data;
                     var flightLoop = 0;
                     for (var i = 0; i < bookDetail.flightdetails.length; i++) {
-                        Flight.find({"code": bookDetail.flightdetails[i].flightCode}).limit(1).select('code depart arrive price').exec(function (err, flight) {
+                        Flight.find({"code": bookDetail.flightdetails[i].flightCode,"departAt":bookDetail.flightdetails[i].departAt,
+                        "class":bookDetail.flightdetails[i].class,"priceLevel":bookDetail.flightdetails[i].priceLevel})
+                            .limit(1)
+                            .select('code depart arrive price')
+                            .exec(function (err, flight) {
                             bookDetail.flightdetails[flightLoop].depart = flight[0].depart;
                             bookDetail.flightdetails[flightLoop].arrive = flight[0].arrive;
                             bookDetail.flightdetails[flightLoop].price = flight[0].price;
