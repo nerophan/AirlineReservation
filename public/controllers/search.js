@@ -52,9 +52,9 @@ searchModule.controller('SearchCtrl', ['$scope', '$window', '$http', '$rootScope
             "minDate": today,
             "drops": "up"
         };
-
         var returnPickerConfig = departPickerConfig;
 
+        // Config datepicker
         $(function () {
             $('#end-date').daterangepicker(departPickerConfig);
 
