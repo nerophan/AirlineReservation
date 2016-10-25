@@ -127,7 +127,8 @@ book.add = function (req, res) {
 
                 //flightdetail document
                 data.flights[0].bookingCode = newId;
-
+                data.flights[0].flightCode = data.flights[0].code;
+                
                 //passenger array document
                 for (var i = 0; i < data.passengers.length; i++) {
                     data.passengers[i].bookingCode = newId;
