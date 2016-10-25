@@ -25,7 +25,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'TicketCtrl'
 
     }).when('/get-passengers-information', {
-        templateUrl: 'views/passenger-information.html',
+        templateUrl: 'views/get-passenger-information.html',
         controller: 'PassengersCtrl'
 
     }).when('/submition', {
