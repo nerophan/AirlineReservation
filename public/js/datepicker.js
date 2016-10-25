@@ -51,12 +51,10 @@ var departPickerConfig = {
 var returnPickerConfig = departPickerConfig;
 
 $(function () {
-
-    console.log("Datepicker running....");
-
     $('#end-date').daterangepicker(departPickerConfig);
 
     $('#start-date').daterangepicker(departPickerConfig, function (start, end, label) {
+        console.log("Datepicker running....");
         $('#start-date').val(start.format("DD/MM/YYYY"));
         var returnDate = $('#end-date').val();
 
