@@ -1,5 +1,5 @@
 <div id="booking-result" class="main-container">
-    <h4>Thông tin vé của bạn, kiểm tra thông tin và nhấn hoàn tất đặt vé</h4>
+    <h4><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;&nbsp;Thông tin vé của bạn, kiểm tra thông tin và nhấn hoàn tất đặt vé</h4>
     <hr/>
     <div>
         <h4 class="trip-title"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
@@ -136,6 +136,15 @@
     </div>
     <div class="ticket-cost">
         <h2>Giá vé: {{formatMoney(data.departTicket.price + data.returnTicket.price)}} VNĐ</h2>
+    </div>
+    <div>
+        <hr/>
+        <h4><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;&nbsp;Chọn phương thức thanh toán</h4>
+        <select class="input-default" style="margin: 20px;">
+            <option>Thanh toán bằng tiền mặt</option>
+            <option>Thanh toán bằng thẻ thanh toán nội địa</option>
+            <option>Thanh toán bằng thẻ Visa/MasterCard</option>
+        </select>
     </div>
     <button class="btn btn-round float-right" ng-click="submitBooking()">Hoàn tất đặt vé</button>
 </div>
