@@ -3,8 +3,8 @@ var express = require('express'),
     passengerController = require('./../controllers/passenger.controller');
 
 router
-    .post('/', function(req, res) {
-        passengerController.addSampleData(req, res);
+    .get('/', function(req, res) {
+        passengerController.get(req,res);
     });
 
 module.exports = router;
