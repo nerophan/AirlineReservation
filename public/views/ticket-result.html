@@ -24,7 +24,7 @@
                     <span class="ticket-place">{{ticket.arrive.name}}</span></td>
                 <td>{{ticket.priceLevel}}</td>
                 <td>
-                    <span class="ticket-price">{{ticket.price}} VNĐ</span>
+                    <span class="ticket-price">{{formatMoney(ticket.price)}} VNĐ</span>
                     <button class="btn btn-round" ng-click="selectTicket($index, 'depart')">Chọn</button>
                 </td>
             </tr>
@@ -64,7 +64,7 @@
                     <span class="ticket-place">{{ticket.arrive.name}}</span></td>
                 <td>{{ticket.priceLevel}}</td>
                 <td>
-                    <span class="ticket-price">{{ticket.price}} VNĐ</span>
+                    <span class="ticket-price">{{formatMoney(ticket.price)}} VNĐ</span>
                     <button class="btn btn-round" ng-click="selectTicket($index, 'arrive')">Chọn</button>
                 </td>
             </tr>
@@ -83,7 +83,7 @@
         <i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;&nbsp;Tiếp tục đặt vé</a>
 </div>
 <div class="ticket-detail">
-    <h4>Tổng: {{totalCost}} VNĐ</h4>
+    <h4>Tổng: {{formatMoney(totalCost)}} VNĐ</h4>
     <div>
         <hr/>
         <h5><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;&nbsp;Chặng bay đi</h5>

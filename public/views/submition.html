@@ -73,10 +73,10 @@
             <tbody>
             <tr>
                 <td>Hành khách</td>
-                <td>{{bookingInfor.passengers.length + 1}}</td>
-                <td>{{data.departTicket.price + data.returnTicket.price}}</td>
+                <td>{{bookingInfor.passengers.length}}</td>
+                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}}</td>
                 <td>0 VNĐ</td>
-                <td>{{data.departTicket.price + data.returnTicket.price}}</td>
+                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}}</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
@@ -135,7 +135,7 @@
         </table>
     </div>
     <div class="ticket-cost">
-        <h2>Giá vé: {{data.departTicket.price + data.returnTicket.price}} VNĐ</h2>
+        <h2>Giá vé: {{formatMoney(data.departTicket.price + data.returnTicket.price)}} VNĐ</h2>
     </div>
     <button class="btn btn-round float-right" ng-click="submitBooking()">Hoàn tất đặt vé</button>
 </div>

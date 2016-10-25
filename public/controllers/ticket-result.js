@@ -110,4 +110,28 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
 
             return dd + "/" + mm + "/" + yyyy;
         };
+
+        // Format money
+        $rootScope.formatMoney = function (money) {
+            money = money + "";
+            var moneyF = "";
+            var i;
+
+            if(money.length <= 3)
+                return money;
+
+            for(i = money.length; i >= 3; i -= 3) {
+                if(i != money.length)
+                    moneyF = money.substr(i - 3, 3) + "." + moneyF;
+                else
+                    moneyF = money.substr(i - 3, 3);
+            }
+
+            if(i == 0)
+                moneyF = money.substr(0, i) + moneyF;
+            else
+                moneyF = money.substr(0, i) + "." + moneyF;
+
+            return moneyF;
+        };
     }]);
