@@ -17,12 +17,13 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.14",
-    "angular-route": "~1.4.14",
-    "angular-loader": "~1.4.14",
-    "angular-mocks": "~1.4.14",
-    "angular-sanitize": "^1.5.6",
+    "angular": "~1.5.8",
+    "angular-route": "~1.5.8",
+    "angular-loader": "~1.5.8",
+    "angular-mocks": "~1.5.8",
+    "angular-sanitize": "^1.5.8",
     "html5-boilerplate": "~5.2.0",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "angular-resource": "^1.5.8"
   }
 }

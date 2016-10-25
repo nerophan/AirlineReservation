@@ -73,15 +73,15 @@
             <tbody>
             <tr>
                 <td>Hành khách</td>
-                <td>{{bookingInfor.passengers.length + 1}}</td>
-                <td>{{data.departTicket.price + data.returnTicket.price}}</td>
+                <td>{{bookingInfor.passengers.length}}</td>
+                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}} VNĐ</td>
                 <td>0 VNĐ</td>
-                <td>{{data.departTicket.price + data.returnTicket.price}}</td>
+                <td>{{formatMoney(data.departTicket.price + data.returnTicket.price)}} VNĐ</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td colspan="2" style="color: #3074C5"><strong>Tổng cộng: {{data.departTicket.price +
-                    data.returnTicket.price}} VNĐ</strong></td>
+                <td colspan="2" style="color: #3074C5"><strong>Tổng cộng: {{formatMoney(data.departTicket.price +
+                    data.returnTicket.price)}} VNĐ</strong></td>
             </tr>
             </tbody>
         </table>
@@ -135,7 +135,7 @@
         </table>
     </div>
     <div class="ticket-cost">
-        <h2>Giá vé: {{data.departTicket.price + data.returnTicket.price}} VNĐ</h2>
+        <h2>Giá vé: {{formatMoney(data.departTicket.price + data.returnTicket.price)}} VNĐ</h2>
     </div>
     <button class="btn btn-round float-right" ng-click="submitBooking()">Hoàn tất đặt vé</button>
 </div>
@@ -145,7 +145,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="center-text modal-title-custom">Đăng nhập - Cộng đồng Phượt Đi</h4>
+                <h4 class="center-text modal-title-custom">Đặt vé thành công</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -154,12 +154,13 @@
                     </div>
                     <div class="col-md-8">
                         <h2 class="ticket-id">Mã vé của bạn: {{ticketID}}</h2>
-                        <p class="center-text">Vui lòng giữ mã vé để làm thủ tục khi đến sân bay!</p>
+                        <p><strong>Vui lòng giữ mã vé để làm thủ tục khi đến sân bay!</strong>
+                            <br>Quý khách lưu ý đến trước 30 phút để làm thủ tục</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <p class="center-text">Vui lòng giữ mã vé để làm thủ tục khi đến sân bay!</p>
+                <p class="center-text">Mọi thông tin chi tiết vui lòng liên hệ <strong>1900 2122</strong></p>
             </div>
         </div>
     </div>

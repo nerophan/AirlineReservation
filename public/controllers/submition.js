@@ -10,10 +10,13 @@ submitionModule.controller('SubmitionCtrl', ['$scope', '$window', '$http', '$roo
         $scope.submitBooking = function () {
 
             $http.post("/bookings", $rootScope.bookingInfor)
-                .then(function (response) {
+                .then(function successCallback(response) {
                     console.log(response.data);
                     $scope.ticketID = response.data.id;
                     $("#TicketInfoModal").modal("show");
+
+                }, function errorCallback(responde) {
+                    alert('Có lỗi xảy ra. Không thể đặt vé. Vui lòng thử lại sau!');
                 });
         };
     }]);

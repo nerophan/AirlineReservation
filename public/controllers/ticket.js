@@ -7,6 +7,7 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
     function ($scope, $window, $http, $rootScope, $location, $timeout) {
 
         $scope.currIndex = -1;
+        $scope.totalCost = 0;
 
         // Booking infor - global variable
         $rootScope.bookingInfor = {
@@ -25,6 +26,8 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
                 updateFlights($rootScope.data.returnTicket, type);
             }
 
+            $scope.totalCost = getTotalCost();
+            console.log($scope.totalCost);
             console.log($rootScope.bookingInfor);
             console.log($rootScope.data);
         };
@@ -46,6 +49,20 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
                 $rootScope.bookingInfor.flights.push(newFlight);
             else
                 $rootScope.bookingInfor.flights[pos] = newFlight;
+        }
+
+        // Get total cost
+        function getTotalCost() {
+            var departCost = 0;
+            var returnCost = 0;
+
+            if (typeof $rootScope.data.departTicket.price != 'undefined')
+                departCost = $rootScope.data.departTicket.price;
+
+            if (typeof $rootScope.data.returnTicket.price != 'undefined')
+                returnCost = $rootScope.data.returnTicket.price;
+
+            return departCost * $rootScope.data.passengers + returnCost * $rootScope.data.passengers;
         }
 
         // Continue booking
@@ -85,12 +102,36 @@ ticketResultModule.controller('TicketCtrl', ['$scope', '$window', '$http', '$roo
         $rootScope.getDate = function (timestamp) {
             var date = new Date(timestamp);
             var dd = date.getDate();
-            var mm = date.getMonth();
-            var yyyy = date.getYear();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getYear() + 1900;
 
             if (dd < 10) dd = '0' + dd;
             if (mm < 10) mm = '0' + mm;
 
             return dd + "/" + mm + "/" + yyyy;
+        };
+
+        // Format money
+        $rootScope.formatMoney = function (money) {
+            money = money + "";
+            var moneyF = "";
+            var i;
+
+            if(money.length <= 3)
+                return money;
+
+            for(i = money.length; i >= 3; i -= 3) {
+                if(i != money.length)
+                    moneyF = money.substr(i - 3, 3) + "." + moneyF;
+                else
+                    moneyF = money.substr(i - 3, 3);
+            }
+
+            if(i == 0)
+                moneyF = money.substr(0, i) + moneyF;
+            else
+                moneyF = money.substr(0, i) + "." + moneyF;
+
+            return moneyF;
         };
     }]);
