@@ -1,7 +1,3 @@
-/**
- * Created by ApisMantis on 10/24/2016.
- */
-
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth() + 1;
@@ -55,6 +51,9 @@ var departPickerConfig = {
 var returnPickerConfig = departPickerConfig;
 
 $(function () {
+
+    console.log("Datepicker running....");
+
     $('#end-date').daterangepicker(departPickerConfig);
 
     $('#start-date').daterangepicker(departPickerConfig, function (start, end, label) {
