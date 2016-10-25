@@ -23,9 +23,17 @@ module.exports.add = function (req, res) {
         return;
     }
 
-    Route.create(route, function (err, route) {
-        if (err)
-            res.status(422).send(err);
-        else res.json(route);
+    Route.find({"from": route.from, "to": route.to}, function (err, data) {
+        if (err || data.length > 0) {
+            res.status(400).json({"error": "Route existed"});
+            return
+        } else {
+            route.code = route.from + route.to;
+            Route.create(route, function (err, route) {
+                if (err)
+                    res.status(422).send(err);
+                else res.json(route);
+            });
+        }
     });
 };
