@@ -3,7 +3,6 @@ var express = require('express'),
     path = require('path'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
-    jwt = require('jsonwebtoken'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser');
 
@@ -12,11 +11,11 @@ require('./../models/booking.model');
 require('./../models/flightdetail.model');
 require('./../models/flight.model');
 require('./../models/passenger.model');
-require('./../models/user.model');
+require('./../models/account.model');
 require('./../models/route.model');
 
 var routes = require('./../routes/index.route.js'),
-    users = require('./../routes/user.route.js'),
+    accounts = require('./../routes/account.route'),
     flight = require('./../routes/flight.route'),
     booking = require('./../routes/booking.route'),
     flightDetail = require('./../routes/flightdetail.route'),
@@ -40,7 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.resolve('./public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/accounts', accounts);
 app.use('/flights', flight);
 
 app.use('/bookings', booking);
