@@ -8,5 +8,6 @@ module.exports = {
             pass: '123456'
         },
         debug: true
-    }
+    },
+    secretKey: 'VietNamLotusAirlineSecretKey'
 };

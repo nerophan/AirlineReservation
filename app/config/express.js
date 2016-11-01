@@ -3,6 +3,7 @@ var express = require('express'),
     path = require('path'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
+    jwt = require('jsonwebtoken'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser');
 
@@ -11,11 +12,11 @@ require('./../models/booking.model');
 require('./../models/flightdetail.model');
 require('./../models/flight.model');
 require('./../models/passenger.model');
+require('./../models/user.model');
 require('./../models/route.model');
 
 var routes = require('./../routes/index.route.js'),
-    users = require('./../routes/users.route.js'),
-
+    users = require('./../routes/user.route.js'),
     flight = require('./../routes/flight.route'),
     booking = require('./../routes/booking.route'),
     flightDetail = require('./../routes/flightdetail.route'),
