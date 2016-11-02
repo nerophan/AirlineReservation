@@ -8,9 +8,13 @@ router
         flightController.getAllFlights(req, res);
     })
     .post('/', function (req, res, next) {
+        accountController.authenticate(req, res, next);
+    }, function (req, res, next) {
         flightController.addFlight(req, res);
     })
     .delete ('/', function (req, res, next) {
+        accountController.authenticate(req, res, next);
+    }, function (req, res, next) {
         flightController.clearFlightData(req, res);
     })
     .get('/search', function (req, res, next) {
