@@ -3,8 +3,8 @@
  */
 var loginModule = angular.module('lotusAirline.login', ['ngCookies']);
 
-loginModule.controller('LoginCtrl', ['$scope', '$window', '$http', '$cookies',
-    function ($scope, $window, $http, $cookies) {
+loginModule.controller('LoginCtrl', ['$scope', '$window', '$http', '$cookies', '$rootScope',
+    function ($scope, $window, $http, $cookies, $rootScope) {
 
         $scope.login = function () {
 
@@ -20,6 +20,8 @@ loginModule.controller('LoginCtrl', ['$scope', '$window', '$http', '$cookies',
 
             $http.post('/accounts/login', data)
                 .then(function successCallback(res) {
+                    $rootScope.user = res.data.acc;
+
                     // Save token
                     $cookies.put('accessToken', res.data.token);
                     $window.location.href = '#/admin';

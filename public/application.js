@@ -23,7 +23,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $cookies) {
             config.headers = config.headers || {};
 
             if ($cookies.get('accessToken')) {
-                config.headers.Authorization = 'Bearer ' + $cookies.get('accessToken');
+                config.headers.token = $cookies.get('accessToken');
+                console.log(config);
             }
 
             return config;
