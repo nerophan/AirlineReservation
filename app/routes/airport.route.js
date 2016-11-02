@@ -8,7 +8,9 @@ router
     .get('/', function (req, res) {
         airportController.getAirports(req, res);
     })
-    .post('/', function (req, res) {
+    .post('/', function (req, res, next) {
+        accountController.authenticate(req, res, next);
+    }, function (req, res) {
         airportController.addSampleData(req, res);
     })
     .get('/:airportCode', function (req, res) {
