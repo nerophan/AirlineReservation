@@ -40,7 +40,7 @@ module.exports.login = function (req, res) {
 
         // User not found
         if (err)
-            res.status(404).json({success: false, message: "An error has occurred: " + err.message});
+            res.status(401).json({success: false, message: "An error has occurred: " + err.message});
 
         // Wrong username
         if (!acc) {
@@ -77,7 +77,7 @@ module.exports.authenticate = function (req, res, next) {
     if (token) {
         jwt.verify(token, config.secretKey, function (err, decoded) {
             if (err) {
-                res.status(404).json({
+                res.status(401).json({
                     success: false,
                     message: "Authentication failed. Detail: " + err.message
                 });

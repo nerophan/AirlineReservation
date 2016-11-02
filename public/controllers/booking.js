@@ -25,7 +25,7 @@ angular.module('lotusAirline.booking', [])
             $timeout(function () {
                 $scope.message = '';
             }, 1000);
-        });
+        }, function (response) {});
 
         $scope.$watch('flightCode', function (newVal, oldVal) {
 

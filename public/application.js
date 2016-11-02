@@ -22,14 +22,15 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $cookies) {
         request: function (config) {
             config.headers = config.headers || {};
 
-            if ($window.sessionStorage.token) {
+            if ($cookies.get('accessToken')) {
                 config.headers.Authorization = 'Bearer ' + $cookies.get('accessToken');
             }
 
             return config;
         },
-        response: function (response) {
-            if (response.status === 401) {
+        responseError: function (response) {
+            // Return the promise rejection.
+            if (response.status == 401) {
                 $window.location.href = "#/admin/login";
             }
             return response || $q.when(response);
