@@ -20,7 +20,8 @@ loginModule.controller('LoginCtrl', ['$scope', '$window', '$http', '$cookies', '
 
             $http.post('/accounts/login', data)
                 .then(function successCallback(res) {
-                    $rootScope.user = res.data.acc;
+                    // Save current user
+                    $window.sessionStorage.setItem('user', res.data.acc);
 
                     // Save token
                     $cookies.put('accessToken', res.data.token);
@@ -31,6 +32,7 @@ loginModule.controller('LoginCtrl', ['$scope', '$window', '$http', '$cookies', '
 
                     // Delete old token
                     $cookies.remove('accessToken');
+                    $window.sessionStorage.removeItem('user');
                 });
         };
 

@@ -2,7 +2,7 @@ angular.module('lotusAirline.booking', [])
     .controller('BookingCtrl', ['$scope', '$timeout', '$filter', '$http', 'Flights', 'Airports', '$rootScope', '$window',
         function ($scope, $timeout, $filter, $http, Flights, Airports, $rootScope, $window) {
 
-            if ($rootScope.user == null) {
+            if ($window.sessionStorage.getItem('user') == null) {
                 console.log('User is null');
                 $window.location.href = "#/admin/login";
             }

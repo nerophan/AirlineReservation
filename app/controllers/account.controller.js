@@ -71,7 +71,6 @@ module.exports.login = function (req, res) {
 
 // Authenticate with the token provide by client
 module.exports.authenticate = function (req, res, next) {
-    console.log(req.headers);
 
     var token = req.params.token || req.query.token || req.headers.token;
     console.log("JWT: " + token);

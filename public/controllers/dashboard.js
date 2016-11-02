@@ -3,7 +3,7 @@ var dashboardModule = angular.module('lotusAirline.dashboard', []);
 dashboardModule.controller('DashboardCtrl', ['$scope', '$timeout', 'Airports', 'Flights', '$rootScope', '$window',
     function ($scope, $timeout, Airports, Flights, $rootScope, $window) {
 
-        if ($rootScope.user == null) {
+        if ($window.sessionStorage.getItem('user') == null) {
             console.log('User is null');
             $window.location.href = "#/admin/login";
         }

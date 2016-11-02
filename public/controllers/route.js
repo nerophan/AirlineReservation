@@ -2,7 +2,7 @@ angular.module('lotusAirline.route', [])
     .controller('RouteCtrl', ['$scope', '$timeout', 'Airports', 'FlightRoutes', '$rootScope', '$window',
         function ($scope, $timeout, Airports, FlightRoutes, $rootScope, $window) {
 
-            if ($rootScope.user == null) {
+            if ($window.sessionStorage.getItem('user') == null) {
                 console.log('User is null');
                 $window.location.href = "#/admin/login";
             }

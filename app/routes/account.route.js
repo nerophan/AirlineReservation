@@ -12,6 +12,9 @@ router
     })
     .post('/sign-up', function (req, res) {
         accountController.signUp(req, res);
+    })
+    .post('/auth', function (req, res, next) {
+        accountController.authenticate(req, res, next);
     });
 
 module.exports = router;
