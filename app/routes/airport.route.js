@@ -1,7 +1,8 @@
 
 var express = require('express'),
     router = express.Router(),
-    airportController = require('./../controllers/airport.controller');
+    airportController = require('./../controllers/airport.controller'),
+    accountController = require('./../controllers/account.controller');
 
 router
     .get('/', function (req, res) {

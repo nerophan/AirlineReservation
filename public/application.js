@@ -2,6 +2,7 @@
 
 var app = angular.module('lotusAirline', [
     'ngRoute',
+    'ngCookies',
     'ngSanitize',
     'ngResource',
     'lotusAirline.search',
@@ -9,13 +10,36 @@ var app = angular.module('lotusAirline', [
     'lotusAirline.passengerInfor',
     'lotusAirline.submition',
     'lotusAirline.dashboard',
+    'lotusAirline.login',
     'lotusAirline.airport',
     'lotusAirline.flight',
     'lotusAirline.route',
     'lotusAirline.flightRoute',
     'lotusAirline.booking']);
 
-app.config(['$routeProvider', function ($routeProvider) {
+app.factory('authInterceptor', function ($rootScope, $q, $window, $cookies) {
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+
+            if ($window.sessionStorage.token) {
+                config.headers.Authorization = 'Bearer ' + $cookies.get('accessToken');
+            }
+
+            return config;
+        },
+        response: function (response) {
+            if (response.status === 401) {
+                $window.location.href = "#/admin/login";
+            }
+            return response || $q.when(response);
+        }
+    };
+});
+
+app.config(['$httpProvider', '$routeProvider', function ($httpProvider, $routeProvider) {
+
+    $httpProvider.interceptors.push('authInterceptor');
 
     $routeProvider.when('/', {
         templateUrl: 'views/search-flight.html',
@@ -36,6 +60,10 @@ app.config(['$routeProvider', function ($routeProvider) {
     }).when('/admin', {
         templateUrl: 'views/admin/dashboard.html',
         controller: 'DashboardCtrl'
+
+    }).when('/admin/login', {
+        templateUrl: 'views/admin/login.html',
+        controller: 'LoginCtrl'
 
     }).when('/admin/route', {
         templateUrl: 'views/admin/route.html',

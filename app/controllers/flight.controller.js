@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
     FlightDetail = mongoose.model('FlightDetail'),
     Flight = mongoose.model('Flight'),
     flightDetailController = require('./flightdetail.controller'),
-    airportController = require('./airport.controller');
+    airportController = require('./airport.controller'),
+    accountController = require('./account.controller');
 
 // Get all flight
 module.exports.getAllFlights = function (req, res) {
@@ -107,18 +108,21 @@ module.exports.addFlight = function (req, res) {
     if (!flightInfo.arrive || !flightInfo.depart || !flightInfo.departAt || !flightInfo.arriveAt) {
         res.status(422).send("Invalid data.");
         return;
-    };
+    }
+    ;
 
     if (flightInfo.departAt - currentTime < 6 * 3600 * 1000) {
         res.status(422).send("The departure time must be larger than current at least 6 hours.");
         return;
-    };
+    }
+    ;
 
 
     if (flightInfo.arriveAt <= flightInfo.departAt) {
         res.status(422).send("Arrival time cannot less than or equal departure time");
         return;
-    };
+    }
+    ;
 
     if (flightInfo.depart === flightInfo.arrive) {
         res.status(422).send("Departure airport and arrival airport must be different.");

@@ -23,14 +23,14 @@ module.exports.addSampleData = function (req, res) {
         }];
 
     Account.create(accounts, function (err, account) {
-        if(err) throw err;
+        if (err) throw err;
 
-        if(account)
+        if (account)
             res.json({message: 'Add success!'});
     });
 };
 
-// Login accounts
+// Login account
 module.exports.login = function (req, res) {
 
     console.log(req);
@@ -40,15 +40,15 @@ module.exports.login = function (req, res) {
 
         // User not found
         if (err)
-            res.status(404).json(err);
+            res.status(404).json({success: false, message: "An error has occurred: " + err.message});
 
         // Wrong username
         if (!acc) {
-            res.json({message: 'Authentication failed. Wrong username.'})
+            res.status(401).json({success: false, message: 'Authentication failed. Wrong username.'})
         }
         // Wrong password
         else if (req.body.password != acc.password) {
-            res.status(403).json({
+            res.status(401).json({
                 success: false,
                 message: 'Authentication failed. Wrong password'
             });
@@ -56,12 +56,12 @@ module.exports.login = function (req, res) {
         else {
 
             // Get token
-            var token = jwt.sign(acc, config.secretKey);
+            var token = jwt.sign(acc, config.secretKey, {expiresIn: 60 * 60 * 24});
 
             // Response token
-            res.status(200).json({
+            res.json({
                 success: true,
-                message: 'Authenticate successful',
+                message: 'Authentication successful',
                 token: token,
                 acc: acc.toJSON()
             });
@@ -70,8 +70,9 @@ module.exports.login = function (req, res) {
 };
 
 // Authenticate with the token provide by client
-module.exports.authenticate = function(req, res, next) {
-    var token = req.params.token || req.query.token || req.headers['x-access-token'];
+module.exports.authenticate = function (req, res, next) {
+    var token = req.params.token || req.query.token || req.headers.Authorization;
+    console.log("JWT: " + token);
 
     if (token) {
         jwt.verify(token, config.secretKey, function (err, decoded) {
@@ -87,7 +88,7 @@ module.exports.authenticate = function(req, res, next) {
             }
         });
     } else {
-        res.status(403).json({
+        res.status(401).json({
             success: false,
             message: "Missing token or in incorrect format."
         });
@@ -109,7 +110,7 @@ module.exports.signUp = function (req, res) {
             var newAcc = new Account({username: req.body.username, password: req.body.password});
             newAcc.save(function (err, data) {
                 if (err)
-                    res.json(err);
+                    res.json({success: false, message: "An error has occurred: " + err.message});
 
                 // Sign up success -> login
                 accountController.login(req, res);
@@ -118,8 +119,10 @@ module.exports.signUp = function (req, res) {
 
         // Acc has in database
         else {
-            res.json({message: 'This username is not available!'});
+            res.json({success: false, message: 'This username is not available!'});
         }
     });
 };
+
+
 

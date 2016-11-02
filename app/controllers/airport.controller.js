@@ -162,6 +162,7 @@ module.exports.addSampleData = function (req, res) {
 
 // Get all airport in database
 module.exports.getAllAirports = function (req, res) {
+
     Airport.find({}, function (err, airports) {
         if (err) {
             res.status(400).end(err.toString());
