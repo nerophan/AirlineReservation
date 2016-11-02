@@ -58,7 +58,7 @@ module.exports.login = function (req, res) {
             // Get token
             var token = jwt.sign(acc, config.secretKey);
 
-            // Responde token
+            // Response token
             res.status(200).json({
                 success: true,
                 message: 'Authenticate successful',
@@ -67,6 +67,31 @@ module.exports.login = function (req, res) {
             });
         }
     })
+};
+
+// Authenticate with the token provide by client
+module.exports.authenticate = function(req, res, next) {
+    var token = req.params.token || req.query.token || req.headers['x-access-token'];
+
+    if (token) {
+        jwt.verify(token, config.secretKey, function (err, decoded) {
+            if (err) {
+                res.status(404).json({
+                    success: false,
+                    message: "Authentication failed. Detail: " + err.message
+                });
+            } else {
+                console.log(decoded.acc);
+                req.user = decoded.acc;
+                next();
+            }
+        });
+    } else {
+        res.status(403).json({
+            success: false,
+            message: "Missing token or in incorrect format."
+        });
+    }
 };
 
 // Sign up accounts

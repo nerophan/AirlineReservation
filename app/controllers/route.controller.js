@@ -17,6 +17,7 @@ module.exports.getAllRoute = function (req, res) {
 
 module.exports.add = function (req, res) {
     var route = req.body;
+    console.log(route);
 
     if (route.from == route.to) {
         res.status(422).send("Invalid route, departure and arrival are the same airport.");
